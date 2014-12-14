@@ -103,15 +103,15 @@ class Question:
         return follower_num
 
 
-    def get_topic(self):
+    def get_topics(self):
         if self.soup == None:
             self.parser()
         soup = self.soup
         topic_list = soup.find_all("a", class_ = "zm-item-tag")
-        topic = []
+        topics = []
         for i in topic_list:
-            topic.append(i.contents[0].encode("utf-8").replace("\n", ""))
-        return topic
+            topics.append(i.contents[0].encode("utf-8").replace("\n", ""))
+        return topics
 
     def get_top_answer(self):
         # soup = deepcopy(self.soup)
