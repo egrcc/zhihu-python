@@ -1,0 +1,50 @@
+超外差接收机工作原理？
+
+作者: 张沙  赞同: 19
+
+以下是我7年前发表在矿石收音机论坛的《超外差收音机的原理》的帖子。这次进行了一点编辑。
+
+
+终于彻底明白超外差收音机的原理。从小学我就看无线电的书，所有的书都是技术词满天飞，绕来绕去的，听不懂，关键还不是技术名词，我是觉得写得人脑子就胡
+言乱语，绕来绕去就是不说为什么这样设计收音机。看了这个Superheterodyne_receiver维基百科才算真的明白。
+
+简单地说：
+
+1. 放大器是用来放大信号的，受限于设计理论及制作工艺，窄带放大器比宽带的容易做得好。单一频率放大器最容易做得好。
+
+2. 人们很早就观察到heterodyne这个特点，于是加以利用，把被接收电台的频率f 减去本振频率v。最后得到个465kHz的信号送去窄带放大器去放大。这个窄带放大器就对465Khz的信号做得效果最好。
+
+比如：你收中央人民广播电台吧 f = 1161 Khz，当你调台调到这里，收音机里有个东西会自动出来个696Khz的频率。于是 n = 1161 - 696 = 465 Khz。
+
+啥是本振：本振就是收音机里：频率可以根据接收信号变化，随着同步调节的时钟电路。想象一下，一个计算机的时钟电路，它的频率不是固定的，而是会变化的，根据你要接收的电台频率不同而变化。
+
+3. 以前呢是：把调谐后收到的东西一古脑都给后级放大电路去放大了。本地台声大，外地台声小，您凑和着吧。
+而有了超外差以后：
+
+4. heterodyne是什么？按照维基百科里讲就是：
+
+It had been noticed some time before that if a regenerative receiver was
+ allowed to go into oscillation, other receivers nearby would suddenly 
+start picking up stations on frequencies different from those they were 
+actually transmitted on. Armstrong (and others) soon realized that this 
+was caused by a "supersonic" heterodyne (or beat) between the station's 
+carrier frequency and the oscillator frequency. For example, if a 
+station were transmitting on 300kHz and the oscillator were set to 
+400kHz, as well as the original 300kHz, the same station would be also 
+heard on 100kHz and 700kHz.
+
+在此不翻译，大家自己看。引申出来的：
+
+1.为什么超外差收音机都用“双连可变电容”。
+
+一个可变电容用来调谐电台；另一个其实是在LRC振荡电路里用来调节本振频率。你调到1161，我的本振就在696。
+
+2.如果中波覆盖范围是a~b，那么本振生成器的覆盖范围就应该是 (a+465) ~ (b+465)。
+
+3. 为啥超外差收音机里用AGC（自动增益电路）：送到窄带放大器的465Khz的信号，还是存在本地台强，外地台弱的问题。所以要自动控制放大器的放大倍数。
+
+超外差接收机原理一句话就是：一个会随着接受频率变化的振荡信号，和被接收信号一起送到了混频器mixer里进行运算，结果出来一个频率很窄的信号，送到中频放大及检波后送到功放里输出。
+
+
+
+原链接: http://www.zhihu.com/question/22836679/answer/25270075
