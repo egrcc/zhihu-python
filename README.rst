@@ -264,4 +264,7 @@ API
 联系我
 ----------
 
-- 知乎：@egrcc
+- 知乎：`@egrcc <http://www.zhihu.com/people/egrcc>`_
+- 微博：`@egrcc <http://weibo.com/u/2948739432>`_
+- github：`@egrcc <https://github.com/egrcc>`_
+- email：zhaolujun1994@email.com
