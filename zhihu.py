@@ -923,25 +923,3 @@ class Collection:
             if j > i:
                 break
             yield answer
-
-def main():
-    s = time.time()
-    url = "http://www.zhihu.com/question/21758700"
-    question = Question(url)
-    answers = question.get_top_i_answers(10)
-    # answer.to_html()
-    for answer in answers:
-        answer.to_md()
-    # answer.to_txt()
-    e = time.time()
-    print e - s
-    # # i = 0
-    # for answer in answers:
-    #     # i = i + 1
-    #     # if i > 200:
-    #     #     break
-    #     answer.to_txt()
-    #     answer.to_md()
-
-if __name__ == '__main__':
-    main()
