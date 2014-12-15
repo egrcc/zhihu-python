@@ -749,22 +749,47 @@ class Answer:
                 os.makedirs(os.path.join(os.path.join(os.getcwd(), "markdown")))
             if os.path.exists(os.path.join(os.path.join(os.getcwd(), "markdown"), file_name)):
                 f = open(os.path.join(os.path.join(os.getcwd(), "markdown"), file_name), "a")
+                # f_2 = open(os.path.join(os.path.join(os.getcwd(), "markdown"), "2_" + file_name), "a")
                 f.write("\n")
+                # f_2.write("\n")
             else:
                 f = open(os.path.join(os.path.join(os.getcwd(), "markdown"), file_name), "a")
+                # f_2 = open(os.path.join(os.path.join(os.getcwd(), "markdown"), "2_" + file_name), "a")
                 f.write("# " + self.get_question().get_title() + "\n")
+                # f_2.write("# " + self.get_question().get_title() + "\n")
         else:
             if not os.path.isdir(os.path.join(os.path.join(os.getcwd(), "markdown"))):
                 os.makedirs(os.path.join(os.path.join(os.getcwd(), "markdown")))
             file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.md"
             print file_name
             f = open(os.path.join(os.path.join(os.getcwd(), "markdown"), file_name), "wt")
+            # f_2 = open(os.path.join(os.path.join(os.getcwd(), "markdown"), "2_" + file_name), "wt")
             f.write("# " + self.get_question().get_title() + "\n")
+            # f_2.write("# " + self.get_question().get_title() + "\n")
         f.write("## 作者: " + self.get_author().get_user_id() + "  赞同: " + str(self.get_upvote()) + "\n")
+        # f_2.write("## 作者: " + self.get_author().get_user_id() + "  赞同: " + str(self.get_upvote()) + "\n")
         text = html2text.html2text(content.decode('utf-8')).encode("utf-8")
+
+        r = re.findall(r'\*\*(.*?)\*\*', text)
+        for i in r:
+            if i != " ":
+                text = text.replace(i, i.strip())
+
+        r = re.findall(r'_(.*)_', text)
+        for i in r:
+            if i != " ":
+                text = text.replace(i, i.strip())
+
+        r =re.findall(r'!\[\]\((?:.*?)\)', text)
+        for i in r:
+            text = text.replace(i, i + "\n\n")
+
         f.write(text)
+        # f_2.write(text)
         f.write("#### 原链接: " + self.answer_url)
+        # f_2.write("#### 原链接: " + self.answer_url)
         f.close()
+        # f_2.close()
 
 
 
@@ -901,12 +926,13 @@ class Collection:
 
 def main():
     s = time.time()
-    url = "http://www.zhihu.com/question/21758700/answer/34705774"
-    answer = Answer(url)
-    # answer = question.get_top_answer()
+    url = "http://www.zhihu.com/question/21758700"
+    question = Question(url)
+    answers = question.get_top_i_answers(10)
     # answer.to_html()
-    answer.to_md()
-    answer.to_txt()
+    for answer in answers:
+        answer.to_md()
+    # answer.to_txt()
     e = time.time()
     print e - s
     # # i = 0
