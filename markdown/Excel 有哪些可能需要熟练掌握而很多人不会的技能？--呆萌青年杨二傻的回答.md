@@ -39,9 +39,9 @@ http://v.youku.com/v_show/id_XNjcyMjc3NTQ4.html
 这样即使下拉，也只有B2会变化。PS：连续按 F4 会切换锁定的维度  
 还有一种更便捷的方法就是定义变量  
 在单元格上右键选择自定义名称，如图：  
-![](http://pic2.zhimg.com/647e001763b2a1608f7f575d4cf8c850_b.jpg)  
+![](http://pic4.zhimg.com/647e001763b2a1608f7f575d4cf8c850_b.jpg)  
 Excel 会智能的识别出目标单元格的名称，当然，如果冲突还需要更改，可以写入备注  
-![](http://pic1.zhimg.com/389665c0c8471f7faffe2ea07d814b78_b.jpg)
+![](http://pic3.zhimg.com/389665c0c8471f7faffe2ea07d814b78_b.jpg)
 当你自定义名称之后，再次引用这个单元格的时候只需要输入名称就可以了，在你输入名称的时候你所添加的备注也会实时出现，甚至没有拼写完你都可以使用 Tab
 自动补齐：  
 ![](http://pic3.zhimg.com/33ae9d2a86b24589dbff06d0dccbfc19_b.jpg)  
@@ -60,7 +60,7 @@ VBA 有时需要引用表格内容，不论是 A1 法还是用 Cells
     
 
 我定义的名称，你们感受一下：  
-![](http://pic2.zhimg.com/e87ef7ca36621c70f42db6a968db36ef_b.jpg)  
+![](http://pic1.zhimg.com/e87ef7ca36621c70f42db6a968db36ef_b.jpg)  
 ** 函数以及自定义函数： **   
 Excel 的函数真的很牛x，第一的答案写的很详尽了，不表。输入的时候即时提醒做的很赞~  
 有时候需要一些特定的计算，如果全部用公式的话略显繁琐，并且公式会很长很长很长很长……  
@@ -80,7 +80,7 @@ Excel 的函数真的很牛x，第一的答案写的很详尽了，不表。输�
 
   
 然后你就可以愉快的使用了  
-![](http://pic4.zhimg.com/43a92dd199cd25c33fb07eadbb17aa7f_b.jpg)  
+![](http://pic3.zhimg.com/43a92dd199cd25c33fb07eadbb17aa7f_b.jpg)  
 唯一的遗憾是无法在 Excel 界面中即时提示……在 VBE 里面可以即时提示……顺便打车求解决方法……好像说注册 DLL 欺骗 Excel
 可以做到……求少折腾的方法  
   

@@ -34,46 +34,46 @@
 感谢大家的赞，但我也知道这回答长了点，所以为节约大家的时间，我选取了一个经典案例，辅以详细的说明（中文版Excel2013）放在开头，供各位参考。  
   
 看完这个案例之后，我们也可以尝试绘制这种商务风格的表格。  
-![](http://pic1.zhimg.com/e9b5120c07e98b0c48cf59e5dd0d5178_b.jpg)
+![](http://pic4.zhimg.com/e9b5120c07e98b0c48cf59e5dd0d5178_b.jpg)
 ![](http://pic4.zhimg.com/e879dedf06688d97062ce9c944722c56_b.jpg)  
 下图是我做的，看完详细的绘制步骤，你将深刻体会到“ ** 用Excel的元素辅助作图 ** ”的含义。  
-![](http://pic4.zhimg.com/6e04876bf42a98f9abb8df24951547cd_b.jpg) 首先选中源数据，A到F列  
-![](http://pic1.zhimg.com/61f694871ab87aac1b237f08238c56b5_b.jpg)
+![](http://pic2.zhimg.com/6e04876bf42a98f9abb8df24951547cd_b.jpg) 首先选中源数据，A到F列  
+![](http://pic2.zhimg.com/61f694871ab87aac1b237f08238c56b5_b.jpg)
 绘制散点图，得到经典的Excel风格图表  
-![](http://pic3.zhimg.com/21142c096a41d1f83190114dcccd655e_b.jpg)
+![](http://pic1.zhimg.com/21142c096a41d1f83190114dcccd655e_b.jpg)
 
 将利润率设为次坐标：选中橙色那根线，右键-设置数据系列格式-次坐标轴
 
-![](http://pic3.zhimg.com/3305c5b49118e7bd29fc010004779026_b.jpg)
+![](http://pic1.zhimg.com/3305c5b49118e7bd29fc010004779026_b.jpg)
 
 删去图表标题、图例，调节横坐标、两个纵坐标的上下限，删去纵网格线，删去两个纵坐标的轴线，得到这样一张图
 
   
-![](http://pic1.zhimg.com/7c27bf696143671c22b554572f938c86_b.jpg)
+![](http://pic4.zhimg.com/7c27bf696143671c22b554572f938c86_b.jpg)
 
 下一步称为“锚定”，鼠标光标移动到下图所示的图表左上角的顶点处，按住Alt，随后按住鼠标进行拖动，发现这样调节图表的尺寸，限定于Excel的网格点。
 
   
   
-![](http://pic1.zhimg.com/6a9be351f0cdc9ec60ca2ee2ea9f2c3f_b.jpg)
+![](http://pic3.zhimg.com/6a9be351f0cdc9ec60ca2ee2ea9f2c3f_b.jpg)
 
 四个角都这样进行调节，分别“锚定”于N7, V7, N15, V15
 
-![](http://pic1.zhimg.com/4ba38536e6b7f102ffe91a8b2998116a_b.jpg)
+![](http://pic4.zhimg.com/4ba38536e6b7f102ffe91a8b2998116a_b.jpg)
 
 选中图表区域，右键-设置图表区域格式，在属性中选择“大小固定，位置随单元格而变”，这样，在调整Excel行距和列宽时，图表就不会随之而动。
 
-![](http://pic3.zhimg.com/5d1d03627d70545bfe7f068993131457_b.jpg)  
+![](http://pic4.zhimg.com/5d1d03627d70545bfe7f068993131457_b.jpg)  
 
 在第4~6行输入内容，设置填充色
 
-![](http://pic1.zhimg.com/23b031f67804cafbefd7bdfc9cbe742b_b.jpg)
+![](http://pic3.zhimg.com/23b031f67804cafbefd7bdfc9cbe742b_b.jpg)
 
 调节7~15行行距，使得Excel网格线与我们做的图表的横向网格线一一重叠；
 
 调节O列和U列列宽，使得O列左侧网格线恰好经过图表横向网格线的起点，U列右侧这根网格线也是一样的道理，如下图所示。
 
-![](http://pic3.zhimg.com/842ea4b5ba7443895b1b2d607f0b9917_b.jpg)
+![](http://pic2.zhimg.com/842ea4b5ba7443895b1b2d607f0b9917_b.jpg)
 
 选中图表区，填充色改为无色，外轮廓也删去，这样图表就变成“透明”的了
 
@@ -85,15 +85,15 @@
 
 先选中图表区域外的一个单元格，如M7，按键盘的→键，移动到N7，然后按住Shift，再按→键或↓键调节即可，选中后进行单元格填充。）
 
-![](http://pic1.zhimg.com/701e75eb66b31c50908e160f4a0032fc_b.jpg)  
+![](http://pic4.zhimg.com/701e75eb66b31c50908e160f4a0032fc_b.jpg)  
 
 在Excel“视图”中取消勾选网格线
 
-![](http://pic2.zhimg.com/5c8861351672c291504ebbfefe409f9e_b.jpg)
+![](http://pic3.zhimg.com/5c8861351672c291504ebbfefe409f9e_b.jpg)
 
 最后添加一些图例即可
 
-![](http://pic3.zhimg.com/b7223dbfc833cca2b70be4475eb93f7b_b.jpg)  
+![](http://pic1.zhimg.com/b7223dbfc833cca2b70be4475eb93f7b_b.jpg)  
   
 怎么样？相信你已体会到了如何将Excel的元素融入图表设计中。  
   
@@ -108,11 +108,11 @@ PowerPoint和Word，一年后又花了一个月的时间研习VBA。楼上关于
 
 我相信看完这个回答后，你再也不会将图做成这样。
 
-![](http://pic2.zhimg.com/1e18c630f9843e0fbe7dc9b6dd5e77e0_b.jpg)
+![](http://pic1.zhimg.com/1e18c630f9843e0fbe7dc9b6dd5e77e0_b.jpg)
 
 好奇商业杂志上的这些高端大气的图是用什么特殊软件做出来的吗？
 
-![](http://pic3.zhimg.com/e879dedf06688d97062ce9c944722c56_b.jpg)
+![](http://pic2.zhimg.com/e879dedf06688d97062ce9c944722c56_b.jpg)
 
 答案就是Excel。
 
@@ -204,7 +204,7 @@ _ 正文 _
 
 右上图，B2为图表序号，C2为图表标题，填深绿色，B3为副标题，图例放在C4，图表在C5，B2到C5填充淡色，B6、C6合并填写注释。
 
-![](http://pic4.zhimg.com/e90d6c7322949b0509d186d95e5c1dbf_b.jpg)
+![](http://pic2.zhimg.com/e90d6c7322949b0509d186d95e5c1dbf_b.jpg)
 
 左上图，标题在C2－H2居中，图表在C3－H3，表格在C6－H8。
 
@@ -259,7 +259,7 @@ _ 正文 _
 
 ** 标题区 ** 非常突出，占到整个图表面积1/3以上，其中主标题用大号字和强烈对比效果，副标题提供详细信息。 
 
-![](http://pic4.zhimg.com/2d66425a20b1f4313589fca8a2f15b39_b.jpg)
+![](http://pic1.zhimg.com/2d66425a20b1f4313589fca8a2f15b39_b.jpg)
 
   * ** 竖向构图方式 **   
 
@@ -302,11 +302,11 @@ _ 正文 _
 
 例如要展示利率（Y轴）随时间（X轴）的变化，通常情况下做出的是左下所示的样子，横坐标均匀分布，但如何做出右下图这样的以时间间隔比例分布的图呢？
 
-![](http://pic1.zhimg.com/423fecb96d7ff77319db761801ddb293_b.jpg)
+![](http://pic3.zhimg.com/423fecb96d7ff77319db761801ddb293_b.jpg)
 
 _ 原始数据与辅助列 _
 
-![](http://pic2.zhimg.com/998f4cb6d209486657bd06f531d3b5b1_b.jpg)
+![](http://pic1.zhimg.com/998f4cb6d209486657bd06f531d3b5b1_b.jpg)
 
 _ 绘制方法 _
 
@@ -315,7 +315,7 @@ A2:B5做Column图（左下）发现横坐标不是希望的3、6、12、24
 将横坐标转化成右下的样子 【 ** 选中图表 ** ** -Chart Tools-Design-Select Data-Horizontal Axis
 Label-Edit-A2:A5 ** 】
 
-![](http://pic2.zhimg.com/db77e2e14592f11dba5b3b86b6ff90dc_b.jpg)
+![](http://pic3.zhimg.com/db77e2e14592f11dba5b3b86b6ff90dc_b.jpg)
 
 将横坐标转化为Date Axis（左下） ** 【双击横坐标 ** ** \- Axis Options-Axis Type-Date Axis ** **
 】 ** 然后删去横坐标
@@ -331,26 +331,26 @@ Label-Edit-A2:A5 ** 】
 将其转换为Line图 ** 【选中图表 ** ** -Chart Tools-Format ** -最左侧- ** Series2 ** **
 】【Chart Tools-Design-Change Chart Type-Line ** ** 】 **
 
-![](http://pic1.zhimg.com/99c1e80b2b36173b24a0931de03c54d7_b.jpg)
+![](http://pic2.zhimg.com/99c1e80b2b36173b24a0931de03c54d7_b.jpg)
 
 显示Line图标签 ** 【选中红线 ** ** -Chart Tools-Layout-Data Labels-Below **
 】单独修改这些0，看起来正是Column图标签，选中单个标签进行修改即可。
 
-![](http://pic2.zhimg.com/2b00e5a00ee01a3b4afd069bc1b9f54f_b.jpg)  
+![](http://pic4.zhimg.com/2b00e5a00ee01a3b4afd069bc1b9f54f_b.jpg)  
 
 ** 2\. ** ** 簇状和堆积柱状图合用（Clustered & Stacked Column ** ** ） **
 
 _ 源数据 _
 
-![](http://pic3.zhimg.com/fa45b8d00e6eb9cd09e700c1ae41feb3_b.jpg)
+![](http://pic4.zhimg.com/fa45b8d00e6eb9cd09e700c1ae41feb3_b.jpg)
 
 _ 最终效果 _  
 
-![](http://pic4.zhimg.com/0d9a074f7948707b0fa38f5cc5e27124_b.jpg) _ 绘制方法 _
+![](http://pic2.zhimg.com/0d9a074f7948707b0fa38f5cc5e27124_b.jpg) _ 绘制方法 _
 
 利用错行和空行
 
-![](http://pic1.zhimg.com/6b3d62536e899215fdb7ea22bd0ad7b5_b.jpg)
+![](http://pic2.zhimg.com/6b3d62536e899215fdb7ea22bd0ad7b5_b.jpg)
 
 选中这些数据，直接做成 Stacked Column
 
@@ -360,7 +360,7 @@ _ 最终效果 _
 
 _ 最终效果与源数据 _  
 
-![](http://pic2.zhimg.com/3f59e6ae6cd751fc291a8cb456330d2d_b.jpg)
+![](http://pic1.zhimg.com/3f59e6ae6cd751fc291a8cb456330d2d_b.jpg)
 
 _ 绘制方法 _
 
@@ -370,7 +370,7 @@ _ 绘制方法 _
 
 假设<342>这个值在D3单元格，在C3中输入公式 =($D$3-D3)/2 然后拉到底。
 
-![](http://pic2.zhimg.com/42c3ad27215a41346aa596eded3a78fd_b.jpg)
+![](http://pic4.zhimg.com/42c3ad27215a41346aa596eded3a78fd_b.jpg)
 
 选中<公司1>这个单元格到<152>这个单元格区域，做Stacked Bar图
 
@@ -378,7 +378,7 @@ _ 绘制方法 _
 
 反转纵坐标 ** 【双击纵轴 ** ** -Axis Options-Category in reverse order ** ** 】 **
 
-![](http://pic1.zhimg.com/48a5c8bd4a07ecb30bea89edf37fa95a_b.jpg)
+![](http://pic3.zhimg.com/48a5c8bd4a07ecb30bea89edf37fa95a_b.jpg)
 
 将红色Bar隐藏 ** 【右击红色 ** ** bar-Format Data Series-Fill-No Fill ** ** 】 **
 
@@ -391,7 +391,7 @@ _ 绘制方法 _
 _ 最终效果与源数据 _  
 
 ![](http://pic3.zhimg.com/2919473ff2fd6fc580711fd0221b38f5_b.jpg)
-![](http://pic2.zhimg.com/c3ecee5d1e9c94ee06a18135e3cbfbd4_b.jpg) _ 绘制方法 _
+![](http://pic1.zhimg.com/c3ecee5d1e9c94ee06a18135e3cbfbd4_b.jpg) _ 绘制方法 _
 
 上图，C列为B列对数 =log10(Number) ， F列为我们希望的Y轴刻度，G列为F列取对数。即F列是B列的刻度，而G列是F列的刻度  
 
@@ -402,7 +402,7 @@ _ 最终效果与源数据 _
 将红色Line改为Scatter图（下右） ** 【选中红色 ** ** Line-Chart Tools-Design-Change Chart
 Type-Scatter ** ** 】 **
 
-![](http://pic1.zhimg.com/f4237cb09cacc5e18fbddc7b6a6c21ed_b.jpg)
+![](http://pic4.zhimg.com/f4237cb09cacc5e18fbddc7b6a6c21ed_b.jpg)
 
 更改红线横纵轴分别为E2:E7、G2:G7 ** 【选中图表-Chart Tools-Design-Select data-Series2-Edit **
 ** 】 **
@@ -429,13 +429,13 @@ Plus **
 
 依次选中各个标签，更改为Y列数值
 
-![](http://pic2.zhimg.com/7674971d6bee154012a1c16d437e9543_b.jpg)  
+![](http://pic3.zhimg.com/7674971d6bee154012a1c16d437e9543_b.jpg)  
 
 ** 5\. 含加粗边缘 ** ** 面积图 **
 
 _ 最终效果与源数据 _
 
-![](http://pic4.zhimg.com/3f17acf670ee130b972adb35559a8d21_b.jpg)
+![](http://pic3.zhimg.com/3f17acf670ee130b972adb35559a8d21_b.jpg)
 
 _ 绘制方法 _
 
@@ -443,12 +443,12 @@ _ 绘制方法 _
 
 再将数据添入图表中 ** 【 ** ** Ctrl+C Ctrl+V ** ** 】 ** （右下）
 
-![](http://pic4.zhimg.com/f317ea1ebc87b48854210b90ec1efac1_b.jpg)
+![](http://pic2.zhimg.com/f317ea1ebc87b48854210b90ec1efac1_b.jpg)
 
 更改红线为Area图 ** 【选中红线 ** ** -Chart Tools-Design-Change Chart Type-Area ** ** 】
 **
 
-![](http://pic1.zhimg.com/41150ca07051bf8c64c41da9260e1d9f_b.jpg)
+![](http://pic3.zhimg.com/41150ca07051bf8c64c41da9260e1d9f_b.jpg)
 
 去除Area图Border（否则无法自由修改Line颜色） ** 【右击红色Area-Format Data Series- Border Color-No
 Line ** ** 】 **
@@ -469,13 +469,13 @@ Line ** ** 】 **
 
 _ 最终效果 _
 
-![](http://pic4.zhimg.com/12fb1e14c32e57e05b5ad25727ac2c76_b.jpg)
+![](http://pic1.zhimg.com/12fb1e14c32e57e05b5ad25727ac2c76_b.jpg)
 
 _ 绘制方法 _
 
 正常做完一个图后，将第一张图锚定，复制粘贴得到另一个一样的图
 
-![](http://pic4.zhimg.com/00e7626866e2238265334a299c4bc4e5_b.jpg)
+![](http://pic3.zhimg.com/00e7626866e2238265334a299c4bc4e5_b.jpg)
 
 第二张图Chart area、Plot Area及柱子设为No fill （即只保留Gridline）
 
@@ -485,17 +485,17 @@ _ 绘制方法 _
 
 可选中Gridline右击，在Format Gridline里改其颜色、粗细
 
-![](http://pic2.zhimg.com/0aa14b6bc2f4c70987c411f9147df88b_b.jpg)  
+![](http://pic1.zhimg.com/0aa14b6bc2f4c70987c411f9147df88b_b.jpg)  
 
 ** 7\. 为Pie ** ** 图加背景图片 **
 
 _ 最终效果与原始数据 _  
 
-_ ![](http://pic3.zhimg.com/acd054d55248ec5fc00963b9b8b71b8c_b.jpg) 绘制方法 _
+_ ![](http://pic4.zhimg.com/acd054d55248ec5fc00963b9b8b71b8c_b.jpg) 绘制方法 _
 
 先用A1:A5做Pie图，得到下图，此系列数据为Series1
 
-![](http://pic3.zhimg.com/660656cddf827be02074b272ab89d440_b.jpg)
+![](http://pic2.zhimg.com/660656cddf827be02074b272ab89d440_b.jpg)
 
 选中任意一个单元格（如A3）添入 ** 【 ** ** Ctrl+C -Paste-Paste Special-New Series ** ** 】 **
 
@@ -530,7 +530,7 @@ on-Secondary Axis ** 】
 在PPT里画一个圆形，Shape Fill一个图片，去掉Outline，得到一个圆形图片，另存。直接画Pie图，在Plot Area
 （下图所示，正方形和Pie图直接的白色区域）右击 ** Format Plot Area-Fill-Picture ** 即可
 
-![](http://pic2.zhimg.com/fdb5f2c48a03379f32d0f1515f9845f1_b.jpg)  
+![](http://pic4.zhimg.com/fdb5f2c48a03379f32d0f1515f9845f1_b.jpg)  
 
 ** 8\. 仪表盘 **   
 
@@ -538,14 +538,14 @@ _ 最终效果 _
 
 _ (在某个单元格中输入数值（0-100），红色的指针会随之而动) _
 
-_ ![](http://pic2.zhimg.com/2f917b1eae7c5bd1f4ef8e1027465001_b.jpg) 绘制方法 _
+_ ![](http://pic3.zhimg.com/2f917b1eae7c5bd1f4ef8e1027465001_b.jpg) 绘制方法 _
 
 E2 =D2/D4*270 E4 =360-E2 用E2:E4作图，得指针图（Series1，左下）
 
 将A2:A24添入 ** 【 ** ** Ctrl+C- ** ** 选中图- Paste Special-New Series ** ** 】 **
 得到仪表图（Series2，右下，目前看不到）
 
-![](http://pic3.zhimg.com/07be62682ce93b68fa05130f62bdb33b_b.jpg)
+![](http://pic4.zhimg.com/07be62682ce93b68fa05130f62bdb33b_b.jpg)
 
 将Series1转为次坐标轴并爆炸、旋转 ** 【选中右击 ** ** -Foramt data series-Series Options-Plot
 Series on-Secondary Axis **
@@ -561,7 +561,7 @@ Fill ** ** 】 **
 
 E3单元格调节为2
 
-![](http://pic1.zhimg.com/5524935f262fa25a005227622c77812e_b.jpg)
+![](http://pic3.zhimg.com/5524935f262fa25a005227622c77812e_b.jpg)
 将Series2旋转、变颜色 ** 【 ** ** Format data series-Series Options- Angle of first
 Slice-225 **
 
@@ -569,7 +569,7 @@ Slice-225 **
 
 \- ** Border Color-Border line-Black ** ** 】 **
 
-![](http://pic1.zhimg.com/d370a077ce553fd4446f08f8b28e887f_b.jpg)
+![](http://pic2.zhimg.com/d370a077ce553fd4446f08f8b28e887f_b.jpg)
 
 加刻度 ** 【选中 ** ** Series2-Layout-Labels-Data labels-outside end ** ** 】 **
 
@@ -589,7 +589,7 @@ Slice-225 **
 
 _ 最终效果 _
 
-_ ![](http://pic2.zhimg.com/0040f7166ac3e5d9d72cb5291092563d_b.jpg) 原始数据与处理数据
+_ ![](http://pic4.zhimg.com/0040f7166ac3e5d9d72cb5291092563d_b.jpg) 原始数据与处理数据
 _
 
 ![](http://pic4.zhimg.com/4ed159c43143f219f7a90362c985d2d8_b.jpg)
@@ -608,7 +608,7 @@ F3:J8作Stacked Bar图（左下）
 
 （如果基准为1 则最大值会和下一条接壤）
 
-![](http://pic3.zhimg.com/782868f5e53db48c56ca70d2652b3087_b.jpg)  
+![](http://pic1.zhimg.com/782868f5e53db48c56ca70d2652b3087_b.jpg)  
 
 ** 10\. 手风琴式折叠bar图 **   
 
@@ -616,7 +616,7 @@ _ 最终效果 _
 
 _ （突出前三个和后三个） _
 
-![](http://pic1.zhimg.com/2c8d4e89d52abeb3e0ef005bc6643cf9_b.jpg)
+![](http://pic2.zhimg.com/2c8d4e89d52abeb3e0ef005bc6643cf9_b.jpg)
 
 _ 原始数据（左下）和作图数据（右下） _
 
@@ -626,7 +626,7 @@ _ 原始数据（左下）和作图数据（右下） _
 
 两列首行要对齐
 
-![](http://pic1.zhimg.com/c8155d83b1653e649874919b2500b1d4_b.jpg)
+![](http://pic2.zhimg.com/c8155d83b1653e649874919b2500b1d4_b.jpg)
 
 _ 绘制方法 _
 
@@ -637,7 +637,7 @@ Axis ** ** 】 **
 
 注意上下两个轴，一个是Primary axis一个是Secondary axis，将Maximum调为一样
 
-![](http://pic3.zhimg.com/a854a915d7cf39b80e29ed12f9cb3949_b.jpg)
+![](http://pic1.zhimg.com/a854a915d7cf39b80e29ed12f9cb3949_b.jpg)
 
 将次坐标轴在右边显示出来 ** 【选中图表 ** ** -Layout-Axes-Secondary Vertical Axis-Show right to
 left Axis ** ** 】 **
@@ -648,7 +648,7 @@ left Axis ** ** 】 **
 
 删去横竖两个Secondary Axis
 
-![](http://pic4.zhimg.com/900f53a91d680c6277564e7c3be6e713_b.jpg)  
+![](http://pic1.zhimg.com/900f53a91d680c6277564e7c3be6e713_b.jpg)  
 
 ** 11\. Water Fall ** ** 瀑布图 **
 
@@ -662,7 +662,7 @@ D4 =SUM($B$3:B4) F4 =IF(B4<0,D4,D3) G4 =IF(B4>=0,B4,0)
 
 H4 =IF(B4>=0,0,ABS(B4))
 
-![](http://pic4.zhimg.com/886fc97af1757220ded76db582076be1_b.jpg)
+![](http://pic2.zhimg.com/886fc97af1757220ded76db582076be1_b.jpg)
 
 用蓝色框线区域作图。如果要添加横线。可将“累计”列贴入到图表，改为Scatter图，添加Error Bars
 
@@ -674,7 +674,7 @@ _ 最终效果与原始数据 _
 
 _ （ _ 高度反映ARPU值，宽度反映用户规模）
 
-![](http://pic2.zhimg.com/535ae0b799326b0ad52ee3d07f131fb9_b.jpg)
+![](http://pic4.zhimg.com/535ae0b799326b0ad52ee3d07f131fb9_b.jpg)
 
 _ 绘制方法 _
 
@@ -682,7 +682,7 @@ _ 绘制方法 _
 
 处理数据如下。每个ARPU数据重复次数为“用户规模”（柱子宽度）数
 
-![](http://pic3.zhimg.com/015d27cbc20a6a9daf6a535966715c26_b.jpg)
+![](http://pic2.zhimg.com/015d27cbc20a6a9daf6a535966715c26_b.jpg)
 
 第二~五列作图 （左下） 修改宽度和间距 ** 【选中右击 ** ** -Format data series-Series Options-Series
 Overlap-100 **
@@ -705,7 +705,7 @@ Overlap-100 **
 
 以第一~五列作Area图
 
-![](http://pic2.zhimg.com/20b419fd2414821ead3a4ffe631d0be8_b.jpg)
+![](http://pic3.zhimg.com/20b419fd2414821ead3a4ffe631d0be8_b.jpg)
 
 横轴改为需要的 ** 【选中图表 ** ** -Chart Tools-Design-Select Data-Horizontal ** **
 改为A9:A19 ** ** 】 **
@@ -716,7 +716,7 @@ Overlap-100 **
 
 柱子外框设为白色，粗一点（右下）
 
-![](http://pic2.zhimg.com/db6c0af64fcb3cdc0054924c4a2028e0_b.jpg)  
+![](http://pic4.zhimg.com/db6c0af64fcb3cdc0054924c4a2028e0_b.jpg)  
 
 ** 13\. ** ** 滑珠图 **
 
@@ -726,7 +726,7 @@ _ 最终效果 （右图是我仿照原图画的） _
 
 两种滑珠为Scatter图，横梁为Bar图
 
-![](http://pic3.zhimg.com/464a7f89b97f8a339a60c7a6c9df788c_b.jpg)
+![](http://pic4.zhimg.com/464a7f89b97f8a339a60c7a6c9df788c_b.jpg)
 
 _ 绘制方法 _
 
@@ -762,7 +762,7 @@ B3单元格 =INDEX(B8:B13,$B$5) 横向拉到N3
 
 以B3:N3作图
 
-![](http://pic4.zhimg.com/2622f94b738b16c620ceba85bde512d3_b.jpg)  
+![](http://pic2.zhimg.com/2622f94b738b16c620ceba85bde512d3_b.jpg)  
 
 ** 15\. ** ** 动态图表2 **
 
@@ -772,12 +772,12 @@ B7单元格 =CHOOSE(IF(B5="08年",2,IF(B5="07年",1,3)),1,2,3)
 
 B8单元格 =INDEX(B1:B3,$B$7) 拉到F8
 
-![](http://pic2.zhimg.com/bcf28612774f3d8ee0c3be8296c1a573_b.jpg)
+![](http://pic1.zhimg.com/bcf28612774f3d8ee0c3be8296c1a573_b.jpg)
 
 先以B1:F3作Line图，选择B8:F8 Ctrl+C Ctrl+V到图表中即可
 
 ![](http://pic1.zhimg.com/96b66e228ebb9ef3aa9e8c0d15d8be3c_b.jpg)
-![](http://pic4.zhimg.com/7b331f9a69ae449c9cb42131f59c5512_b.jpg)  
+![](http://pic3.zhimg.com/7b331f9a69ae449c9cb42131f59c5512_b.jpg)  
 
 ** 16\. Bullet ** ** 图- ** ** 竖直 **
 
@@ -787,7 +787,7 @@ _ ![](http://pic2.zhimg.com/e032d9b299aad6a55cf0b9ab17cd046e_b.jpg) 绘制方法
 
 以A2:F6做Stacked Column图（左下），Swith Row/Column（右下）
 
-![](http://pic3.zhimg.com/e2066ec0ca234a0570791ea00c38c98e_b.jpg)
+![](http://pic4.zhimg.com/e2066ec0ca234a0570791ea00c38c98e_b.jpg)
 
 更改最下蓝色柱子（实际）为次坐标轴并变窄(左下) ** 【右击蓝柱-Format Data Series-Series Options-Secondary
 Axis **
@@ -799,7 +799,7 @@ Secondary Axis ** ** 】 **
 
 更改红柱为Line图 ** 【选中红柱 ** ** -Chart Tools-Design-Change Chart Type ** ** 】 **
 
-![](http://pic4.zhimg.com/2a8651f56d1669843b21f885e5ea8372_b.jpg)
+![](http://pic3.zhimg.com/2a8651f56d1669843b21f885e5ea8372_b.jpg)
 
 去掉红色连线并将方块改为红短线 ** 【选中红线右击 ** ** -Format Data Series-Line Color-No Line **
 
@@ -807,7 +807,7 @@ Secondary Axis ** ** 】 **
 
 然后设置其他颜色等
 
-![](http://pic4.zhimg.com/363afc369d4d363d729129efd882764f_b.jpg)  
+![](http://pic1.zhimg.com/363afc369d4d363d729129efd882764f_b.jpg)  
 
 —————————————————————————————————————  
 
@@ -821,7 +821,7 @@ Step1. <页面布局 - 颜色- 自定义颜色>
 Step2. 总共12个颜色可自定义，单击任意一个颜色下拉菜单，选择“其他颜色”，输入RGB值，全部完后命名，保存即可。这样，在<页面布局 -
 颜色>下拉菜单中就可以选择自定义的主题。  
   
-![](http://pic1.zhimg.com/d2c9eba2b964d5366020ee4ab0027807_b.jpg)  
+![](http://pic4.zhimg.com/d2c9eba2b964d5366020ee4ab0027807_b.jpg)  
   
 以下每个配色方案都提供了这12种颜色的RGB值  
   
@@ -832,37 +832,37 @@ Step2. 总共12个颜色可自定义，单击任意一个颜色下拉菜单，�
 
 1-碧海蓝天  
 
-![](http://pic3.zhimg.com/8b2b37e5770466cf412031f60524f39c_b.jpg)  
-![](http://pic4.zhimg.com/d00521cf25628bd1599a8ac5d89641c8_b.jpg)  
+![](http://pic1.zhimg.com/8b2b37e5770466cf412031f60524f39c_b.jpg)  
+![](http://pic1.zhimg.com/d00521cf25628bd1599a8ac5d89641c8_b.jpg)  
 
 2-达芬奇的左手  
 
-![](http://pic2.zhimg.com/4bf163b526d63c35ec5bf07e97ae7ace_b.jpg)  
+![](http://pic4.zhimg.com/4bf163b526d63c35ec5bf07e97ae7ace_b.jpg)  
 ![](http://pic1.zhimg.com/0e08bb9de75de1e68a4892cfd0a4225f_b.jpg)  
 
 3-老男孩也有春天  
 
-![](http://pic4.zhimg.com/2440404f663123a65371b3d1b78ef75f_b.jpg)  
-![](http://pic1.zhimg.com/f654180396adee5a1a8d77426a2452b4_b.jpg)  
+![](http://pic1.zhimg.com/2440404f663123a65371b3d1b78ef75f_b.jpg)  
+![](http://pic4.zhimg.com/f654180396adee5a1a8d77426a2452b4_b.jpg)  
 
 4-路人甲的秘密  
 
 ![](http://pic3.zhimg.com/84cdc48f1506b4d675471907dea608fc_b.jpg)  
-![](http://pic4.zhimg.com/0460af4177f026c38b8c6ba783e689e4_b.jpg)  
+![](http://pic2.zhimg.com/0460af4177f026c38b8c6ba783e689e4_b.jpg)  
 
 5-旅人的脚步  
 
 ![](http://pic4.zhimg.com/119635873714daa91ac6195f38b04904_b.jpg)  
-![](http://pic1.zhimg.com/ceee04e9bc073ea728505a89bf77661b_b.jpg)  
+![](http://pic2.zhimg.com/ceee04e9bc073ea728505a89bf77661b_b.jpg)  
 
 6-那拉提草原的天空  
 
-![](http://pic1.zhimg.com/8da0e9175b4da0e7d186a18b2241f270_b.jpg)  
-![](http://pic4.zhimg.com/76786838cd867e7e15552693385ca876_b.jpg)  
+![](http://pic4.zhimg.com/8da0e9175b4da0e7d186a18b2241f270_b.jpg)  
+![](http://pic3.zhimg.com/76786838cd867e7e15552693385ca876_b.jpg)  
 
 7-香柠青草  
 
-![](http://pic2.zhimg.com/b485dc83f9da52f310f6c599af2f72cc_b.jpg)  
+![](http://pic3.zhimg.com/b485dc83f9da52f310f6c599af2f72cc_b.jpg)  
 ![](http://pic4.zhimg.com/f33375de6a7ad3b2ce7de333f3af72c2_b.jpg)  
 
 8-热季风  
@@ -872,58 +872,58 @@ Step2. 总共12个颜色可自定义，单击任意一个颜色下拉菜单，�
 
 9-软件人生  
 
-![](http://pic1.zhimg.com/af8bd59fa1447a6b891d4ab9b76af049_b.jpg)  
-![](http://pic3.zhimg.com/122237490e332436bae7e4214720f322_b.jpg)  
+![](http://pic3.zhimg.com/af8bd59fa1447a6b891d4ab9b76af049_b.jpg)  
+![](http://pic2.zhimg.com/122237490e332436bae7e4214720f322_b.jpg)  
 
 10-商务素雅  
 
-![](http://pic1.zhimg.com/f3c48aac3789fa7753b85a54a390c3f8_b.jpg)  
-![](http://pic4.zhimg.com/c07f952ca62786267520d1da920542e3_b.jpg)  
+![](http://pic2.zhimg.com/f3c48aac3789fa7753b85a54a390c3f8_b.jpg)  
+![](http://pic3.zhimg.com/c07f952ca62786267520d1da920542e3_b.jpg)  
 
 11-商务现代  
 
-![](http://pic3.zhimg.com/77a4f5e96d8bfe6f14227e1f6636130f_b.jpg)  
-![](http://pic2.zhimg.com/a7e51f6cde5b5575da5a519cc4df624c_b.jpg)  
+![](http://pic2.zhimg.com/77a4f5e96d8bfe6f14227e1f6636130f_b.jpg)  
+![](http://pic4.zhimg.com/a7e51f6cde5b5575da5a519cc4df624c_b.jpg)  
 
 12-数据时代
 
-![](http://pic4.zhimg.com/1d4f6f5e1b7243d1c04c36c157043ecf_b.jpg)  
+![](http://pic3.zhimg.com/1d4f6f5e1b7243d1c04c36c157043ecf_b.jpg)  
 ![](http://pic2.zhimg.com/5acce1fbbfc93a4526a03f79ee0204e9_b.jpg)  
 
 13-素食主义
 
-![](http://pic2.zhimg.com/d54cfcea4a89607cb0f8776abaad67ec_b.jpg)  
+![](http://pic3.zhimg.com/d54cfcea4a89607cb0f8776abaad67ec_b.jpg)  
 ![](http://pic4.zhimg.com/fa398feb6aa01cbd5d9ada152d85204d_b.jpg)  
 
 14-岁月经典红  
 
-![](http://pic2.zhimg.com/0403cef745259232668cf0eae97af957_b.jpg)  
-![](http://pic3.zhimg.com/dd97ff240e402e225812e26fe521b40f_b.jpg)  
+![](http://pic4.zhimg.com/0403cef745259232668cf0eae97af957_b.jpg)  
+![](http://pic4.zhimg.com/dd97ff240e402e225812e26fe521b40f_b.jpg)  
 
 15-夏日嬷嬷茶  
 
-![](http://pic1.zhimg.com/ac90979e715795db32e89a97b63703d1_b.jpg)  
+![](http://pic3.zhimg.com/ac90979e715795db32e89a97b63703d1_b.jpg)  
 ![](http://pic1.zhimg.com/7c93dffebbfd9e30550dd7eab78b921d_b.jpg)  
 
 16-邮递员的假期  
 
 ![](http://pic4.zhimg.com/0951bb0d2bd4c53c48841552fbb58206_b.jpg)  
-![](http://pic4.zhimg.com/0fa014719f08c4e0ba16dcce0163342b_b.jpg)  
+![](http://pic1.zhimg.com/0fa014719f08c4e0ba16dcce0163342b_b.jpg)  
 
 17-毡房里的夏天夏天  
 
-![](http://pic1.zhimg.com/5e8cc8c4d881a182b7dbdb0f36c3feb5_b.jpg)  
-![](http://pic1.zhimg.com/5198d01b2a461d86512acb7f822b85d3_b.jpg)  
+![](http://pic2.zhimg.com/5e8cc8c4d881a182b7dbdb0f36c3feb5_b.jpg)  
+![](http://pic2.zhimg.com/5198d01b2a461d86512acb7f822b85d3_b.jpg)  
   
 
 ** 2\. ExcelPro分享的方案 **
 
 ![](http://pic1.zhimg.com/cc401d89c2ce168f69db27f1b9e43228_b.jpg)
-![](http://pic2.zhimg.com/5b605d0ab46b4d91bc335070fc3a125a_b.jpg)
-![](http://pic1.zhimg.com/f059d68233edf552b3ccf54f7e176374_b.jpg)
-![](http://pic1.zhimg.com/c29c625ab69ed935d9012455a04926e7_b.jpg)
-![](http://pic4.zhimg.com/8bbd3af5579b78dc2b43d03ba4882df5_b.jpg)
-![](http://pic3.zhimg.com/17379a8213cd369b6435d58dcb00ee71_b.jpg)  
+![](http://pic4.zhimg.com/5b605d0ab46b4d91bc335070fc3a125a_b.jpg)
+![](http://pic3.zhimg.com/f059d68233edf552b3ccf54f7e176374_b.jpg)
+![](http://pic2.zhimg.com/c29c625ab69ed935d9012455a04926e7_b.jpg)
+![](http://pic3.zhimg.com/8bbd3af5579b78dc2b43d03ba4882df5_b.jpg)
+![](http://pic1.zhimg.com/17379a8213cd369b6435d58dcb00ee71_b.jpg)  
 
 ** 四、自学参考书目和资料 **
 

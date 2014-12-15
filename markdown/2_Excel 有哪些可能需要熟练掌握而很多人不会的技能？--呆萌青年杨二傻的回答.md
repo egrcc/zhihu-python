@@ -39,12 +39,18 @@ http://v.youku.com/v_show/id_XNjcyMjc3NTQ4.html
 这样即使下拉，也只有B2会变化。PS：连续按 F4 会切换锁定的维度  
 还有一种更便捷的方法就是定义变量  
 在单元格上右键选择自定义名称，如图：  
-![](http://pic2.zhimg.com/647e001763b2a1608f7f575d4cf8c850_b.jpg)  
+![](http://pic4.zhimg.com/647e001763b2a1608f7f575d4cf8c850_b.jpg)
+
+  
 Excel 会智能的识别出目标单元格的名称，当然，如果冲突还需要更改，可以写入备注  
-![](http://pic1.zhimg.com/389665c0c8471f7faffe2ea07d814b78_b.jpg)
+![](http://pic3.zhimg.com/389665c0c8471f7faffe2ea07d814b78_b.jpg)
+
+
 当你自定义名称之后，再次引用这个单元格的时候只需要输入名称就可以了，在你输入名称的时候你所添加的备注也会实时出现，甚至没有拼写完你都可以使用 Tab
 自动补齐：  
-![](http://pic3.zhimg.com/33ae9d2a86b24589dbff06d0dccbfc19_b.jpg)  
+![](http://pic3.zhimg.com/33ae9d2a86b24589dbff06d0dccbfc19_b.jpg)
+
+  
 数组也可以定义为名称，感觉应该和 Range 对象一样  
 VBA 有时需要引用表格内容，不论是 A1 法还是用 Cells
 引用，一旦单元格出现增删行列，VBA引用的目标就会发生变化。这使得后期维护难度增大，使用名称可以避免这个问题，增删行列的时候 Excel 会自动更改。  
@@ -60,13 +66,17 @@ VBA 有时需要引用表格内容，不论是 A1 法还是用 Cells
     
 
 我定义的名称，你们感受一下：  
-![](http://pic2.zhimg.com/e87ef7ca36621c70f42db6a968db36ef_b.jpg)  
+![](http://pic1.zhimg.com/e87ef7ca36621c70f42db6a968db36ef_b.jpg)
+
+  
 **函数以及自定义函数：**   
 Excel 的函数真的很牛x，第一的答案写的很详尽了，不表。输入的时候即时提醒做的很赞~  
 有时候需要一些特定的计算，如果全部用公式的话略显繁琐，并且公式会很长很长很长很长……  
 我曾经就写过很长很长很长很长很长的公式…(插一句，Excel 公式输入的地方是可以拉来的，结合 Alt + Enter
 可以实现换行和缩进等等，我来上个图……）  
 ![](http://pic4.zhimg.com/02c3faa7965c95f8f30552e86abdee4c_b.jpg)
+
+
 自定义函数方便维护，花样繁多，玩大的还可以去直接导入其他语言开发的库  
 直接上列子……  
 
@@ -80,7 +90,9 @@ Excel 的函数真的很牛x，第一的答案写的很详尽了，不表。输�
 
   
 然后你就可以愉快的使用了  
-![](http://pic4.zhimg.com/43a92dd199cd25c33fb07eadbb17aa7f_b.jpg)  
+![](http://pic3.zhimg.com/43a92dd199cd25c33fb07eadbb17aa7f_b.jpg)
+
+  
 唯一的遗憾是无法在 Excel 界面中即时提示……在 VBE 里面可以即时提示……顺便打车求解决方法……好像说注册 DLL 欺骗 Excel
 可以做到……求少折腾的方法  
   
@@ -100,7 +112,9 @@ VBA我就不多说了，能干的事情太多了，虽然速度有点慢，但�
 
 让 Excel 伪装成一个程序……完全看不到 Excel 的界面~  
 PS：请不要看不起我们这些拖控件的……  
-![](http://pic1.zhimg.com/3000fdf710b663bb271f1511aea748ba_b.jpg)  
+![](http://pic1.zhimg.com/3000fdf710b663bb271f1511aea748ba_b.jpg)
+
+  
 **引用与库函数：**   
 这里的引用特质 VBA 的工程引用，这时候可以绑定一些封装好的库文件，个人偏爱 MatrixVB，最早是我用来增强 VB 的运算的，后来玩 Excel
 发现也能在 VBA 里跑，不过参考文档很屎，老古董了。  
@@ -111,7 +125,9 @@ PS：请不要看不起我们这些拖控件的……
 Ribbon 可以指定快捷键，指定 Screen Tip 和 Super Tip，XML 语言就好，喜欢折腾的不要错过。  
 半途而废的东西：在 Excel 中打开其他软件……用的是
 Shell……做不下去了，因为完全没需求，从来都单手盲开任何常用软件网站……要问我为何这么屌，因为我有 AutoHotKey 呀  
-![](http://pic4.zhimg.com/6f5a6fbf6750a117cee7027e5d09cdc9_b.jpg)  
+![](http://pic4.zhimg.com/6f5a6fbf6750a117cee7027e5d09cdc9_b.jpg)
+
+  
 还有高大上的就不跟你们秀了…………  
   
 **其他：**   

@@ -24,18 +24,26 @@
 
   * Ctrl+D/R，复制上行数据/左列数据 
   * 还有个很好用的单元格格式转换，推荐大家用熟 
-![](http://pic4.zhimg.com/11eda8287bf2c3d7592bc36d01d5ca58_b.jpg)  
+![](http://pic1.zhimg.com/11eda8287bf2c3d7592bc36d01d5ca58_b.jpg)
+
+  
 （有点不清晰...当初偷懒直接把图片截到印象笔记的...）  
 
   * Ctrl+F/H的查找、替换，点击“选项”，可以替换某种格式等等，另一片天地有木有！ 
-![](http://pic2.zhimg.com/b3f8cd32c17feff1bf0a4f62b16ca629_b.jpg)
+![](http://pic4.zhimg.com/b3f8cd32c17feff1bf0a4f62b16ca629_b.jpg)
+
+
 
   * F4，对，你没看错，就是F4！重复上一步操作，比如，插入行、设置格式等等频繁的操作，F4简直逆天！ 
   * ‘（分号后面那个） 比如输入网址的时候，一般输入完会自动变为超链接，在网址前输入’就解决咯 
-![](http://pic1.zhimg.com/1af94640d1a09f1eec3d7a253aebaa94_b.jpg)
+![](http://pic4.zhimg.com/1af94640d1a09f1eec3d7a253aebaa94_b.jpg)
+
+
 
   * 复制，选择性粘贴里面有几个非常好用的——仅值，转置（个人推荐用transpose公式） 
-![](http://pic2.zhimg.com/ee4463d783aaa3d94a30f5cb37fd66d0_b.jpg)
+![](http://pic1.zhimg.com/ee4463d783aaa3d94a30f5cb37fd66d0_b.jpg)
+
+
 
   * 公式里面切换绝对引用，直接点选目标，按F4轮流切换，例如A1，$A$1，$A1，A$1 
   
@@ -56,7 +64,9 @@
   * column（目标单元格），返回目标单元格所在列数，有时候真的很好用...还有 [ @黄老邪 ](http://www.zhihu.com/people/367ecb901ab2d8a65903721b2a5dd333) 推荐的columns 
   * transpose（目标区域），神奇的转置，把行变成列，把列变成行... 
   * &，可在目标单元格后面增加某些字符，偶尔用（我这种强迫患者用的是concatenate公式，我特么有病！） 
-![](http://pic4.zhimg.com/6bbabe0e3142c5083bdeded646c4e503_b.jpg)
+![](http://pic2.zhimg.com/6bbabe0e3142c5083bdeded646c4e503_b.jpg)
+
+
 
   * 数组，虽然复杂，但是有的公式配上数组简直爽爆 
   * 多百度，例如曾经碰到一个难题，把X分X秒，转为X秒，例如172分52秒，百度半天得到的公式：=IF( IFERROR( FIND( "分", $E2 ), 0) > 0, LEFT( $E2, FIND( "分", $E2 ) - 1 ) * 60 + IFERROR( MID( $E2, FIND( "分",$E2 ) + 1, FIND( "秒", $E2 ) - FIND( "分", $E2 ) - 1 ), 0 ), LEFT( $E2, FIND( "秒", $E2 ) - 1 ) * 1 ） 度娘很厉害的 
@@ -64,17 +74,25 @@
 **===============图表篇================**   
 
   * 不同的场景请用不同的图，转个非常精髓的图： ![](http://pic4.zhimg.com/b4ed92d277848a9bee668afd8eab26d7_b.jpg)
+
+
   * 数据透析表、数据透析图，嗯嗯，推荐的人太多了... 
   
 
-  * 图表设计——布局，灵活运用好多类数据时的“次坐标轴” ![](http://pic4.zhimg.com/3cf2de904f8e107cbe5cfbc07a5509d0_b.jpg)   
+  * 图表设计——布局，灵活运用好多类数据时的“次坐标轴” ![](http://pic4.zhimg.com/3cf2de904f8e107cbe5cfbc07a5509d0_b.jpg)
+
+   
 
   * 选择数据——右键——更改图标类型，灵活在一张表上结合起来柱状图和折线图 
-![](http://pic4.zhimg.com/e121b8bbab0b34a94c3896cff4835ccb_b.jpg)  
+![](http://pic1.zhimg.com/e121b8bbab0b34a94c3896cff4835ccb_b.jpg)
+
+  
   
 **===============技巧篇=================**   
 
-  * 数据——分列，将列内的数据拆分成多列，比如“XXX省XXX市”，拆成省、市两列，“XX小时XX分钟”拆成时、分两列，可以按照宽度、文本、标点等作为界定进行拆分，非常多的场景会使用到，请优先学会... ![](http://pic1.zhimg.com/45bf8605029a1199e55796885d2ea524_b.jpg)   
+  * 数据——分列，将列内的数据拆分成多列，比如“XXX省XXX市”，拆成省、市两列，“XX小时XX分钟”拆成时、分两列，可以按照宽度、文本、标点等作为界定进行拆分，非常多的场景会使用到，请优先学会... ![](http://pic4.zhimg.com/45bf8605029a1199e55796885d2ea524_b.jpg)
+
+   
 
   * 如果你不是靠excel吃饭，请不用那么geek，而是学会excel的逻辑——配合简单的公式、排序、替换、if等全局操作能得出的结果，不一定非要用一个长公式然后下拉，举例： 
 
@@ -86,21 +104,31 @@
 
   * 条件格式——突出显示单元格规则，里面的“重复值”，在实时录入和检查标记时很实用 
   * 在条件允许的情况下，升级到office 2013吧，excel 2013比2010好到爆啊！比如新增的sumifs、averageifs等多条件if，比如选择一个区域，右下角小标“快速分析”自动生成数据条、色阶、柱形图、汇总图、透视表、折线图等等啊，秒中出啊有木有！（诶，好像哪里不对的样子） 
-![](http://pic4.zhimg.com/7756161ef730d37854be1c3f7e5967eb_b.jpg)  
+![](http://pic2.zhimg.com/7756161ef730d37854be1c3f7e5967eb_b.jpg)
+
+  
 **===============插件篇=================**   
 
   * **Power Map** ：在线地图+在线演示+制作视频，随便来个中国壕热力图： 
-![](http://pic4.zhimg.com/b7526f75b47c3d23bfc37e00cf8bd03a_b.jpg) 当然，也有柱状图：  
-![](http://pic2.zhimg.com/555db0fa7e0c5378a76ce98f5bb66c43_b.jpg)  
+![](http://pic4.zhimg.com/b7526f75b47c3d23bfc37e00cf8bd03a_b.jpg)
+
+ 当然，也有柱状图：  
+![](http://pic4.zhimg.com/555db0fa7e0c5378a76ce98f5bb66c43_b.jpg)
+
+  
 
   * **Power View** ：带可视化交互效果的图表，很适合演示 
-![](http://pic4.zhimg.com/64bd517c42da64dfb6040c3d54d45e80_b.jpg)
+![](http://pic2.zhimg.com/64bd517c42da64dfb6040c3d54d45e80_b.jpg)
+
+
 默认配色就很不错，而且演示的时候点击时会直接按你点击的类型帮你显示对应的数据（例如上面的堆积柱状图）  
   
 
   * **Power Query** ：这个用法很多，我主要用于以下两点： 
 1\. 在线Web抓取：不需要学会某个编程语言也能爬虫+分析一些简单数据，随便举个例子输入新浪股票的网址，它自动帮忙抓取到N个表，我随便打开一个：  
-![](http://pic3.zhimg.com/e91c650b8065f74fa67f0814cd42aef3_b.jpg)  
+![](http://pic2.zhimg.com/e91c650b8065f74fa67f0814cd42aef3_b.jpg)
+
+  
 2\. 连接数据库：不需要学会SQL语法也能查询+分析数据库内的数据，这个就不方便截图了...  
 打比方说，常见的 select * from ... where xxx = xxx and xxx>xxx group by
 xxx这种sql语法查询的内容，可以在Power Query中直接通过点击、筛选等操作就列出来  

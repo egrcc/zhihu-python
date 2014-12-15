@@ -3,7 +3,7 @@
 SOLVER 规划求解  
 也不是说必须熟练掌握啦，但是会与不会的人看待EXCEL完全是两个软件。  
 另外有一个我觉得也挺有用的，但是算不上“很多人不会”，就是这个：  
-![](http://pic3.zhimg.com/8cc3b1d554f4609c47c53ae91c889df7_b.jpg)
+![](http://pic1.zhimg.com/8cc3b1d554f4609c47c53ae91c889df7_b.jpg)
 根据图表上的散点添加趋势线，并且生成公式和线性相关系数，这个大家应该都知道了。  
 ================================================================  
 说个题外话，某A在海外留学，回国之后见到国内的同学B，问他，在国外都干嘛了？他说，打DOTA。问学了什么，答EXCEL。B笑了，说，我在国内也天天打DOTA
@@ -15,10 +15,10 @@ B答，一般。
 A问，一般是多强？  
 B：。。。  
 然后A就给他看了这个：  
-![](http://pic1.zhimg.com/3ebadab2a4d0c8eeeb82dd2e5de62944_b.jpg) B：。。。  
+![](http://pic2.zhimg.com/3ebadab2a4d0c8eeeb82dd2e5de62944_b.jpg) B：。。。  
 A：没有对照组就不能得出结论，下面是所有中期装备的对比  
-![](http://pic4.zhimg.com/ad8b61ef1da153bb6a74356bb85b329c_b.jpg)
-![](http://pic3.zhimg.com/e88ae784e9fd635d9dd59ca56ecd7c0d_b.jpg) B：。。。你丫闲的蛋疼  
+![](http://pic3.zhimg.com/ad8b61ef1da153bb6a74356bb85b329c_b.jpg)
+![](http://pic1.zhimg.com/e88ae784e9fd635d9dd59ca56ecd7c0d_b.jpg) B：。。。你丫闲的蛋疼  
 A：列表比较抽象，做个综合打分比较直观  
 1\. 臂章（开启） 100  
 2\. 漩涡 76  
