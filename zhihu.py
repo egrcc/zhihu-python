@@ -9,12 +9,28 @@ import html2text
 import ConfigParser
 from bs4 import BeautifulSoup
 
+session = None
+
+def create_session():
+
+    global session
+
+    cf = ConfigParser.ConfigParser()
+    cf.read("config.ini")
+    email = cf.get("info", "email")
+    password = cf.get("info", "password")
+    s = requests.session()
+    login_data = {"email": email, "password": password}
+    s.post('http://www.zhihu.com/login', login_data)
+    session = s
+
 
 class Question:
 
     url = None
     soup = None
-    session = None
+    # session = None
+
 
     def __init__(self, url, title = None):
         
@@ -25,20 +41,23 @@ class Question:
             if title != None:
                 self.title = title
 
-    def create_session(self):
-        cf = ConfigParser.ConfigParser()
-        cf.read("config.ini")
-        email = cf.get("info", "email")
-        password = cf.get("info", "password")
-        s = requests.session()
-        login_data = {"email": email, "password": password}
-        s.post('http://www.zhihu.com/login', login_data)
-        self.session = s
+    # def create_session(self):
+    #     cf = ConfigParser.ConfigParser()
+    #     cf.read("config.ini")
+    #     email = cf.get("info", "email")
+    #     password = cf.get("info", "password")
+    #     s = requests.session()
+    #     login_data = {"email": email, "password": password}
+    #     s.post('http://www.zhihu.com/login', login_data)
+    #     self.session = s
 
     def parser(self):
-        if self.session == None:
-            self.create_session()
-        s = self.session
+
+        global session
+
+        if session == None:
+            create_session()
+        s = session
         r = s.get(self.url)
         soup = BeautifulSoup(r.content)
         self.soup = soup
@@ -128,6 +147,9 @@ class Question:
     #         return answer
 
     def get_all_answers(self):
+
+        global session
+
         if self.get_answers_num() == 0:
             print "No answer."
             return
@@ -168,11 +190,17 @@ class Question:
                         img_list = soup.find_all("img", class_ = "content_image lazy")
                         for img in img_list:
                             img["src"] = img["data-actualsrc"]
+                        img_list = soup.find_all("img", class_ = "origin_image zh-lightbox-thumb lazy")
+                        for img in img_list:
+                            img["src"] = img["data-actualsrc"]
+                        noscript_list = soup.find_all("noscript")
+                        for noscript in noscript_list:
+                            noscript.extract()
                         content = soup
                         answer = Answer(answer_url, self, author, upvote, content)
                         yield answer
                 else:
-                    s = self.session
+                    s = session
                     post_url = "http://www.zhihu.com/node/QuestionAnswerListV2"
                     _xsrf = self.soup.find("input", attrs = {'name': '_xsrf'})["value"]
                     offset = i * 50
@@ -221,6 +249,12 @@ class Question:
                         img_list = soup.find_all("img", class_ = "content_image lazy")
                         for img in img_list:
                             img["src"] = img["data-actualsrc"]
+                        img_list = soup.find_all("img", class_ = "origin_image zh-lightbox-thumb lazy")
+                        for img in img_list:
+                            img["src"] = img["data-actualsrc"]
+                        noscript_list = soup.find_all("noscript")
+                        for noscript in noscript_list:
+                            noscript.extract()
                         content = soup
                         answer = Answer(answer_url, self, author, upvote, content)
                         yield answer
@@ -244,7 +278,7 @@ class Question:
 class User:
 
     user_url = None
-    session = None
+    # session = None
     soup = None
 
     def __init__(self, user_url, user_id = None):
@@ -257,20 +291,23 @@ class User:
             if user_id != None:
                 self.user_id = user_id
 
-    def create_session(self):
-        cf = ConfigParser.ConfigParser()
-        cf.read("config.ini")
-        email = cf.get("info", "email")
-        password = cf.get("info", "password")
-        s = requests.session()
-        login_data = {"email": email, "password": password}
-        s.post('http://www.zhihu.com/login', login_data)
-        self.session = s
+    # def create_session(self):
+    #     cf = ConfigParser.ConfigParser()
+    #     cf.read("config.ini")
+    #     email = cf.get("info", "email")
+    #     password = cf.get("info", "password")
+    #     s = requests.session()
+    #     login_data = {"email": email, "password": password}
+    #     s.post('http://www.zhihu.com/login', login_data)
+    #     self.session = s
 
     def parser(self):
-        if self.session == None:
-            self.create_session()
-        s = self.session
+
+        global session
+
+        if session == None:
+            create_session()
+        s = session
         r = s.get(self.user_url)
         soup = BeautifulSoup(r.content)
         self.soup = soup
@@ -371,6 +408,9 @@ class User:
             return collections_num
 
     def get_followees(self):
+
+        global session
+
         if self.user_url == None:
             print "I'm anonymous user."
             return
@@ -381,9 +421,9 @@ class User:
                 return
                 yield
             else:
-                if self.session == None:
-                    self.create_session()
-                s = self.session
+                if session == None:
+                    create_session()
+                s = session
                 followee_url = self.user_url + "/followees"
                 r = s.get(followee_url)
                 soup = BeautifulSoup(r.content)
@@ -416,6 +456,9 @@ class User:
                             yield User(user_link["href"], user_link.string.encode("utf-8"))
 
     def get_followers(self):
+
+        global session
+
         if self.user_url == None:
             print "I'm anonymous user."
             return
@@ -426,9 +469,9 @@ class User:
                 return
                 yield
             else:
-                if self.session == None:
-                    self.create_session()
-                s = self.session
+                if session == None:
+                    create_session()
+                s = session
                 follower_url = self.user_url + "/followers"
                 r = s.get(follower_url)
                 soup = BeautifulSoup(r.content)
@@ -461,15 +504,18 @@ class User:
                             yield User(user_link["href"], user_link.string.encode("utf-8"))
 
     def get_asks(self):
+
+        global session
+
         if self.user_url == None:
             print "I'm anonymous user."
             return
             yield
         else:
             asks_num = self.get_asks_num()
-            if self.session == None:
-                self.create_session()
-            s = self.session
+            if session == None:
+                create_session()
+            s = session
             if asks_num == 0:
                 return
                 yield
@@ -484,15 +530,18 @@ class User:
                         yield Question(url, title)                    
 
     def get_answers(self):
+
+        global session
+
         if self.user_url == None:
             print "I'm anonymous user."
             return
             yield
         else:
             answers_num = self.get_answers_num()
-            if self.session == None:
-                self.create_session()
-            s = self.session
+            if session == None:
+                create_session()
+            s = session
             if answers_num == 0:
                 return
                 yield
@@ -508,15 +557,18 @@ class User:
                         yield Answer("http://www.zhihu.com" + answer["href"], question, self)
 
     def get_collections(self):
+
+        global session
+
         if self.user_url == None:
             print "I'm anonymous user."
             return
             yield
         else:
             collections_num = self.get_collections_num()
-            if self.session == None:
-                self.create_session()
-            s = self.session
+            if session == None:
+                create_session()
+            s = session
             if collections_num == 0:
                 return
                 yield
@@ -535,7 +587,7 @@ class User:
 class Answer:
 
     answer_url = None
-    session = None
+    # session = None
     soup = None
 
     def __init__(self, answer_url, question = None, author = None, upvote = None, content = None):
@@ -550,20 +602,23 @@ class Answer:
         if content != None:
             self.content = content
 
-    def create_session(self):
-        cf = ConfigParser.ConfigParser()
-        cf.read("config.ini")
-        email = cf.get("info", "email")
-        password = cf.get("info", "password")
-        s = requests.session()
-        login_data = {"email": email, "password": password}
-        s.post('http://www.zhihu.com/login', login_data)
-        self.session = s
+    # def create_session(self):
+    #     cf = ConfigParser.ConfigParser()
+    #     cf.read("config.ini")
+    #     email = cf.get("info", "email")
+    #     password = cf.get("info", "password")
+    #     s = requests.session()
+    #     login_data = {"email": email, "password": password}
+    #     s.post('http://www.zhihu.com/login', login_data)
+    #     self.session = s
 
     def parser(self):
-        if self.session == None:
-            self.create_session()
-        s = self.session
+
+        global session
+
+        if session == None:
+            create_session()
+        s = session
         r = s.get(self.answer_url)
         soup = BeautifulSoup(r.content)
         self.soup = soup
@@ -628,6 +683,12 @@ class Answer:
             img_list = soup.find_all("img", class_ = "content_image lazy")
             for img in img_list:
                 img["src"] = img["data-actualsrc"]
+            img_list = soup.find_all("img", class_ = "origin_image zh-lightbox-thumb lazy")
+            for img in img_list:
+                img["src"] = img["data-actualsrc"]
+            noscript_list = soup.find_all("noscript")
+            for noscript in noscript_list:
+                noscript.extract()
             content = soup
             self.content = content
             return content
@@ -667,11 +728,15 @@ class Answer:
         f.close()
 
     # def to_html(self):
-    #     content = self.content
-    #     if self.author.user_id == "匿名用户":
-    #         f = open(self.question.get_title() + "-" + self.author.user_id + "的回答.html", "wt")
+    #     content = self.get_content()
+    #     if self.get_author().get_user_id() == "匿名用户":
+    #         file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.html"
+    #         f = open(file_name, "wt")
+    #         print file_name
     #     else:
-    #         f = open(self.question.get_title() + "-" + self.author.user_id + "的回答.html", "wt")
+    #         file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.html"
+    #         f = open(file_name, "wt")
+    #         print file_name
     #     f.write(str(content))
     #     f.close()
 
@@ -705,7 +770,7 @@ class Answer:
 class Collection:
 
     url = None
-    session = None
+    # session = None
     soup = None
 
     def __init__(self, url, name = None, creator = None):
@@ -719,20 +784,23 @@ class Collection:
             if creator != None:
                 self.creator = creator
 
-    def create_session(self):
-        cf = ConfigParser.ConfigParser()
-        cf.read("config.ini")
-        email = cf.get("info", "email")
-        password = cf.get("info", "password")
-        s = requests.session()
-        login_data = {"email": email, "password": password}
-        s.post('http://www.zhihu.com/login', login_data)
-        self.session = s
+    # def create_session(self):
+    #     cf = ConfigParser.ConfigParser()
+    #     cf.read("config.ini")
+    #     email = cf.get("info", "email")
+    #     password = cf.get("info", "password")
+    #     s = requests.session()
+    #     login_data = {"email": email, "password": password}
+    #     s.post('http://www.zhihu.com/login', login_data)
+    #     self.session = s
 
     def parser(self):
-        if self.session == None:
-            self.create_session()
-        s = self.session
+
+        global session
+
+        if session == None:
+            create_session()
+        s = session
         r = s.get(self.url)
         soup = BeautifulSoup(r.content)
         self.soup = soup
@@ -761,6 +829,9 @@ class Collection:
             return creator
 
     def get_all_answers(self):
+
+        global session
+
         if self.soup == None:
             self.parser()
         soup = self.soup
@@ -790,7 +861,7 @@ class Collection:
                     author = User(author_url, author_id)
                 yield Answer(answer_url, question, author)
             i = 2
-            s = self.session
+            s = session
             while True:
                 r = s.get(self.url + "?page=" + str(i))
                 answer_soup = BeautifulSoup(r.content)
@@ -826,3 +897,24 @@ class Collection:
             if j > i:
                 break
             yield answer
+
+# def main():
+#     s = time.time()
+#     url = "http://www.zhihu.com/question/21758700/answer/34705774"
+#     answer = Answer(url)
+#     # answer = question.get_top_answer()
+#     answer.to_html()
+#     answer.to_md()
+#     answer.to_txt()
+#     e = time.time()
+#     print e - s
+#     # # i = 0
+#     # for answer in answers:
+#     #     # i = i + 1
+#     #     # if i > 200:
+#     #     #     break
+#     #     answer.to_txt()
+#     #     answer.to_md()
+
+# if __name__ == '__main__':
+#     main()
