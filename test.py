@@ -21,6 +21,8 @@ def question_test(url):
     topics = question.get_topics()
     # 获取排名第一的回答
     top_answer = question.get_top_answer()
+    # 获取排名前十的十个回答
+    top_answers = question.get_top_i_answers(10)
     # 获取所有回答
     answers = question.get_all_answers()
 
@@ -39,6 +41,7 @@ def question_test(url):
     for topic in topics:
         print topic , # 输出：情感克制 现实 社会 个人经历
     print top_answer # 输出：<zhihu.Answer instance at 0x7f8b6582d0e0>（Answer类对象）
+    print top_answers # 输出：<generator object get_top_i_answers at 0x7fed676eb320>（代表前十的Answer的生成器）
     print answers # 输出：<generator object get_all_answer at 0x7f8b66ba30a0>（代表所有Answer的生成器）
 
 
@@ -132,6 +135,8 @@ def collection_test(collection_url):
     creator = collection.get_creator()
     # 获取该收藏夹的名字
     name = collection.get_name()
+    # 获取该收藏夹下的前十个答案
+    top_answers = collection.get_top_i_answers(10)
     # 获取该收藏夹下的所有答案
     answers = collection.get_all_answers()
 
@@ -140,9 +145,36 @@ def collection_test(collection_url):
     # 一个User对象
     print creator.get_user_id() # 稷黍
     print name # 给你一个不同的视角
+    print top_answers
+    # <generator object get_top_i_answers at 0x7f378465dc80>
+    # 代表前十个答案的生成器对象
     print answers 
     # <generator object get_all_answer at 0x7fe12a29b280>
     # 代表所有答案的生成器对象
+
+def test():
+    url = "http://www.zhihu.com/question/24269892"
+    question = Question(url)
+    # 得到排名第一的答案
+    answer = question.get_top_answer()
+    # 得到排名第一的答案的作者
+    user = answer.get_author()
+    # 得到该作者回答过的所有问题的答案
+    user_answers = user.get_answers()
+    # 输出该作者回答过的所有问题的标题
+    for answer in user_answers:
+        print answer.get_question().get_title()
+    # 得到该用户的所有收藏夹
+    user_collections = user.get_collections()
+    for collection in user_collections:
+        # 输出每一个收藏夹的名字
+        print collection.get_name()
+        # 得到该收藏夹下的前十个回答
+        top_answers = collection.get_top_i_answers(10)
+        # 把答案内容转成txt，markdown
+        for answer in top_answers:
+            answer.to_txt()
+            answer.to_md()
 
 def main():
     url = "http://www.zhihu.com/question/24269892"
@@ -153,6 +185,7 @@ def main():
     user_test(user_url)
     collection_url = "http://www.zhihu.com/collection/36750683"
     collection_test(collection_url)
+    test()
 
 if __name__ == '__main__':
     main()

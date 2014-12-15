@@ -28,7 +28,7 @@ zhihu-python 采用 python2.7 编写，用来方便地获取知乎上各种内�
 ---------
 
 zhihu-python 主要文件为 zhihu.py ，配置文件为 config.ini , 将这两个文件下载到你的工作目录，并修改
-config.ini 文件中的 email 为你的知乎账户邮箱，修改 password 为你的知乎账户密码。
+config.ini 文件中的 email 为你的知乎账户邮箱，修改 password 为你的知乎账户密码（用作模拟登录）。
 
  
 Question：获取问题信息
@@ -65,6 +65,8 @@ Question 代表一个问题，处理知乎问题相关操作。创建一个 Ques
     topics = question.get_topics()
     # 获取排名第一的回答
     top_answer = question.get_top_answer()
+    # 获取排名前十的十个回答
+    top_answers = question.get_top_i_answers(10)
     # 获取所有回答
     answers = question.get_all_answers()
     
@@ -85,6 +87,9 @@ Question 代表一个问题，处理知乎问题相关操作。创建一个 Ques
     print top_answer 
     # 输出：<zhihu.Answer instance at 0x7f8b6582d0e0>
     # 一个Answer类对象
+    print top_answers
+    # 输出：<generator object get_top_i_answers at 0x7fed676eb320>
+    # 代表前十的Answer的生成器
     print answers 
     # 输出：<generator object get_all_answer at 0x7f8b66ba30a0>
     # 代表所有Answer的生成器
@@ -234,6 +239,8 @@ Collection 代表一个收藏夹，处理收藏夹相关操作。创建一个 Co
     creator = collection.get_creator()
     # 获取该收藏夹的名字
     name = collection.get_name()
+    # 获取该收藏夹下的前十个答案
+    top_answers = collection.get_top_i_answers(10)
     # 获取该收藏夹下的所有答案
     answers = collection.get_all_answers()
     
@@ -242,6 +249,9 @@ Collection 代表一个收藏夹，处理收藏夹相关操作。创建一个 Co
     # 一个User对象
     print creator.get_user_id() # 稷黍
     print name # 给你一个不同的视角
+    print top_answers
+    # <generator object get_top_i_answers at 0x7f378465dc80>
+    # 代表前十个答案的生成器对象
     print answers 
     # <generator object get_all_answer at 0x7fe12a29b280>
     # 代表所有答案的生成器对象
@@ -250,7 +260,38 @@ Collection 代表一个收藏夹，处理收藏夹相关操作。创建一个 Co
 综合实例
 ~~~~~~~~~~~~~~~
 
-有待添加
+将 Question ， Answer ， User ， Collection 结合起来使用。实例如下：
+
+.. code-block:: python
+
+    # -*- coding: utf-8 -*-
+    from zhihu import Question
+    from zhihu import Answer
+    from zhihu import User
+    from zhihu import Collection
+    
+    url = "http://www.zhihu.com/question/24269892"
+    question = Question(url)
+	# 得到排名第一的答案
+    answer = question.get_top_answer()
+	# 得到排名第一的答案的作者
+    user = answer.get_author()
+	# 得到该作者回答过的所有问题的答案
+    user_answers = user.get_answers()
+	# 输出该作者回答过的所有问题的标题
+    for answer in user_answers:
+        print answer.get_question().get_title()
+	# 得到该用户的所有收藏夹
+    user_collections = user.get_collections()
+    for collection in user_collections:
+		# 输出每一个收藏夹的名字
+        print collection.get_name()
+		# 得到该收藏夹下的前十个回答
+        top_answers = collection.get_top_i_answers(10)
+		# 把答案内容转成txt，markdown
+        for answer in top_answers:
+            answer.to_txt()
+            answer.to_md()
 
 
 

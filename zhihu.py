@@ -18,9 +18,12 @@ class Question:
 
     def __init__(self, url, title = None):
         
-        self.url = url
-        if title != None:
-            self.title = title
+        if url[0:len(url) - 8] != "http://www.zhihu.com/question/":
+            raise ValueError("\"" + url + "\"" + " : it isn't a question url.")
+        else:     
+            self.url = url
+            if title != None:
+                self.title = title
 
     def create_session(self):
         cf = ConfigParser.ConfigParser()
@@ -84,45 +87,45 @@ class Question:
             topics.append(i.contents[0].encode("utf-8").replace("\n", ""))
         return topics
 
-    def get_top_answer(self):
+    # def get_top_answer(self):
 
-        if self.get_answers_num() == 0:
-            print "No answer."
-            return 
-        else:
-            if self.soup == None:
-                self.parser()
-            soup = BeautifulSoup(self.soup.encode("utf-8"))
-            author = None
-            if soup.find("h3", class_ = "zm-item-answer-author-wrap") == u"匿名用户":
-                author_url = None
-                author = User(author_url)
-            else:
-                author_tag = soup.find("h3", class_ = "zm-item-answer-author-wrap").find_all("a")[1]
-                author_id = author_tag.string.encode("utf-8")
-                author_url = "http://www.zhihu.com" + author_tag["href"]
-                author = User(author_url, author_id)
+    #     if self.get_answers_num() == 0:
+    #         print "No answer."
+    #         return 
+    #     else:
+    #         if self.soup == None:
+    #             self.parser()
+    #         soup = BeautifulSoup(self.soup.encode("utf-8"))
+    #         author = None
+    #         if soup.find("h3", class_ = "zm-item-answer-author-wrap") == u"匿名用户":
+    #             author_url = None
+    #             author = User(author_url)
+    #         else:
+    #             author_tag = soup.find("h3", class_ = "zm-item-answer-author-wrap").find_all("a")[1]
+    #             author_id = author_tag.string.encode("utf-8")
+    #             author_url = "http://www.zhihu.com" + author_tag["href"]
+    #             author = User(author_url, author_id)
 
-            count = soup.find("span", class_ = "count").string
-            if count[-1] == "K":
-                upvote = int(count[0:(len(count) - 1)]) * 1000
-            elif count[-1] == "W":
-                upvote = int(count[0:(len(count) - 1)]) * 10000
-            else:
-                upvote = int(count)
+    #         count = soup.find("span", class_ = "count").string
+    #         if count[-1] == "K":
+    #             upvote = int(count[0:(len(count) - 1)]) * 1000
+    #         elif count[-1] == "W":
+    #             upvote = int(count[0:(len(count) - 1)]) * 10000
+    #         else:
+    #             upvote = int(count)
 
-            answer_url = "http://www.zhihu.com" + soup.find("a", class_ = "answer-date-link")["href"]
+    #         answer_url = "http://www.zhihu.com" + soup.find("a", class_ = "answer-date-link")["href"]
 
-            top_answer = soup.find("div", class_ = " zm-editable-content clearfix")
-            soup.body.extract()
-            soup.head.insert_after(soup.new_tag("body", **{'class':'zhi'}))
-            soup.body.append(top_answer)
-            img_list = soup.find_all("img", class_ = "content_image lazy")
-            for img in img_list:
-                img["src"] = img["data-actualsrc"]
-            content = soup
-            answer = Answer(answer_url, self, author, upvote, content)
-            return answer
+    #         top_answer = soup.find("div", class_ = " zm-editable-content clearfix")
+    #         soup.body.extract()
+    #         soup.head.insert_after(soup.new_tag("body", **{'class':'zhi'}))
+    #         soup.body.append(top_answer)
+    #         img_list = soup.find_all("img", class_ = "content_image lazy")
+    #         for img in img_list:
+    #             img["src"] = img["data-actualsrc"]
+    #         content = soup
+    #         answer = Answer(answer_url, self, author, upvote, content)
+    #         return answer
 
     def get_all_answers(self):
         if self.get_answers_num() == 0:
@@ -222,6 +225,21 @@ class Question:
                         answer = Answer(answer_url, self, author, upvote, content)
                         yield answer
 
+    def get_top_i_answers(self, i):
+        # if i > self.get_answers_num():
+        #     i = self.get_answers_num()
+        j = 0
+        answers = self.get_all_answers()
+        for answer in answers:
+            j = j + 1
+            if j > i:
+                break
+            yield answer
+
+    def get_top_answer(self):
+        for answer in self.get_top_i_answers(1):
+            return answer
+
 
 class User:
 
@@ -232,6 +250,8 @@ class User:
     def __init__(self, user_url, user_id = None):
         if user_url == None:
             self.user_id = "匿名用户"
+        elif user_url[0:28] != "http://www.zhihu.com/people/":
+            raise ValueError("\"" + user_url + "\"" + " : it isn't a user url.")
         else:
             self.user_url = user_url
             if user_id != None:
@@ -257,7 +277,7 @@ class User:
 
     def get_user_id(self):
         if self.user_url == None:
-            print "I'm anonymous user."
+            # print "I'm anonymous user."
             return "匿名用户"
         else:
             if hasattr(self, "user_id"):
@@ -627,6 +647,7 @@ class Answer:
             if not os.path.isdir(os.path.join(os.path.join(os.getcwd(), "text"))):
                 os.makedirs(os.path.join(os.path.join(os.getcwd(), "text")))
             file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.txt"
+            print file_name
             if os.path.exists(os.path.join(os.path.join(os.getcwd(), "text"), file_name)):
                 f = open(os.path.join(os.path.join(os.getcwd(), "text"), file_name), "a")
                 f.write("\n\n")
@@ -637,6 +658,7 @@ class Answer:
             if not os.path.isdir(os.path.join(os.path.join(os.getcwd(), "text"))):
                 os.makedirs(os.path.join(os.path.join(os.getcwd(), "text")))
             file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.txt"
+            print file_name
             f = open(os.path.join(os.path.join(os.getcwd(), "text"), file_name), "wt")
             f.write(self.get_question().get_title() + "\n\n")
         f.write("作者: " + self.get_author().get_user_id() + "  赞同: " + str(self.get_upvote()) + "\n\n")
@@ -657,6 +679,7 @@ class Answer:
         content = self.get_content()
         if self.get_author().get_user_id() == "匿名用户":
             file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.md"
+            print file_name
             if not os.path.isdir(os.path.join(os.path.join(os.getcwd(), "markdown"))):
                 os.makedirs(os.path.join(os.path.join(os.getcwd(), "markdown")))
             if os.path.exists(os.path.join(os.path.join(os.getcwd(), "markdown"), file_name)):
@@ -669,6 +692,7 @@ class Answer:
             if not os.path.isdir(os.path.join(os.path.join(os.getcwd(), "markdown"))):
                 os.makedirs(os.path.join(os.path.join(os.getcwd(), "markdown")))
             file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.md"
+            print file_name
             f = open(os.path.join(os.path.join(os.getcwd(), "markdown"), file_name), "wt")
             f.write("# " + self.get_question().get_title() + "\n")
         f.write("## 作者: " + self.get_author().get_user_id() + "  赞同: " + str(self.get_upvote()) + "\n")
@@ -684,12 +708,16 @@ class Collection:
     session = None
     soup = None
 
-    def __init__(self, url, name = None, creator = None):      
-        self.url = url
-        if name != None:
-            self.name = name
-        if creator != None:
-            self.creator = creator
+    def __init__(self, url, name = None, creator = None):
+
+        if url[0:len(url) - 8] != "http://www.zhihu.com/collection/":
+            raise ValueError("\"" + url + "\"" + " : it isn't a collection url.")
+        else:
+            self.url = url
+            if name != None:
+                self.name = name
+            if creator != None:
+                self.creator = creator
 
     def create_session(self):
         cf = ConfigParser.ConfigParser()
@@ -790,4 +818,11 @@ class Collection:
                         yield Answer(answer_url, question, author)
                 i = i + 1
 
-
+    def get_top_i_answers(self, i):
+        j = 0
+        answers = self.get_all_answers()
+        for answer in answers:
+            j = j + 1
+            if j > i:
+                break
+            yield answer
