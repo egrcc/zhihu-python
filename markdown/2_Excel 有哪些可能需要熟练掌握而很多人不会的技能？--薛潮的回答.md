@@ -7,6 +7,6 @@
 推荐书籍《谁说菜鸟不会数据分析》——常用技巧；《你早该这么玩excel》——心法修炼。  
   
 刚在微博上发现一神图，分享给大家  
-![](http://pic3.zhimg.com/8c13e51281fd3cec2054e428fa217ab9_b.jpg)
+![](http://pic1.zhimg.com/8c13e51281fd3cec2054e428fa217ab9_b.jpg)
 
 #### 原链接: http://www.zhihu.com/question/21758700/answer/21745962
