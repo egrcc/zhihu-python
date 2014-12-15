@@ -58,15 +58,15 @@ Question 代表一个问题，处理知乎问题相关操作。创建一个 Ques
     # 获取该问题的详细描述
     detail = question.get_detail()
     # 获取回答个数
-    answer_num = question.get_answer_num()
+    answers_num = question.get_answers_num()
     # 获取关注该问题的人数
-    follower_num = question.get_follower_num()
+    followers_num = question.get_followers_num()
     # 获取该问题所属话题
     topics = question.get_topics()
     # 获取排名第一的回答
     top_answer = question.get_top_answer()
     # 获取所有回答
-    answers = question.get_all_answer()
+    answers = question.get_all_answers()
     
     print title # 输出：现实可以有多美好？
     print detail 
@@ -78,8 +78,8 @@ Question 代表一个问题，处理知乎问题相关操作。创建一个 Ques
     # 是“晒幸福“比赛。所以大家从“现实，实际”的角度出发，讲述自己的
     # 美好故事，让大家看看社会的冷和暖，能更加辨证地看待世界，是此
     # 题和彼题共同的“心愿“吧。
-    print answer_num # 输出：2441
-    print follower_num # 输出：26910
+    print answers_num # 输出：2441
+    print followers_num # 输出：26910
     for topic in topics:
         print topic , # 输出：情感克制 现实 社会 个人经历
     print top_answer 
@@ -157,37 +157,37 @@ User 代表一个用户，处理用户相关操作。创建一个 User 对象需
     # 获取用户ID
     user_id = user.get_user_id()
     # 获取该用户的关注者人数
-    follower_num = user.get_follower_num()
+    followers_num = user.get_followers_num()
     # 获取该用户关注的人数
-    followee_num =user.get_followee_num()
+    followees_num =user.get_followees_num()
     # 获取该用户提问的个数
-    ask_num = user.get_ask_num()
+    asks_num = user.get_asks_num()
     # 获取该用户回答的个数
-    answer_num = user.get_answer_num()
+    answers_num = user.get_answers_num()
     # 获取该用户收藏夹个数
-    collection_num = user.get_collection_num()
+    collections_num = user.get_collections_num()
     # 获取该用户获得的赞同数
     agree_num = user.get_agree_num()
     # 获取该用户获得的感谢数
     thanks_num = user.get_thanks_num()
     
     # 获取该用户关注的人
-    followees = user.get_followee()
+    followees = user.get_followees()
     # 获取关注该用户的人
-    followers = user.get_follower()
+    followers = user.get_followers()
     # 获取该用户提的问题
-    asks = user.get_ask()
+    asks = user.get_asks()
     # 获取该用户回答的问题的答案
-    answers = user.get_answer()
+    answers = user.get_answers()
     # 获取该用户的收藏夹
-    collections = user.get_collection()
+    collections = user.get_collections()
     
     print user_id # 黄继新
-    print follower_num # 614840
-    print followee_num # 8408
-    print ask_num # 1323
-    print answer_num # 786
-    print collection_num # 44
+    print followers_num # 614840
+    print followees_num # 8408
+    print asks_num # 1323
+    print answers_num # 786
+    print collections_num # 44
     print agree_num # 46387
     print thanks_num # 11477
     
@@ -235,7 +235,7 @@ Collection 代表一个收藏夹，处理收藏夹相关操作。创建一个 Co
     # 获取该收藏夹的名字
     name = collection.get_name()
     # 获取该收藏夹下的所有答案
-    answers = collection.get_all_answer()
+    answers = collection.get_all_answers()
     
     print creator 
     # <zhihu.User instance at 0x7fe1296f29e0>

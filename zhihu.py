@@ -1,21 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from bs4 import BeautifulSoup
-import requests
-import time
-import json
 import os
 import re
+import time
+import json
+import requests
 import html2text
 import ConfigParser
-# from copy import deepcopy, copy
+from bs4 import BeautifulSoup
+
 
 class Question:
 
     url = None
-    # title = None
-    # detail = None
-    # answer_num = None
     soup = None
     session = None
 
@@ -24,30 +21,6 @@ class Question:
         self.url = url
         if title != None:
             self.title = title
-
-        # cf = ConfigParser.ConfigParser()
-        # cf.read("config.ini")
-        # email = cf.get("info", "email")
-        # password = cf.get("info", "password")
-        # s = requests.session()
-        # login_data = {"email": email, "password": password}
-        # s.post('http://www.zhihu.com/login', login_data)
-        # self.session = s
-
-        # r = s.get(url)
-        # soup = BeautifulSoup(r.content)
-        # self.soup = soup
-        # self.title = soup.find("h2", class_ = "zm-item-title").string.encode("utf-8").replace("\n", "")
-        # self.detail = str(soup.find("div", id = "zh-question-detail").div)
-        # if soup.find("h3", id = "zh-question-answer-num") != None:
-        #     self.answer_num = int(soup.find("h3", id = "zh-question-answer-num")["data-num"])
-        # else:
-        #     self.answer_num = 0
-        # f = open("test.html", "wt")
-        # f.write(r.content)
-        # f.close()
-        # print soup
-
 
     def create_session(self):
         cf = ConfigParser.ConfigParser()
@@ -85,23 +58,21 @@ class Question:
         detail = soup.find("div", id = "zh-question-detail").div.get_text().encode("utf-8")
         return detail
 
-    def get_answer_num(self):
+    def get_answers_num(self):
         if self.soup == None:
             self.parser()
         soup = self.soup
-        answer_num = 0
+        answers_num = 0
         if soup.find("h3", id = "zh-question-answer-num") != None:
-            answer_num = int(soup.find("h3", id = "zh-question-answer-num")["data-num"])
-        return answer_num
+            answers_num = int(soup.find("h3", id = "zh-question-answer-num")["data-num"])
+        return answers_num
 
-
-    def get_follower_num(self):
+    def get_followers_num(self):
         if self.soup == None:
             self.parser()
         soup = self.soup
-        follower_num = int(soup.find("div", class_ = "zg-gray-normal").a.strong.string)
-        return follower_num
-
+        followers_num = int(soup.find("div", class_ = "zg-gray-normal").a.strong.string)
+        return followers_num
 
     def get_topics(self):
         if self.soup == None:
@@ -114,23 +85,16 @@ class Question:
         return topics
 
     def get_top_answer(self):
-        # soup = deepcopy(self.soup)
-        # start_time = time.time()
-        if self.get_answer_num() == 0:
+
+        if self.get_answers_num() == 0:
             print "No answer."
             return 
         else:
             if self.soup == None:
                 self.parser()
             soup = BeautifulSoup(self.soup.encode("utf-8"))
-            # end_time  = time.time()
-            # print end_time - start_time
-            # s = self.session
-            # r = s.get(self.url)
-            # soup = BeautifulSoup(r.content)
             author = None
             if soup.find("h3", class_ = "zm-item-answer-author-wrap") == u"匿名用户":
-                # author_id = "匿名用户"
                 author_url = None
                 author = User(author_url)
             else:
@@ -156,33 +120,26 @@ class Question:
             img_list = soup.find_all("img", class_ = "content_image lazy")
             for img in img_list:
                 img["src"] = img["data-actualsrc"]
-            # print type(img_list[0])
-            # print soup.get_text().encode("utf-8").strip()
-            # f = open("answer.html", "wt")
-            # f.write(soup.get_text().encode("utf-8").strip())
-            # f.close()
-            # content = str(soup)
             content = soup
             answer = Answer(answer_url, self, author, upvote, content)
             return answer
 
-    def get_all_answer(self):
-        if self.get_answer_num() == 0:
+    def get_all_answers(self):
+        if self.get_answers_num() == 0:
             print "No answer."
             return
             yield
         else:
-            answer_num = self.get_answer_num()
-            for i in range((answer_num - 1) / 50 + 1):
+            answers_num = self.get_answers_num()
+            for i in range((answers_num - 1) / 50 + 1):
                 if i == 0:
-                    for j in range(min(answer_num, 50)):
+                    for j in range(min(answers_num, 50)):
                         if self.soup == None:
                             self.parser()
                         soup = BeautifulSoup(self.soup.encode("utf-8"))
 
                         author = None
                         if soup.find_all("h3", class_ = "zm-item-answer-author-wrap")[j].string == u"匿名用户":
-                            # author_id = "匿名用户"
                             author_url = None
                             author = User(author_url)
                         else:
@@ -229,14 +186,13 @@ class Question:
                     }
                     r = s.post(post_url, data = data, headers = header)
                     answer_list = r.json()["msg"]
-                    for j in range(min(answer_num - i * 50, 50)):
+                    for j in range(min(answers_num - i * 50, 50)):
                         soup = BeautifulSoup(self.soup.encode("utf-8"))
 
                         answer_soup = BeautifulSoup(answer_list[j])
 
                         author = None
                         if answer_soup.find("h3", class_ = "zm-item-answer-author-wrap").string == u"匿名用户":
-                            # author_id = "匿名用户"
                             author_url = None
                             author = User(author_url)
                         else:
@@ -269,57 +225,17 @@ class Question:
 
 class User:
 
-    # user_id = None
     user_url = None
-    # followee_num = None
-    # follower_num = None
-    # agree_num = None
-    # thanks_num = None
-    # ask_num = None
-    # answer_num = None
-    # collection_num = None
     session = None
     soup = None
 
     def __init__(self, user_url, user_id = None):
         if user_url == None:
             self.user_id = "匿名用户"
-            # self.user_id = user_id
         else:
             self.user_url = user_url
             if user_id != None:
                 self.user_id = user_id
-
-            # self.create_session()
-            # cf = ConfigParser.ConfigParser()
-            # cf.read("config.ini")
-            # email = cf.get("info", "email")
-            # password = cf.get("info", "password")
-            # s = requests.session()
-            # login_data = {"email": email, "password": password}
-            # s.post('http://www.zhihu.com/login', login_data)
-            # self.session = s
-            # self.parser()
-            # soup = self.soup
-            # r = s.get(user_url)
-            # soup = BeautifulSoup(r.content)
-            # self.soup = soup
-
-            # if user_id == None:
-            #     self.user_id = soup.find("div", class_ = "title-section ellipsis") \
-            #         .find("span", class_ = "name").string.encode("utf-8")
-            # else: 
-            #     self.user_id = user_id
-            # self.followee_num = int(soup.find("div", class_ = "zm-profile-side-following zg-clear") \
-            #         .find("a").strong.string)
-            # self.follower_num = int(soup.find("div", class_ = "zm-profile-side-following zg-clear") \
-            #         .find_all("a")[1].strong.string)
-            # self.agree_num = int(soup.find("span", class_ = "zm-profile-header-user-agree").strong.string)
-            # self.thanks_num = int(soup.find("span", class_ = "zm-profile-header-user-thanks").strong.string)
-            # self.ask_num = int(soup.find_all("span", class_ = "num")[0].string)
-            # self.answer_num = int(soup.find_all("span", class_ = "num")[1].string)
-            # self.collection_num = int(soup.find_all("span", class_ = "num")[3].string)
-
 
     def create_session(self):
         cf = ConfigParser.ConfigParser()
@@ -339,7 +255,6 @@ class User:
         soup = BeautifulSoup(r.content)
         self.soup = soup
 
-
     def get_user_id(self):
         if self.user_url == None:
             print "I'm anonymous user."
@@ -356,8 +271,7 @@ class User:
                 self.user_id = user_id
                 return user_id
 
-
-    def get_followee_num(self):
+    def get_followees_num(self):
         if self.user_url == None:
             print "I'm anonymous user."
             return 0
@@ -365,11 +279,11 @@ class User:
             if self.soup == None:
                 self.parser()
             soup = self.soup
-            followee_num = int(soup.find("div", class_ = "zm-profile-side-following zg-clear") \
+            followees_num = int(soup.find("div", class_ = "zm-profile-side-following zg-clear") \
                     .find("a").strong.string)
-            return followee_num
+            return followees_num
 
-    def get_follower_num(self):
+    def get_followers_num(self):
         if self.user_url == None:
             print "I'm anonymous user."
             return 0
@@ -377,9 +291,9 @@ class User:
             if self.soup == None:
                 self.parser()
             soup = self.soup
-            follower_num = int(soup.find("div", class_ = "zm-profile-side-following zg-clear") \
+            followers_num = int(soup.find("div", class_ = "zm-profile-side-following zg-clear") \
                     .find_all("a")[1].strong.string)
-            return follower_num
+            return followers_num
 
     def get_agree_num(self):
         if self.user_url == None:
@@ -403,7 +317,7 @@ class User:
             thanks_num = int(soup.find("span", class_ = "zm-profile-header-user-thanks").strong.string)
             return thanks_num
 
-    def get_ask_num(self):
+    def get_asks_num(self):
         if self.user_url == None:
             print "I'm anonymous user."
             return 0
@@ -411,10 +325,10 @@ class User:
             if self.soup == None:
                 self.parser()
             soup = self.soup
-            ask_num = int(soup.find_all("span", class_ = "num")[0].string)
-            return ask_num
+            asks_num = int(soup.find_all("span", class_ = "num")[0].string)
+            return asks_num
 
-    def get_answer_num(self):
+    def get_answers_num(self):
         if self.user_url == None:
             print "I'm anonymous user."
             return 0
@@ -422,10 +336,10 @@ class User:
             if self.soup == None:
                 self.parser()
             soup = self.soup
-            answer_num = int(soup.find_all("span", class_ = "num")[1].string)
-            return answer_num
+            answers_num = int(soup.find_all("span", class_ = "num")[1].string)
+            return answers_num
 
-    def get_collection_num(self):
+    def get_collections_num(self):
         if self.user_url == None:
             print "I'm anonymous user."
             return 0
@@ -433,18 +347,17 @@ class User:
             if self.soup == None:
                 self.parser()
             soup = self.soup
-            collection_num = int(soup.find_all("span", class_ = "num")[3].string)
-            return collection_num
+            collections_num = int(soup.find_all("span", class_ = "num")[3].string)
+            return collections_num
 
-
-    def get_followee(self):
+    def get_followees(self):
         if self.user_url == None:
             print "I'm anonymous user."
             return
             yield
         else:
-            followee_num = self.get_followee_num()
-            if followee_num == 0:
+            followees_num = self.get_followees_num()
+            if followees_num == 0:
                 return
                 yield
             else:
@@ -454,10 +367,10 @@ class User:
                 followee_url = self.user_url + "/followees"
                 r = s.get(followee_url)
                 soup = BeautifulSoup(r.content)
-                for i in range((followee_num - 1) / 20 + 1):
+                for i in range((followees_num - 1) / 20 + 1):
                     if i == 0:
                         user_url_list = soup.find_all("h2", class_ = "zm-list-content-title")
-                        for j in range(min(followee_num, 20)):
+                        for j in range(min(followees_num, 20)):
                             yield User(user_url_list[j].a["href"], user_url_list[j].a.string.encode("utf-8"))
                     else:
                         post_url = "http://www.zhihu.com/node/ProfileFolloweesListV2"
@@ -477,20 +390,19 @@ class User:
                         }
                         r = s.post(post_url, data = data, headers = header)
                         followee_list = r.json()["msg"]
-                        for j in range(min(followee_num - i * 20, 20)):
+                        for j in range(min(followees_num - i * 20, 20)):
                             followee_soup = BeautifulSoup(followee_list[j])
                             user_link = followee_soup.find("h2", class_ = "zm-list-content-title").a
                             yield User(user_link["href"], user_link.string.encode("utf-8"))
 
-
-    def get_follower(self):
+    def get_followers(self):
         if self.user_url == None:
             print "I'm anonymous user."
             return
             yield
         else:
-            follower_num = self.get_follower_num()
-            if follower_num == 0:
+            followers_num = self.get_followers_num()
+            if followers_num == 0:
                 return
                 yield
             else:
@@ -500,10 +412,10 @@ class User:
                 follower_url = self.user_url + "/followers"
                 r = s.get(follower_url)
                 soup = BeautifulSoup(r.content)
-                for i in range((follower_num - 1) / 20 + 1):
+                for i in range((followers_num - 1) / 20 + 1):
                     if i == 0:
                         user_url_list = soup.find_all("h2", class_ = "zm-list-content-title")
-                        for j in range(min(follower_num, 20)):
+                        for j in range(min(followers_num, 20)):
                             yield User(user_url_list[j].a["href"], user_url_list[j].a.string.encode("utf-8"))
                     else:
                         post_url = "http://www.zhihu.com/node/ProfileFollowersListV2"
@@ -523,27 +435,26 @@ class User:
                         }
                         r = s.post(post_url, data = data, headers = header)
                         follower_list = r.json()["msg"]
-                        for j in range(min(follower_num - i * 20, 20)):
+                        for j in range(min(followers_num - i * 20, 20)):
                             follower_soup = BeautifulSoup(follower_list[j])
                             user_link = follower_soup.find("h2", class_ = "zm-list-content-title").a
                             yield User(user_link["href"], user_link.string.encode("utf-8"))
 
-
-    def get_ask(self):
+    def get_asks(self):
         if self.user_url == None:
             print "I'm anonymous user."
             return
             yield
         else:
-            ask_num = self.get_ask_num()
+            asks_num = self.get_asks_num()
             if self.session == None:
                 self.create_session()
             s = self.session
-            if ask_num == 0:
+            if asks_num == 0:
                 return
                 yield
             else:  
-                for i in range((ask_num - 1) / 20 + 1):
+                for i in range((asks_num - 1) / 20 + 1):
                     ask_url = self.user_url + "/asks?page=" + str(i + 1)
                     r = s.get(ask_url)
                     soup = BeautifulSoup(r.content)
@@ -552,22 +463,21 @@ class User:
                         title = question.string.encode("utf-8")
                         yield Question(url, title)                    
 
-
-    def get_answer(self):
+    def get_answers(self):
         if self.user_url == None:
             print "I'm anonymous user."
             return
             yield
         else:
-            answer_num = self.get_answer_num()
+            answers_num = self.get_answers_num()
             if self.session == None:
                 self.create_session()
             s = self.session
-            if answer_num == 0:
+            if answers_num == 0:
                 return
                 yield
             else:
-                for i in range((answer_num - 1) / 20 + 1):
+                for i in range((answers_num - 1) / 20 + 1):
                     answer_url = self.user_url + "/answers?page=" + str(i + 1)
                     r = s.get(answer_url)
                     soup = BeautifulSoup(r.content)
@@ -577,22 +487,21 @@ class User:
                         question = Question(question_url, question_title)
                         yield Answer("http://www.zhihu.com" + answer["href"], question, self)
 
-
-    def get_collection(self):
+    def get_collections(self):
         if self.user_url == None:
             print "I'm anonymous user."
             return
             yield
         else:
-            collection_num = self.get_collection_num()
+            collections_num = self.get_collections_num()
             if self.session == None:
                 self.create_session()
             s = self.session
-            if collection_num == 0:
+            if collections_num == 0:
                 return
                 yield
             else:
-                for i in range((collection_num - 1) / 20 + 1):
+                for i in range((collections_num - 1) / 20 + 1):
                     collection_url = self.user_url + "/collections?page=" + str(i + 1)
                     r = s.get(collection_url)
                     soup = BeautifulSoup(r.content)
@@ -620,42 +529,6 @@ class Answer:
             self.upvote = upvote
         if content != None:
             self.content = content
-        # if content == None and answer_url == None:
-        #     print "can't get answer."
-        #     self.content = content
-        # elif content == None:
-            # cf = ConfigParser.ConfigParser()
-            # cf.read("config.ini")
-            # email = cf.get("info", "email")
-            # password = cf.get("info", "password")
-            # s = requests.session()
-            # login_data = {"email": email, "password": password}
-            # s.post('http://www.zhihu.com/login', login_data)
-            # self.session = s
-            # r = s.get(answer_url)
-            # soup = BeautifulSoup(r.content)
-            
-            # self.question = Question(answer_url[0:38])
-            # if soup.find("h3", class_ = "zm-item-answer-author-wrap").string == u"匿名用户":
-            #     # author_id = "匿名用户"
-            #     author_url = None
-            #     self.author = User(author_url)
-            # else:
-            #     author_tag = soup.find("h3", class_ = "zm-item-answer-author-wrap").find_all("a")[1]
-            #     author_id = author_tag.string.encode("utf-8")
-            #     author_url = "http://www.zhihu.com" + author_tag["href"]
-            #     self.author = User(author_url, author_id)
-            # self.upvote = int(soup.find("span", class_ = "count").string.encode("utf-8"))
-
-            # answer = soup.find("div", class_ = " zm-editable-content clearfix")
-            # soup.body.extract()
-            # soup.head.insert_after(soup.new_tag("body", **{'class':'zhi'}))
-            # soup.body.append(answer)
-            # img_list = soup.find_all("img", class_ = "content_image lazy")
-            # for img in img_list:
-            #     img["src"] = img["data-actualsrc"]
-            # self.content = soup
-
 
     def create_session(self):
         cf = ConfigParser.ConfigParser()
@@ -739,12 +612,9 @@ class Answer:
             self.content = content
             return content
 
-
     def to_txt(self):
 
         content = self.get_content()
-        # content = BeautifulSoup(self.content.encode("utf-8"))
-        # content = deepcopy(self.content)
         body =content.find("body")
         br_list = body.find_all("br")
         for br in br_list:
@@ -862,7 +732,7 @@ class Collection:
             self.creator = creator
             return creator
 
-    def get_all_answer(self):
+    def get_all_answers(self):
         if self.soup == None:
             self.parser()
         soup = self.soup
@@ -883,7 +753,6 @@ class Collection:
                 answer_url = "http://www.zhihu.com" + answer.find("span", class_ = "answer-date-link-wrap").a["href"]
                 author = None
                 if answer.find("h3", class_ = "zm-item-answer-author-wrap") == u"匿名用户":
-                    # author_id = "匿名用户"
                     author_url = None
                     author = User(author_url)
                 else:
@@ -921,63 +790,4 @@ class Collection:
                         yield Answer(answer_url, question, author)
                 i = i + 1
 
-
-
-
-def main():
-    url = "http://www.zhihu.com/question/24580896"
-    # question = Question(url)
-    # question.get_all_answer()
-    # print question.get_title()
-    # print question.get_detail()
-    # print question.get_answer_num()
-    # print question.get_follower_num()
-    # for topic in question.get_topic():
-    #     print topic
-    # answer = question.get_top_answer()
-    # i = 0
-    # for answer in answers:
-    #     i = i + 1
-    #     if i > 5:
-    #         break
-    #     answer.to_txt()
-    #     print answer.author.user_id + "'s answer...."
-
-
-    # user_url = "http://www.zhihu.com/people/Metaphox"
-    # user = User(user_url)
-    # print user.get_follower_num()
-    # print user.get_followee_num()
-    # print user.get_collection_num()
-    # print user.get_ask_num()
-    # print user.get_answer_num()
-    # print user.get_agree_num()
-    # print user.get_thanks_num()
-    # print user.get_user_id()
-    # followees = user.get_followee()
-
-    # i = 0
-    # for follower in followees:
-    #     i = i + 1
-    #     if i > 5:
-    #         break
-    #     print follower.user_id
-    #     print follower.user_url
-
-    collection_url = "http://www.zhihu.com/collection/19619098"
-    collection = Collection(collection_url)
-    print collection.get_name()
-    print collection.get_creator().get_user_id()
-    answers = collection.get_all_answer()
-    i = 0
-    for answer in answers:
-        i = i + 1
-        if i > 5:
-            break
-        print answer.get_question().get_title()
-        print answer.get_upvote()
-        answer.to_md()
-
-if __name__ == '__main__':
-    main()
 
