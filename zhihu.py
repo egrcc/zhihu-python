@@ -761,7 +761,8 @@ class Answer:
             f = open(os.path.join(os.path.join(os.getcwd(), "markdown"), file_name), "wt")
             f.write("# " + self.get_question().get_title() + "\n")
         f.write("## 作者: " + self.get_author().get_user_id() + "  赞同: " + str(self.get_upvote()) + "\n")
-        f.write(html2text.html2text(content.decode('utf-8')).encode("utf-8"))
+        text = html2text.html2text(content.decode('utf-8')).encode("utf-8")
+        f.write(text)
         f.write("#### 原链接: " + self.answer_url)
         f.close()
 
@@ -898,23 +899,23 @@ class Collection:
                 break
             yield answer
 
-# def main():
-#     s = time.time()
-#     url = "http://www.zhihu.com/question/21758700/answer/34705774"
-#     answer = Answer(url)
-#     # answer = question.get_top_answer()
-#     answer.to_html()
-#     answer.to_md()
-#     answer.to_txt()
-#     e = time.time()
-#     print e - s
-#     # # i = 0
-#     # for answer in answers:
-#     #     # i = i + 1
-#     #     # if i > 200:
-#     #     #     break
-#     #     answer.to_txt()
-#     #     answer.to_md()
+def main():
+    s = time.time()
+    url = "http://www.zhihu.com/question/21758700/answer/34705774"
+    answer = Answer(url)
+    # answer = question.get_top_answer()
+    # answer.to_html()
+    answer.to_md()
+    answer.to_txt()
+    e = time.time()
+    print e - s
+    # # i = 0
+    # for answer in answers:
+    #     # i = i + 1
+    #     # if i > 200:
+    #     #     break
+    #     answer.to_txt()
+    #     answer.to_md()
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
