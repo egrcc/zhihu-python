@@ -4,8 +4,37 @@ zhihu-python：获取知乎信息
 介绍
 ----
 
-zhihu-python 采用 python2.7 编写，用来方便地获取知乎上各种内容的信息，并且可以方便地将答案备份导出为 txt 或 markdown 文件。
-由于知乎官方没有提供 api，所以有了此项目地存在。
+zhihu-python 采用 python2.7 编写，用来方便地获取知乎上各种内容的信息，并且可以方便地将答案备份导出为 txt 或 markdown 文件。由于知乎官方目前没有提供 api，所以有了此项目地存在。
+
+获取某个问题下的全部回答并导出，很简单：
+
+.. code-block:: python
+
+    from zhihu import Question
+    
+    url = "http://www.zhihu.com/question/24269892"
+    question = Question(url)
+    answers = question.get_all_answers()
+    for answer in answers:
+        answer.to_txt()
+        answer.to_md()
+ 
+会在当前目录下新建text，markdown两个文件夹，并将所有txt文件保存到text文件夹，所有markdown文件保存到markdown文件夹。
+
+备份某大V的全部回答，也很简单：
+
+.. code-block:: python
+    
+    from zhihu import User
+    
+    user_url = "http://www.zhihu.com/people/jixin"
+    user = User(user_url)
+    answers = user.get_answers()
+    for answer in answers:
+        answer.to_txt()
+        answer.to_md()
+        
+导出的markdown，txt文件示例请见该项目的markdown，text文件夹。当然，想要知道某大V关注了那些人，提了什么问题也不在话下，详情请见：快速开始。        
 
 依赖
 -----
@@ -29,6 +58,8 @@ zhihu-python 采用 python2.7 编写，用来方便地获取知乎上各种内�
 
 zhihu-python 主要文件为 zhihu.py ，配置文件为 config.ini , 将这两个文件下载到你的工作目录，并修改
 config.ini 文件中的 email 为你的知乎账户邮箱，修改 password 为你的知乎账户密码（用作模拟登录）。
+
+**注意** ：一定记得修改config.ini文件，否则无法正常使用。
 
  
 Question：获取问题信息
