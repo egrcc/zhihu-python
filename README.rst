@@ -303,23 +303,23 @@ Collection 代表一个收藏夹，处理收藏夹相关操作。创建一个 Co
     
     url = "http://www.zhihu.com/question/24269892"
     question = Question(url)
-	# 得到排名第一的答案
+    # 得到排名第一的答案
     answer = question.get_top_answer()
-	# 得到排名第一的答案的作者
+    # 得到排名第一的答案的作者
     user = answer.get_author()
-	# 得到该作者回答过的所有问题的答案
+    # 得到该作者回答过的所有问题的答案
     user_answers = user.get_answers()
-	# 输出该作者回答过的所有问题的标题
+    # 输出该作者回答过的所有问题的标题
     for answer in user_answers:
         print answer.get_question().get_title()
-	# 得到该用户的所有收藏夹
+    # 得到该用户的所有收藏夹
     user_collections = user.get_collections()
     for collection in user_collections:
-		# 输出每一个收藏夹的名字
+	# 输出每一个收藏夹的名字
         print collection.get_name()
-		# 得到该收藏夹下的前十个回答
+	# 得到该收藏夹下的前十个回答
         top_answers = collection.get_top_i_answers(10)
-		# 把答案内容转成txt，markdown
+	# 把答案内容转成txt，markdown
         for answer in top_answers:
             answer.to_txt()
             answer.to_md()
