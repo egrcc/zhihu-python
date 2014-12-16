@@ -335,7 +335,7 @@ API
 zhihu.Question ---- 知乎问题操作类
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class zhihu.Question(url, title = None)
+class zhihu.Question(url, title = None) ::
 
  Question 以 url 为唯一标识，创建一个 Question 对象实例必须传入一个代表知乎问题的 url （如：         http://www.zhihu.com/question/26611428），需包含“http://”。如果传入的不是代表问题的 url ，程序会报错。通过调用 Question 类的一系列方法，获得该问题的一些信息。
  
@@ -401,7 +401,7 @@ class zhihu.Question(url, title = None)
 zhihu.User ---- 知乎用户操作类
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class zhihu.User(user_url, user_id = None)
+class zhihu.User(user_url, user_id = None) ::
 
  User 以 url 为唯一标识，创建一个 User 对象实例必须传入一个代表知乎用户的 url （如：         http://www.zhihu.com/people/egrcc），需包含“http://”。如果传入的不是代表用户的 url ，程序会报错。通过调用 User 类的一系列方法，获得该用户的一些信息。
  
@@ -493,7 +493,7 @@ class zhihu.User(user_url, user_id = None)
 zhihu.Answer ---- 知乎回答操作类
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class zhihu.Answer(answer_url, question = None, author = None, upvote = None, content = None)
+class zhihu.Answer(answer_url, question = None, author = None, upvote = None, content = None) ::
 
  Answer 以 url 为唯一标识，创建一个 Answer 对象实例必须传入一个代表知乎回答的 url （如：         http://www.zhihu.com/question/19878575/answer/14776495），需包含“http://”。如果传入的不是代表回答的 url ，程序会报错。通过调用 Answer 类的一系列方法，获得该回答的一些信息。一般不自己创建Answer对象。
  
@@ -542,7 +542,7 @@ class zhihu.Answer(answer_url, question = None, author = None, upvote = None, co
 zhihu.Collection ---- 知乎收藏夹操作类
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class zhihu.Collection(url, name = None, creator = None)
+class zhihu.Collection(url, name = None, creator = None) ::
 
  Collection 以 url 为唯一标识，创建一个 Collection 对象实例必须传入一个代表知乎收藏夹的 url （如：         http://www.zhihu.com/collection/27053469），需包含“http://”。如果传入的不是代表收藏夹的 url ，程序会报错。通过调用 Collection 类的一系列方法，获得该收藏夹的一些信息。
  
