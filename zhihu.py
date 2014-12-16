@@ -259,14 +259,14 @@ class Question:
                         answer = Answer(answer_url, self, author, upvote, content)
                         yield answer
 
-    def get_top_i_answers(self, i):
-        # if i > self.get_answers_num():
-        #     i = self.get_answers_num()
+    def get_top_i_answers(self, n):
+        # if n > self.get_answers_num():
+        #     n = self.get_answers_num()
         j = 0
         answers = self.get_all_answers()
         for answer in answers:
             j = j + 1
-            if j > i:
+            if j > n:
                 break
             yield answer
 
@@ -915,11 +915,11 @@ class Collection:
                         yield Answer(answer_url, question, author)
                 i = i + 1
 
-    def get_top_i_answers(self, i):
+    def get_top_i_answers(self, n):
         j = 0
         answers = self.get_all_answers()
         for answer in answers:
             j = j + 1
-            if j > i:
+            if j > n:
                 break
             yield answer

@@ -324,6 +324,7 @@ Collection 代表一个收藏夹，处理收藏夹相关操作。创建一个 Co
             answer.to_txt()
             answer.to_md()
 
+以上示例均可以在test.py文件中找到。
 
 虽然是单线程，但速度不算太慢。抓取 `哪些东西买了之后，会让人因生活质量和幸福感提升而感觉相见恨晚？ <http://www.zhihu.com/question/20840874>`_ 下前200个回答，91秒；抓取 `有哪些 100 元以下，很少见但高大上的物件？ <http://www.zhihu.com/question/23054572>`_ 下前50个回答，48秒；抓取 `现实可以有多美好？ <http://www.zhihu.com/question/24269892>`_ 下前200个回答，69秒。生成的文件请见markdown，text文件夹。所有匿名用户的回答放在一个文件里面。
 
@@ -331,7 +332,250 @@ Collection 代表一个收藏夹，处理收藏夹相关操作。创建一个 Co
 API
 -------
 
-有待添加
+zhihu.Question ---- 知乎问题操作类
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class zhihu.Question(url, title = None)
+
+ Question 以 url 为唯一标识，创建一个 Question 对象实例必须传入一个代表知乎问题的 url （如：         http://www.zhihu.com/question/26611428），需包含“http://”。如果传入的不是代表问题的 url ，程序会报错。通过调用 Question 类的一系列方法，获得该问题的一些信息。
+ 
+ Parameters：
+  * url -- 该问题的链接，字符串
+  * title -- 该问题的标题，字符串，可选
+ 
+ Returns： 一个 Question 实例对象
+ 
+ get_title()
+ 
+  得到该问题的标题。
+  
+  Returns： 代表标题的字符串
+ 
+ get_detail()
+ 
+  得到该问题的详细描述。原问题的描述可能带有图片或视频，这里得到的是纯文字。
+  
+  Returns： 代表详细描述的字符串
+ 
+ get_answers_num()
+ 
+  得到该问题的回答个数。
+  
+  Returns： 代表回答个数的 int 型整数
+ 
+ get_followers_num()
+ 
+  得到关注该问题的人数。
+  
+  Returns： 代表人数的 int 型整数
+ 
+ get_topics()
+ 
+  得到该问题所属的话题。
+  
+  Returns： 一个 list ，每一个元素为代表一个话题的字符串
+  
+  注：以后可能会添加一个 Topic 类，到时候每一个元素为代表一个话题的 Topic 类对象。
+ 
+ get_all_answers()
+ 
+  得到该问题的所有回答。
+  
+  Returns： 包含所有答案的 generator 对象。其中每一个元素为代表一个答案的 Answer 对象 
+ 
+ get_top_i_answers(n)
+ 
+  得到该问题的前 n 个回答。
+  
+  Parameters： n -- int 型整数
+  
+  Returns： 包含前 n 个答案的 generator 对象。其中每一个元素为代表一个答案的 Answer 对象
+ 
+ get_top_answer()
+ 
+  得到目前排名第一的回答。
+ 
+  Returns： 代表该答案的 Answer 对象
+ 
+
+zhihu.User ---- 知乎用户操作类
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class zhihu.User(user_url, user_id = None)
+
+ User 以 url 为唯一标识，创建一个 User 对象实例必须传入一个代表知乎用户的 url （如：         http://www.zhihu.com/people/egrcc），需包含“http://”。如果传入的不是代表用户的 url ，程序会报错。通过调用 User 类的一系列方法，获得该用户的一些信息。
+ 
+ Parameters：
+  * user_url -- 该用户的链接，字符串
+  * user_id -- 该用户的 ID ，字符串，可选
+  
+ Returns： 一个 User 实例对象
+
+ get_user_id()
+ 
+  得到该用户的ID。
+  
+  Returns： 代表 ID 的字符串
+ 
+ get_followees_num()
+ 
+  得到该用户关注的人的个数。
+  
+  Returns： 代表人数的 int 型整数
+ 
+ get_followers_num()
+ 
+  得到关注该用户的人的个数。
+  
+  Returns： 代表人数的 int 型整数
+ 
+ get_agree_num()
+ 
+  得到该用户获得的赞同数。
+  
+  Returns： 代表赞同数的 int 型整数
+ 
+ get_thanks_num()
+ 
+  得到该用户获得的感谢数。
+  
+  Returns： 代表感谢数的 int 型整数
+ 
+ get_asks_num()
+ 
+  得到该用户提问题的个数。
+  
+  Returns： 代表问题数的 int 型整数 
+ 
+ get_answers_num()
+ 
+  得到该用户回答问题的个数。
+  
+  Returns： 代表问题数的 int 型整数 
+ 
+ get_collections_num()
+ 
+  得到该用户收藏夹的个数。
+  
+  Returns： 代表收藏夹数的 int 型整数 
+ 
+ get_followees()
+ 
+  得到该用户关注的人。
+  
+  Returns： 包含所有该用户关注的人的 generator 对象。其中每一个元素为代表一个用户的 User 对象
+ 
+ get_followers()
+ 
+  得到关注该用户的人。
+  
+  Returns： 包含所有关注该用户的人的 generator 对象。其中每一个元素为代表一个用户的 User 对象
+ 
+ get_asks()
+ 
+  得到该用户提的所有问题。
+  
+  Returns： 包含所有问题的 generator 对象。其中每一个元素为代表一个问题的 Question 对象
+ 
+ get_answers()
+ 
+  得到该用户回答的所有问题的答案。
+  
+  Returns： 包含所有回答的 generator 对象。其中每一个元素为代表一个回答的 Answer 对象
+ 
+ get_collections()
+ 
+  得到该用户的所有收藏夹。
+  
+  Returns： 包含所有收藏夹的 generator 对象。其中每一个元素为代表一个收藏夹的 Collection 对象
+ 
+
+zhihu.Answer ---- 知乎回答操作类
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class zhihu.Answer(answer_url, question = None, author = None, upvote = None, content = None)
+
+ Answer 以 url 为唯一标识，创建一个 Answer 对象实例必须传入一个代表知乎回答的 url （如：         http://www.zhihu.com/question/19878575/answer/14776495），需包含“http://”。如果传入的不是代表回答的 url ，程序会报错。通过调用 Answer 类的一系列方法，获得该回答的一些信息。一般不自己创建Answer对象。
+ 
+ Parameters：
+  * answer_url -- 该答案的链接，字符串
+  * question -- 该答案回答的问题， Question 对象，可选
+  * author -- 该答案的作者， User 对象，可选
+  * upvote -- 该答案获得的赞同数， int 型整数，可选
+  * content -- 该答案的内容， BeautifulSoup 对象，可选
+  
+ Returns： 一个 Answer 实例对象
+
+ get_question()
+ 
+  得到该答案回答的问题。
+  
+  Returns： 一个 Question 对象
+ 
+ get_author()
+ 
+  得到该答案的作者 。
+  
+  Returns： 一个 User 对象
+ 
+ get_upvote()
+ 
+  得到该答案获得的赞同数。
+  
+  Returns： 一个 int 型整数
+ 
+ get_content()
+ 
+  得到该答案的内容。
+  
+  Returns： 一个 BeautifulSoup 对象
+ 
+ to_txt()
+  
+  将该答案转成txt文件，并会在当前目录下创建一个text文件夹，所生成的txt文件均保存在该文件夹。
+ 
+ to_md()
+ 
+  将该答案转成markdown文件，并会在当前目录下创建一个markdown文件夹，所生成的markdown文件均保存在该文件夹。
+
+
+zhihu.Collection ---- 知乎收藏夹操作类
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class zhihu.Collection(url, name = None, creator = None)
+
+ Collection 以 url 为唯一标识，创建一个 Collection 对象实例必须传入一个代表知乎收藏夹的 url （如：         http://www.zhihu.com/collection/27053469），需包含“http://”。如果传入的不是代表收藏夹的 url ，程序会报错。通过调用 Collection 类的一系列方法，获得该收藏夹的一些信息。
+ 
+ Parameters：
+  * url -- 该收藏夹的链接，字符串
+  * name -- 该收藏夹的名字，字符串，可选
+  * creator -- 该收藏夹的创建者，User 对象，可选
+  
+ Returns： 一个 Collection 实例对象
+
+ get_name()
+ 
+  得到该收藏夹的名字。
+  
+  Returns： 代表名字的字符串
+ 
+ get_creator()
+ 
+  得到该收藏夹的创建者。
+  
+  Returns：代表创建者 User 对象
+ 
+ get_all_answers()
+ 
+  得到该收藏夹收藏的所有回答。
+  
+  Returns： 包含该收藏夹下所有回答的 generator 对象。其中每一个元素为代表一个回答的 Answer 对象
+ 
+ get_top_i_answers(n)
+ 
+  得到该收藏夹收藏的前 n 个回答。
+  
+  Returns： 包含该收藏夹下前 n 个回答的 generator 对象。其中每一个元素为代表一个回答的 Answer 对象
 
 
 
