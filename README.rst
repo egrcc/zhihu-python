@@ -423,7 +423,7 @@ zhihu.User ---- 知乎用户操作类
   
   **Returns**： 代表人数的 int 型整数
  
- **get_followers_num**()
+ **get_followers_num** ()
  
   得到关注该用户的人的个数。
   
