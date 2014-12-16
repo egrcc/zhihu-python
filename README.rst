@@ -335,7 +335,7 @@ API
 zhihu.Question ---- 知乎问题操作类
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-*class* zhihu.**Question**(*url, title = None*)
+*class* zhihu. **Question** (*url, title = None*)
 
  Question 以 url 为唯一标识，创建一个 Question 对象实例必须传入一个代表知乎问题的 url （如：         http://www.zhihu.com/question/26611428），需包含“http://”。如果传入的不是代表问题的 url ，程序会报错。通过调用 Question 类的一系列方法，获得该问题的一些信息。
  
@@ -345,31 +345,31 @@ zhihu.Question ---- 知乎问题操作类
  
  **Returns**： 一个 Question 实例对象
  
- **get_title**()
+ **get_title** ()
  
   得到该问题的标题。
   
   **Returns**： 代表标题的字符串
  
- **get_detail**()
+ **get_detail** ()
  
   得到该问题的详细描述。原问题的描述可能带有图片或视频，这里得到的是纯文字。
   
   **Returns**： 代表详细描述的字符串
  
- get_answers_num()
+ **get_answers_num** ()
  
   得到该问题的回答个数。
   
   **Returns**： 代表回答个数的 int 型整数
  
- get_followers_num()
+ **get_followers_num** ()
  
   得到关注该问题的人数。
   
   **Returns**： 代表人数的 int 型整数
  
- get_topics()
+ **get_topics** ()
  
   得到该问题所属的话题。
   
@@ -377,21 +377,21 @@ zhihu.Question ---- 知乎问题操作类
   
   注：以后可能会添加一个 Topic 类，到时候每一个元素为代表一个话题的 Topic 类对象。
  
- get_all_answers()
+ **get_all_answers** ()
  
   得到该问题的所有回答。
   
   **Returns**： 包含所有答案的 generator 对象。其中每一个元素为代表一个答案的 Answer 对象 
  
- get_top_i_answers(n)
+ **get_top_i_answers** (n)
  
   得到该问题的前 n 个回答。
   
-  Parameters： n -- int 型整数
+  **Parameters**： **n** -- int 型整数
   
   **Returns**： 包含前 n 个答案的 generator 对象。其中每一个元素为代表一个答案的 Answer 对象
  
- get_top_answer()
+ **get_top_answer** ()
  
   得到目前排名第一的回答。
  
@@ -401,89 +401,89 @@ zhihu.Question ---- 知乎问题操作类
 zhihu.User ---- 知乎用户操作类
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class zhihu.User(user_url, user_id = None)
+*class* zhihu. **User** (*user_url, user_id = None*)
 
  User 以 url 为唯一标识，创建一个 User 对象实例必须传入一个代表知乎用户的 url （如：         http://www.zhihu.com/people/egrcc），需包含“http://”。如果传入的不是代表用户的 url ，程序会报错。通过调用 User 类的一系列方法，获得该用户的一些信息。
  
- Parameters：
-  * user_url -- 该用户的链接，字符串
-  * user_id -- 该用户的 ID ，字符串，可选
+ **Parameters**：
+  * **user_url** -- 该用户的链接，字符串
+  * **user_id** -- 该用户的 ID ，字符串，可选
   
  **Returns**： 一个 User 实例对象
 
- get_user_id()
+ **get_user_id** ()
  
   得到该用户的ID。
   
   **Returns**： 代表 ID 的字符串
  
- get_followees_num()
+ **get_followees_num** ()
  
   得到该用户关注的人的个数。
   
   **Returns**： 代表人数的 int 型整数
  
- get_followers_num()
+ **get_followers_num**()
  
   得到关注该用户的人的个数。
   
   **Returns**： 代表人数的 int 型整数
  
- get_agree_num()
+ **get_agree_num** ()
  
   得到该用户获得的赞同数。
   
   **Returns**： 代表赞同数的 int 型整数
  
- get_thanks_num()
+ **get_thanks_num** ()
  
   得到该用户获得的感谢数。
   
   **Returns**： 代表感谢数的 int 型整数
  
- get_asks_num()
+ **get_asks_num** ()
  
   得到该用户提问题的个数。
   
   **Returns**： 代表问题数的 int 型整数 
  
- get_answers_num()
+ **get_answers_num** ()
  
   得到该用户回答问题的个数。
   
   **Returns**： 代表问题数的 int 型整数 
  
- get_collections_num()
+ **get_collections_num** ()
  
   得到该用户收藏夹的个数。
   
   **Returns**： 代表收藏夹数的 int 型整数 
  
- get_followees()
+ **get_followees** ()
  
   得到该用户关注的人。
   
   **Returns**： 包含所有该用户关注的人的 generator 对象。其中每一个元素为代表一个用户的 User 对象
  
- get_followers()
+ **get_followers** ()
  
   得到关注该用户的人。
   
   **Returns**： 包含所有关注该用户的人的 generator 对象。其中每一个元素为代表一个用户的 User 对象
  
- get_asks()
+ **get_asks** ()
  
   得到该用户提的所有问题。
   
   **Returns**： 包含所有问题的 generator 对象。其中每一个元素为代表一个问题的 Question 对象
  
- get_answers()
+ **get_answers** ()
  
   得到该用户回答的所有问题的答案。
   
   **Returns**： 包含所有回答的 generator 对象。其中每一个元素为代表一个回答的 Answer 对象
  
- get_collections()
+ **get_collections** ()
  
   得到该用户的所有收藏夹。
   
@@ -493,48 +493,48 @@ class zhihu.User(user_url, user_id = None)
 zhihu.Answer ---- 知乎回答操作类
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class zhihu.Answer(answer_url, question = None, author = None, upvote = None, content = None)
+*class* zhihu. **Answer** (*answer_url, question = None, author = None, upvote = None, content = None*)
 
  Answer 以 url 为唯一标识，创建一个 Answer 对象实例必须传入一个代表知乎回答的 url （如：         http://www.zhihu.com/question/19878575/answer/14776495），需包含“http://”。如果传入的不是代表回答的 url ，程序会报错。通过调用 Answer 类的一系列方法，获得该回答的一些信息。一般不自己创建Answer对象。
  
- Parameters：
-  * answer_url -- 该答案的链接，字符串
-  * question -- 该答案回答的问题， Question 对象，可选
-  * author -- 该答案的作者， User 对象，可选
-  * upvote -- 该答案获得的赞同数， int 型整数，可选
-  * content -- 该答案的内容， BeautifulSoup 对象，可选
+ **Parameters**：
+  * **answer_url** -- 该答案的链接，字符串
+  * **question** -- 该答案回答的问题， Question 对象，可选
+  * **author** -- 该答案的作者， User 对象，可选
+  * **upvote** -- 该答案获得的赞同数， int 型整数，可选
+  * **content** -- 该答案的内容， BeautifulSoup 对象，可选
   
  **Returns**： 一个 Answer 实例对象
 
- get_question()
+ **get_question** ()
  
   得到该答案回答的问题。
   
   **Returns**： 一个 Question 对象
  
- get_author()
+ **get_author** ()
  
   得到该答案的作者 。
   
   **Returns**： 一个 User 对象
  
- get_upvote()
+ **get_upvote** ()
  
   得到该答案获得的赞同数。
   
   **Returns**： 一个 int 型整数
  
- get_content()
+ **get_content** ()
  
   得到该答案的内容。
   
   **Returns**： 一个 BeautifulSoup 对象
  
- to_txt()
+ **to_txt** ()
   
   将该答案转成txt文件，并会在当前目录下创建一个text文件夹，所生成的txt文件均保存在该文件夹。
  
- to_md()
+ **to_md** ()
  
   将该答案转成markdown文件，并会在当前目录下创建一个markdown文件夹，所生成的markdown文件均保存在该文件夹。
 
@@ -542,38 +542,40 @@ class zhihu.Answer(answer_url, question = None, author = None, upvote = None, co
 zhihu.Collection ---- 知乎收藏夹操作类
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class zhihu.Collection(url, name = None, creator = None)
+*class* zhihu. **Collection** (*url, name = None, creator = None*)
 
  Collection 以 url 为唯一标识，创建一个 Collection 对象实例必须传入一个代表知乎收藏夹的 url （如：         http://www.zhihu.com/collection/27053469），需包含“http://”。如果传入的不是代表收藏夹的 url ，程序会报错。通过调用 Collection 类的一系列方法，获得该收藏夹的一些信息。
  
- Parameters：
-  * url -- 该收藏夹的链接，字符串
-  * name -- 该收藏夹的名字，字符串，可选
-  * creator -- 该收藏夹的创建者，User 对象，可选
+ **Parameters**：
+  * **url** -- 该收藏夹的链接，字符串
+  * **name** -- 该收藏夹的名字，字符串，可选
+  * **creator** -- 该收藏夹的创建者，User 对象，可选
   
  **Returns**： 一个 Collection 实例对象
 
- get_name()
+ **get_name** ()
  
   得到该收藏夹的名字。
   
   **Returns**： 代表名字的字符串
  
- get_creator()
+ **get_creator** ()
  
   得到该收藏夹的创建者。
   
   **Returns**：代表创建者 User 对象
  
- get_all_answers()
+ **get_all_answers** ()
  
   得到该收藏夹收藏的所有回答。
   
   **Returns**： 包含该收藏夹下所有回答的 generator 对象。其中每一个元素为代表一个回答的 Answer 对象
  
- get_top_i_answers(n)
+ **get_top_i_answers** (n)
  
   得到该收藏夹收藏的前 n 个回答。
+  
+  **Parameters**： **n** -- int 型整数
   
   **Returns**： 包含该收藏夹下前 n 个回答的 generator 对象。其中每一个元素为代表一个回答的 Answer 对象
 
