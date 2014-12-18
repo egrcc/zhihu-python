@@ -4,6 +4,7 @@ import os
 import re
 import time
 import json
+import platform
 import requests
 import html2text
 import ConfigParser
@@ -21,7 +22,15 @@ def create_session():
     password = cf.get("info", "password")
     s = requests.session()
     login_data = {"email": email, "password": password}
-    s.post('http://www.zhihu.com/login', login_data)
+    header = {
+        'User-Agent': "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:34.0) Gecko/20100101 Firefox/34.0",
+        'Host': "www.zhihu.com",
+        'Referer': "http://www.zhihu.com/",
+        'X-Requested-With': "XMLHttpRequest"
+    }
+    r = s.post('http://www.zhihu.com/login', data = login_data, headers = header)
+    if r.json()["r"] == 1:
+        raise Exception("login failed.")
     session = s
 
 
@@ -64,21 +73,33 @@ class Question:
 
     def get_title(self):
         if hasattr(self, "title"):
-            return self.title
+            if platform.system() == 'Windows':
+                title = self.title.decode('utf-8').encode('gbk')
+                return title
+            else:
+                return self.title
         else:
             if self.soup == None:
                 self.parser()
             soup = self.soup
             title = soup.find("h2", class_ = "zm-item-title").string.encode("utf-8").replace("\n", "")
             self.title = title
-            return title
+            if platform.system() == 'Windows':
+                title = title.decode('utf-8').encode('gbk')
+                return title
+            else:
+                return title
 
     def get_detail(self):
         if self.soup == None:
             self.parser()
         soup = self.soup
         detail = soup.find("div", id = "zh-question-detail").div.get_text().encode("utf-8")
-        return detail
+        if platform.system() == 'Windows':
+            detail = detail.decode('utf-8').encode('gbk')
+            return detail
+        else:
+            return detail
 
     def get_answers_num(self):
         if self.soup == None:
@@ -103,7 +124,10 @@ class Question:
         topic_list = soup.find_all("a", class_ = "zm-item-tag")
         topics = []
         for i in topic_list:
-            topics.append(i.contents[0].encode("utf-8").replace("\n", ""))
+            topic = i.contents[0].encode("utf-8").replace("\n", "")
+            if platform.system() == 'Windows':
+                topic = topic.decode('utf-8').encode('gbk')
+            topics.append(topic)
         return topics
 
     # def get_top_answer(self):
@@ -315,10 +339,16 @@ class User:
     def get_user_id(self):
         if self.user_url == None:
             # print "I'm anonymous user."
-            return "匿名用户"
+            if platform.system() == 'Windows':
+                return "匿名用户".decode('utf-8').encode('gbk')
+            else:
+                return "匿名用户"
         else:
             if hasattr(self, "user_id"):
-                return self.user_id
+                if platform.system() == 'Windows':
+                    return self.user_id.decode('utf-8').encode('gbk')
+                else:
+                    return self.user_id
             else:
                 if self.soup == None:
                     self.parser()
@@ -326,7 +356,10 @@ class User:
                 user_id = soup.find("div", class_ = "title-section ellipsis") \
                         .find("span", class_ = "name").string.encode("utf-8")
                 self.user_id = user_id
-                return user_id
+                if platform.system() == 'Windows':
+                    return user_id.decode('utf-8').encode('gbk')
+                else:
+                    return user_id
 
     def get_followees_num(self):
         if self.user_url == None:
@@ -704,11 +737,23 @@ class Answer:
         for li in li_list:
             li.insert_before(content.new_string("\n"))
 
-        if self.get_author().get_user_id() == "匿名用户":
+        if platform.system() == 'Windows':
+            anon_user_id = "匿名用户".decode('utf-8').encode('gbk')
+        else:
+            anon_user_id = "匿名用户"
+        if self.get_author().get_user_id() == anon_user_id:
             if not os.path.isdir(os.path.join(os.path.join(os.getcwd(), "text"))):
                 os.makedirs(os.path.join(os.path.join(os.getcwd(), "text")))
-            file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.txt"
+            if platform.system() == 'Windows':
+                file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.txt".decode('utf-8').encode('gbk')
+            else:
+                file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.txt"
             print file_name
+            # if platform.system() == 'Windows':
+            #     file_name = file_name.decode('utf-8').encode('gbk')
+            #     print file_name
+            # else:
+            #     print file_name
             if os.path.exists(os.path.join(os.path.join(os.getcwd(), "text"), file_name)):
                 f = open(os.path.join(os.path.join(os.getcwd(), "text"), file_name), "a")
                 f.write("\n\n")
@@ -718,13 +763,27 @@ class Answer:
         else:
             if not os.path.isdir(os.path.join(os.path.join(os.getcwd(), "text"))):
                 os.makedirs(os.path.join(os.path.join(os.getcwd(), "text")))
-            file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.txt"
+            if platform.system() == 'Windows':
+                file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.txt".decode('utf-8').encode('gbk')
+            else:
+                file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.txt"
             print file_name
+            # if platform.system() == 'Windows':
+            #     file_name = file_name.decode('utf-8').encode('gbk')
+            #     print file_name
+            # else:
+            #     print file_name
             f = open(os.path.join(os.path.join(os.getcwd(), "text"), file_name), "wt")
             f.write(self.get_question().get_title() + "\n\n")
-        f.write("作者: " + self.get_author().get_user_id() + "  赞同: " + str(self.get_upvote()) + "\n\n")
-        f.write(body.get_text().encode("utf-8"))
-        f.write("\n" + "原链接: " + self.answer_url)
+        if platform.system() == 'Windows':
+            f.write("作者: ".decode('utf-8').encode('gbk') + self.get_author().get_user_id() + "  赞同: ".decode('utf-8').encode('gbk') + str(self.get_upvote()) + "\n\n")
+            f.write(body.get_text().encode("gbk"))
+            link_str = "原链接: ".decode('utf-8').encode('gbk')
+            f.write("\n" + link_str + self.answer_url.decode('utf-8').encode('gbk'))
+        else:
+            f.write("作者: " + self.get_author().get_user_id() + "  赞同: " + str(self.get_upvote()) + "\n\n")
+            f.write(body.get_text().encode("utf-8"))
+            f.write("\n" + "原链接: " + self.answer_url)
         f.close()
 
     # def to_html(self):
@@ -742,32 +801,49 @@ class Answer:
 
     def to_md(self):
         content = self.get_content()
-        if self.get_author().get_user_id() == "匿名用户":
-            file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.md"
+        if platform.system() == 'Windows':
+            anon_user_id = "匿名用户".decode('utf-8').encode('gbk')
+        else:
+            anon_user_id = "匿名用户"
+        if self.get_author().get_user_id() == anon_user_id:
+            if platform.system() == 'Windows':
+                file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.md".decode('utf-8').encode('gbk')
+            else:
+                file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.md"
             print file_name
+            # if platform.system() == 'Windows':
+            #     file_name = file_name.decode('utf-8').encode('gbk')
+            #     print file_name
+            # else:
+            #     print file_name
             if not os.path.isdir(os.path.join(os.path.join(os.getcwd(), "markdown"))):
                 os.makedirs(os.path.join(os.path.join(os.getcwd(), "markdown")))
             if os.path.exists(os.path.join(os.path.join(os.getcwd(), "markdown"), file_name)):
                 f = open(os.path.join(os.path.join(os.getcwd(), "markdown"), file_name), "a")
-                # f_2 = open(os.path.join(os.path.join(os.getcwd(), "markdown"), "2_" + file_name), "a")
                 f.write("\n")
-                # f_2.write("\n")
             else:
                 f = open(os.path.join(os.path.join(os.getcwd(), "markdown"), file_name), "a")
-                # f_2 = open(os.path.join(os.path.join(os.getcwd(), "markdown"), "2_" + file_name), "a")
                 f.write("# " + self.get_question().get_title() + "\n")
-                # f_2.write("# " + self.get_question().get_title() + "\n")
         else:
             if not os.path.isdir(os.path.join(os.path.join(os.getcwd(), "markdown"))):
                 os.makedirs(os.path.join(os.path.join(os.getcwd(), "markdown")))
-            file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.md"
+            if platform.system() == 'Windows':
+                file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.md".decode('utf-8').encode('gbk')
+            else:
+                file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.md"
             print file_name
+            # file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.md"
+            # if platform.system() == 'Windows':
+            #     file_name = file_name.decode('utf-8').encode('gbk')
+            #     print file_name
+            # else:
+            #     print file_name
             f = open(os.path.join(os.path.join(os.getcwd(), "markdown"), file_name), "wt")
-            # f_2 = open(os.path.join(os.path.join(os.getcwd(), "markdown"), "2_" + file_name), "wt")
             f.write("# " + self.get_question().get_title() + "\n")
-            # f_2.write("# " + self.get_question().get_title() + "\n")
-        f.write("## 作者: " + self.get_author().get_user_id() + "  赞同: " + str(self.get_upvote()) + "\n")
-        # f_2.write("## 作者: " + self.get_author().get_user_id() + "  赞同: " + str(self.get_upvote()) + "\n")
+        if platform.system() == 'Windows':
+            f.write("## 作者: ".decode('utf-8').encode('gbk') + self.get_author().get_user_id() + "  赞同: ".decode('utf-8').encode('gbk') + str(self.get_upvote()) + "\n")
+        else:
+            f.write("## 作者: " + self.get_author().get_user_id() + "  赞同: " + str(self.get_upvote()) + "\n")
         text = html2text.html2text(content.decode('utf-8')).encode("utf-8")
 
         r = re.findall(r'\*\*(.*?)\*\*', text)
@@ -784,12 +860,14 @@ class Answer:
         for i in r:
             text = text.replace(i, i + "\n\n")
 
-        f.write(text)
-        # f_2.write(text)
-        f.write("#### 原链接: " + self.answer_url)
-        # f_2.write("#### 原链接: " + self.answer_url)
+        if platform.system() == 'Windows':
+            f.write(text.decode('utf-8').encode('gbk'))
+            link_str = "#### 原链接: ".decode('utf-8').encode('gbk')
+            f.write(link_str + self.answer_url.decode('utf-8').encode('gbk'))
+        else:   
+            f.write(text)
+            f.write("#### 原链接: " + self.answer_url)
         f.close()
-        # f_2.close()
 
 
 
@@ -833,12 +911,17 @@ class Collection:
 
     def get_name(self):
         if hasattr(self, 'name'):
-            return self.name
+            if platform.system() == 'Windows':
+                return self.name.decode('utf-8').encode('gbk')
+            else:
+                return self.name
         else:
             if self.soup == None:
                 self.parser()
             soup = self.soup
             self.name = soup.find("h2", id = "zh-fav-head-title").string.encode("utf-8").strip()
+            if platform.system() == 'Windows':
+                return self.name.decode('utf-8').encode('gbk')
             return self.name
 
     def get_creator(self):
