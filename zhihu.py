@@ -481,8 +481,8 @@ class User:
                             'Host': "www.zhihu.com",
                             'Referer': followee_url
                         }
-                        r = s.post(post_url, data = data, headers = header)
-                        followee_list = r.json()["msg"]
+                        r_post = s.post(post_url, data = data, headers = header)
+                        followee_list = r_post.json()["msg"]
                         for j in range(min(followees_num - i * 20, 20)):
                             followee_soup = BeautifulSoup(followee_list[j])
                             user_link = followee_soup.find("h2", class_ = "zm-list-content-title").a
@@ -529,8 +529,8 @@ class User:
                             'Host': "www.zhihu.com",
                             'Referer': follower_url
                         }
-                        r = s.post(post_url, data = data, headers = header)
-                        follower_list = r.json()["msg"]
+                        r_post = s.post(post_url, data = data, headers = header)
+                        follower_list = r_post.json()["msg"]
                         for j in range(min(followers_num - i * 20, 20)):
                             follower_soup = BeautifulSoup(follower_list[j])
                             user_link = follower_soup.find("h2", class_ = "zm-list-content-title").a
