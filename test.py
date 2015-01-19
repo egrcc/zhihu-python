@@ -113,9 +113,23 @@ def user_test(user_url):
     print followees
     # <generator object get_followee at 0x7ffcac3af050>
     # 代表所有该用户关注的人的生成器对象
+    i = 0
+    for followee in followees:
+        print followee.get_user_id()
+        i = i + 1
+        if i == 41:
+            break
+
     print followers
     # <generator object get_follower at 0x7ffcac3af0f0>
     # 代表所有关注该用户的人的生成器对象
+    i = 0
+    for follower in followers:
+        print follower.get_user_id()
+        i = i + 1
+        if i == 41:
+            break
+
     print asks
     # <generator object get_ask at 0x7ffcab9db780>
     # 代表该用户提的所有问题的生成器对象
