@@ -30,7 +30,6 @@ def create_session():
     password = cf.get("info", "password")
     
     
-    
     cookies = dict(cookies)
     print cookies
     
