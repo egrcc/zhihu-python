@@ -53,6 +53,12 @@ zhihu-python 采用 python2.7 编写，用来方便地获取知乎上各种内�
     $ pip install beautifulsoup4
     $ pip install html2text
 
+或者使用
+
+.. code-block:: bash
+
+    $ pip install -r requirements.txt
+
 **注意** ：如果同时安装了 python3 和 python2 ， pip 命令可能默认安装的是 python3 版本的包，故需将上述命令中的 pip 换成pip2 （比如在我的Ubuntu上）。
 
 快速开始
