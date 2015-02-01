@@ -48,6 +48,13 @@ def create_session():
         for m in r.json()["msg"]:
             print r.json()["msg"][m]
         print "Use cookies"
+        has_cookies = False
+        for key in cookies:
+            if key != '__name__' and cookies[key] != '':
+                has_cookies = True
+                break
+        if has_cookies == False:
+            raise ValueError("请填写config.ini文件中的cookies项.")
     session = s
 
 
@@ -532,9 +539,6 @@ class User:
                             'Referer': followee_url
                         }
                         has_cookies = False
-                        print "======================="
-                        print i
-                        print "======================="
                         for key in cookies:
                             if key != '__name__' and cookies[key] != '':
                                 has_cookies = True
@@ -543,9 +547,6 @@ class User:
                         if has_cookies == False:
                             r_post = s.post(post_url, data = data, headers = header)
                         followee_list = r_post.json()["msg"]
-                        print "======================="
-                        print i
-                        print "======================="
                         for j in range(min(followees_num - i * 20, 20)):
                             followee_soup = BeautifulSoup(followee_list[j])
                             user_link = followee_soup.find("h2", class_ = "zm-list-content-title").a

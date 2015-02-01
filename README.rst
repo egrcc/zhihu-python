@@ -67,6 +67,8 @@ zhihu-python 采用 python2.7 编写，用来方便地获取知乎上各种内�
 zhihu-python 主要文件为 zhihu.py ，配置文件为 config.ini , 将这两个文件下载到你的工作目录，并修改
 config.ini 文件中的 email 为你的知乎账户邮箱，修改 password 为你的知乎账户密码（用作模拟登录）。
 
+(2015.2.1更新)由`@Eureka22 <https://github.com/Eureka22>`_添加了cookies支持，若出现登录失败，请查看浏览器的cookies，填写 config.ini 文件中的 cookies 项后重试（当然，你的cookies可能与  cogfig.ini 文件中的某些项不同，比如没有“c_c”，可能会多出“_ga”，把你的补充上去即可）。如能正常登录，cookies 项可以不填写。
+
 **注意** ：一定记得修改config.ini文件，否则无法正常使用。
 
  
