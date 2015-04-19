@@ -19,7 +19,7 @@ def question_test(url):
     # 获取该问题所属话题
     topics = question.get_topics()
     # 获取该问题被浏览次数
-    visit_times=question.get_visit_times()
+    visit_times = question.get_visit_times()
     # 获取排名第一的回答
     top_answer = question.get_top_answer()
     # 获取排名前十的十个回答
@@ -41,7 +41,7 @@ def question_test(url):
     print followers_num  # 输出：26910
     for topic in topics:
         print topic,  # 输出：情感克制 现实 社会 个人经历
-    print visit_times # 输出: 该问题当前被浏览的次数
+    print visit_times  # 输出: 该问题当前被浏览的次数
     print top_answer  # 输出：<zhihu.Answer instance at 0x7f8b6582d0e0>（Answer类对象）
     print top_answers  # 输出：<generator object get_top_i_answers at 0x7fed676eb320>（代表前十的Answer的生成器）
     print answers  # 输出：<generator object get_all_answer at 0x7f8b66ba30a0>（代表所有Answer的生成器）
@@ -57,6 +57,8 @@ def answer_test(answer_url):
     upvote = answer.get_upvote()
     # 获取改该答案所属问题被浏览次数
     visit_times = answer.get_visit_times()
+    # 获取所有给该答案点赞的用户信息
+    voters = answer.get_voters()
     # 把答案输出为txt文件
     answer.to_txt()
     # 把答案输出为markdown文件
@@ -69,9 +71,12 @@ def answer_test(answer_url):
     print author
     # <zhihu.User instance at 0x7f0b25425b90>
     # 一个User对象
+    for voter in voters:
+        print voter
+        # 一个 User 对象
     print author.get_user_id()  # 输出：田浩
     print upvote  # 输出：9320
-    print visit_times # 输出: 改答案所属问题被浏览次数
+    print visit_times  # 输出: 改答案所属问题被浏览次数
 
 
 def user_test(user_url):
@@ -208,3 +213,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

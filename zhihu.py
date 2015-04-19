@@ -23,14 +23,11 @@ def create_session():
     global cookies
     cf = ConfigParser.ConfigParser()
     cf.read("config.ini")
-
     cookies = cf._sections['cookies']
 
     email = cf.get("info", "email")
     password = cf.get("info", "password")
-
     cookies = dict(cookies)
-    # print cookies
 
     s = requests.session()
     login_data = {"email": email, "password": password}
@@ -824,9 +821,9 @@ class Answer:
             print file_name
             # if platform.system() == 'Windows':
             # file_name = file_name.decode('utf-8').encode('gbk')
-            #     print file_name
+            # print file_name
             # else:
-            #     print file_name
+            # print file_name
             if os.path.exists(os.path.join(os.path.join(os.getcwd(), "text"), file_name)):
                 f = open(os.path.join(os.path.join(os.getcwd(), "text"), file_name), "a")
                 f.write("\n\n")
@@ -844,9 +841,9 @@ class Answer:
             print file_name
             # if platform.system() == 'Windows':
             # file_name = file_name.decode('utf-8').encode('gbk')
-            #     print file_name
+            # print file_name
             # else:
-            #     print file_name
+            # print file_name
             f = open(os.path.join(os.path.join(os.getcwd(), "text"), file_name), "wt")
             f.write(self.get_question().get_title() + "\n\n")
         if platform.system() == 'Windows':
@@ -863,11 +860,11 @@ class Answer:
 
     # def to_html(self):
     # content = self.get_content()
-    #     if self.get_author().get_user_id() == "匿名用户":
-    #         file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.html"
-    #         f = open(file_name, "wt")
-    #         print file_name
-    #     else:
+    # if self.get_author().get_user_id() == "匿名用户":
+    # file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.html"
+    # f = open(file_name, "wt")
+    # print file_name
+    # else:
     #         file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.html"
     #         f = open(file_name, "wt")
     #         print file_name
@@ -955,6 +952,24 @@ class Answer:
             if "所属问题被浏览" in tag_p.contents[0].encode('utf-8'):
                 return int(tag_p.contents[1].contents[0])
 
+    def get_voters(self):
+        if self.soup == None:
+            self.parser()
+        soup = self.soup
+        data_aid = soup.find("div", class_="zm-item-answer ")["data-aid"]
+        request_url = 'http://www.zhihu.com/node/AnswerFullVoteInfoV2?params=%7B%22answer_id%22%3A%22' + str(
+            data_aid) + '%22%7D'
+        if session == None:
+            create_session()
+        s = session
+        r = s.get(request_url)
+        soup = BeautifulSoup(r.content)
+        voters_info = soup.find_all("span")[1:-1]
+        for voter_info in voters_info:
+            voter_url = "http://www.zhihu.com" + str(voter_info.a["href"])
+            voter_id = voter_info.a["title"].encode("utf-8")
+            yield User(voter_url, voter_id)
+
 
 class Collection:
     url = None
@@ -1000,7 +1015,7 @@ class Collection:
         # print 'has_cookies', has_cookies
         if has_cookies == False:
             r = s.get(self.url)
-        #print 'r', r.content
+        # print 'r', r.content
         soup = BeautifulSoup(r.content)
         self.soup = soup
 
@@ -1057,8 +1072,8 @@ class Collection:
                     question = Question(question_url, question_title)
                     answer_url = "http://www.zhihu.com" + answer.find("span", class_="answer-date-link-wrap").a["href"]
                     author = None
-                    #print 'answer url',answer_url
-                    #print 'answerfind',answer.find("h3", class_="zm-item-answer-author-wrap")
+                    # print 'answer url',answer_url
+                    # print 'answerfind',answer.find("h3", class_="zm-item-answer-author-wrap")
                     if answer.find("h3", class_="zm-item-answer-author-wrap").string == u"匿名用户":
                         author_url = None
                         author = User(author_url)
