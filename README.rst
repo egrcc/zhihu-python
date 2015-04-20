@@ -93,7 +93,7 @@ Question 代表一个问题，处理知乎问题相关操作。创建一个 Ques
     
     url = "http://www.zhihu.com/question/24269892"
     question = Question(url)
-    
+
     # 获取该问题的标题
     title = question.get_title()
     # 获取该问题的详细描述
@@ -104,15 +104,17 @@ Question 代表一个问题，处理知乎问题相关操作。创建一个 Ques
     followers_num = question.get_followers_num()
     # 获取该问题所属话题
     topics = question.get_topics()
+    # 获取该问题被浏览次数
+    visit_times = question.get_visit_times()
     # 获取排名第一的回答
     top_answer = question.get_top_answer()
     # 获取排名前十的十个回答
     top_answers = question.get_top_i_answers(10)
     # 获取所有回答
     answers = question.get_all_answers()
-    
-    print title # 输出：现实可以有多美好？
-    print detail 
+
+    print title  # 输出：现实可以有多美好？
+    print detail
     # 输出：
     # 本问题相对于“现实可以多残酷？传送门：现实可以有多残酷？
     # 题主：       昨天看了“现实可以有多残酷“。感觉不太好，所以我
@@ -121,19 +123,14 @@ Question 代表一个问题，处理知乎问题相关操作。创建一个 Ques
     # 是“晒幸福“比赛。所以大家从“现实，实际”的角度出发，讲述自己的
     # 美好故事，让大家看看社会的冷和暖，能更加辨证地看待世界，是此
     # 题和彼题共同的“心愿“吧。
-    print answers_num # 输出：2441
-    print followers_num # 输出：26910
+    print answers_num  # 输出：2441
+    print followers_num  # 输出：26910
     for topic in topics:
-        print topic , # 输出：情感克制 现实 社会 个人经历
-    print top_answer 
-    # 输出：<zhihu.Answer instance at 0x7f8b6582d0e0>
-    # 一个Answer类对象
-    print top_answers
-    # 输出：<generator object get_top_i_answers at 0x7fed676eb320>
-    # 代表前十的Answer的生成器
-    print answers 
-    # 输出：<generator object get_all_answer at 0x7f8b66ba30a0>
-    # 代表所有Answer的生成器
+        print topic,  # 输出：情感克制 现实 社会 个人经历
+    print visit_times  # 输出: 该问题当前被浏览的次数
+    print top_answer  # 输出：<zhihu.Answer instance at 0x7f8b6582d0e0>（Answer类对象）
+    print top_answers  # 输出：<generator object get_top_i_answers at 0x7fed676eb320>（代表前十的Answer的生成器）
+    print answers  # 输出：<generator object get_all_answer at 0x7f8b66ba30a0>（代表所有Answer的生成器）
 
    
 Answer：获取答案信息
@@ -163,20 +160,28 @@ Answer 代表了一个答案，处理知乎答案相关操作。创建一个 Ans
     author = answer.get_author()
     # 获取该答案获得的赞同数
     upvote = answer.get_upvote()
+    # 获取改该答案所属问题被浏览次数
+    visit_times = answer.get_visit_times()
+    # 获取所有给该答案点赞的用户信息
+    voters = answer.get_voters()
     # 把答案输出为txt文件
     answer.to_txt()
     # 把答案输出为markdown文件
     answer.to_md()
-    
-    print question 
+
+    print question
     # <zhihu.Question instance at 0x7f0b25d13f80>
     # 一个Question对象
-    print question.get_title() # 输出：现实可以有多美好？
-    print author 
+    print question.get_title()  # 输出：现实可以有多美好？
+    print author
     # <zhihu.User instance at 0x7f0b25425b90>
     # 一个User对象
-    print author.get_user_id() # 输出：田浩
-    print upvote # 输出：9320
+    for voter in voters:
+        print voter
+        # 一个 User 对象
+    print author.get_user_id()  # 输出：田浩
+    print upvote  # 输出：9320
+    print visit_times  # 输出: 改答案所属问题被浏览次数
 
 
 User：获取用户信息
