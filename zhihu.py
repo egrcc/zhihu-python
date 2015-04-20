@@ -167,6 +167,7 @@ class Question:
         if answers_num == 0:
             print "No answer."
             return
+            yield
         else:
             for i in xrange((answers_num - 1) / 50 + 1):
                 if i == 0:
@@ -865,11 +866,11 @@ class Answer:
     # f = open(file_name, "wt")
     # print file_name
     # else:
-    #         file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.html"
-    #         f = open(file_name, "wt")
-    #         print file_name
-    #     f.write(str(content))
-    #     f.close()
+    # file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.html"
+    # f = open(file_name, "wt")
+    # print file_name
+    # f.write(str(content))
+    # f.close()
 
     def to_md(self):
         content = self.get_content()
@@ -885,10 +886,10 @@ class Answer:
                 file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.md"
             print file_name
             # if platform.system() == 'Windows':
-            #     file_name = file_name.decode('utf-8').encode('gbk')
-            #     print file_name
+            # file_name = file_name.decode('utf-8').encode('gbk')
+            # print file_name
             # else:
-            #     print file_name
+            # print file_name
             if not os.path.isdir(os.path.join(os.path.join(os.getcwd(), "markdown"))):
                 os.makedirs(os.path.join(os.path.join(os.getcwd(), "markdown")))
             if os.path.exists(os.path.join(os.path.join(os.getcwd(), "markdown"), file_name)):
@@ -908,10 +909,10 @@ class Answer:
             print file_name
             # file_name = self.get_question().get_title() + "--" + self.get_author().get_user_id() + "的回答.md"
             # if platform.system() == 'Windows':
-            #     file_name = file_name.decode('utf-8').encode('gbk')
-            #     print file_name
+            # file_name = file_name.decode('utf-8').encode('gbk')
+            # print file_name
             # else:
-            #     print file_name
+            # print file_name
             f = open(os.path.join(os.path.join(os.getcwd(), "markdown"), file_name), "wt")
             f.write("# " + self.get_question().get_title() + "\n")
         if platform.system() == 'Windows':
@@ -957,18 +958,21 @@ class Answer:
             self.parser()
         soup = self.soup
         data_aid = soup.find("div", class_="zm-item-answer ")["data-aid"]
-        request_url = 'http://www.zhihu.com/node/AnswerFullVoteInfoV2?params=%7B%22answer_id%22%3A%22' + str(
-            data_aid) + '%22%7D'
+        request_url = 'http://www.zhihu.com/node/AnswerFullVoteInfoV2'
         if session == None:
             create_session()
         s = session
-        r = s.get(request_url)
+        r = s.get(request_url, params={"params": "{\"answer_id\":\"%d\"}" % int(data_aid)})
         soup = BeautifulSoup(r.content)
         voters_info = soup.find_all("span")[1:-1]
         for voter_info in voters_info:
-            voter_url = "http://www.zhihu.com" + str(voter_info.a["href"])
-            voter_id = voter_info.a["title"].encode("utf-8")
-            yield User(voter_url, voter_id)
+            if voter_info.string == ( u"匿名用户、" or u"匿名用户"):
+                voter_url = None
+                yield User(voter_url)
+            else:
+                voter_url = "http://www.zhihu.com" + str(voter_info.a["href"])
+                voter_id = voter_info.a["title"].encode("utf-8")
+                yield User(voter_url, voter_id)
 
 
 class Collection:
@@ -1059,12 +1063,12 @@ class Collection:
         if len(answer_list) == 0:
             print "the collection is empty."
             return
+            yield
         else:
             question_url = None
             question_title = None
             for answer in answer_list:
                 if not answer.find("p", class_="note"):
-                    # print 'answer',answer
                     question_link = answer.find("h2")
                     if question_link != None:
                         question_url = "http://www.zhihu.com" + question_link.a["href"]
