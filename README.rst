@@ -176,9 +176,7 @@ Answer 代表了一个答案，处理知乎答案相关操作。创建一个 Ans
     print author
     # <zhihu.User instance at 0x7f0b25425b90>
     # 一个User对象
-    for voter in voters:
-        print voter
-        # 一个 User 对象
+    print voters # <generator object get_voters at 0x7f32fbe55730>(代表所有该答案点赞的用户的生成器)
     print author.get_user_id()  # 输出：田浩
     print upvote  # 输出：9320
     print visit_times  # 输出: 改答案所属问题被浏览次数

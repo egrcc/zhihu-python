@@ -653,6 +653,7 @@ class User:
         if self.user_url == None:
             print "I'm anonymous user."
             return
+            yield
         else:
             collections_num = self.get_collections_num()
             if session == None:
@@ -965,14 +966,18 @@ class Answer:
         r = s.get(request_url, params={"params": "{\"answer_id\":\"%d\"}" % int(data_aid)})
         soup = BeautifulSoup(r.content)
         voters_info = soup.find_all("span")[1:-1]
-        for voter_info in voters_info:
-            if voter_info.string == ( u"匿名用户、" or u"匿名用户"):
-                voter_url = None
-                yield User(voter_url)
-            else:
-                voter_url = "http://www.zhihu.com" + str(voter_info.a["href"])
-                voter_id = voter_info.a["title"].encode("utf-8")
-                yield User(voter_url, voter_id)
+        if len(voters_info) == 0:
+            return
+            yield
+        else:
+            for voter_info in voters_info:
+                if voter_info.string == ( u"匿名用户、" or u"匿名用户"):
+                    voter_url = None
+                    yield User(voter_url)
+                else:
+                    voter_url = "http://www.zhihu.com" + str(voter_info.a["href"])
+                    voter_id = voter_info.a["title"].encode("utf-8")
+                    yield User(voter_url, voter_id)
 
 
 class Collection:
@@ -1076,8 +1081,7 @@ class Collection:
                     question = Question(question_url, question_title)
                     answer_url = "http://www.zhihu.com" + answer.find("span", class_="answer-date-link-wrap").a["href"]
                     author = None
-                    # print 'answer url',answer_url
-                    # print 'answerfind',answer.find("h3", class_="zm-item-answer-author-wrap")
+                
                     if answer.find("h3", class_="zm-item-answer-author-wrap").string == u"匿名用户":
                         author_url = None
                         author = User(author_url)
@@ -1104,24 +1108,25 @@ class Collection:
                     break
                 else:
                     for answer in answer_list:
-                        question_link = answer.find("h2")
-                        if question_link != None:
-                            question_url = "http://www.zhihu.com" + question_link.a["href"]
-                            question_title = question_link.a.string.encode("utf-8")
-                        question = Question(question_url, question_title)
-                        answer_url = "http://www.zhihu.com" + answer.find("span", class_="answer-date-link-wrap").a[
-                            "href"]
-                        author = None
-                        if answer.find("h3", class_="zm-item-answer-author-wrap").string == u"匿名用户":
-                            # author_id = "匿名用户"
-                            author_url = None
-                            author = User(author_url)
-                        else:
-                            author_tag = answer.find("h3", class_="zm-item-answer-author-wrap").find_all("a")[1]
-                            author_id = author_tag.string.encode("utf-8")
-                            author_url = "http://www.zhihu.com" + author_tag["href"]
-                            author = User(author_url, author_id)
-                        yield Answer(answer_url, question, author)
+                        if not answer.find("p", class_="note"):
+                            question_link = answer.find("h2")
+                            if question_link != None:
+                                question_url = "http://www.zhihu.com" + question_link.a["href"]
+                                question_title = question_link.a.string.encode("utf-8")
+                            question = Question(question_url, question_title)
+                            answer_url = "http://www.zhihu.com" + answer.find("span", class_="answer-date-link-wrap").a[
+                                "href"]
+                            author = None
+                            if answer.find("h3", class_="zm-item-answer-author-wrap").string == u"匿名用户":
+                                # author_id = "匿名用户"
+                                author_url = None
+                                author = User(author_url)
+                            else:
+                                author_tag = answer.find("h3", class_="zm-item-answer-author-wrap").find_all("a")[0]
+                                author_id = author_tag.string.encode("utf-8")
+                                author_url = "http://www.zhihu.com" + author_tag["href"]
+                                author = User(author_url, author_id)
+                            yield Answer(answer_url, question, author)
                 i = i + 1
 
     def get_top_i_answers(self, n):
