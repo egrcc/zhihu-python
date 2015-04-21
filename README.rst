@@ -8,7 +8,7 @@ zhihu-python 采用 python2.7 编写，用来方便地获取知乎上各种内�
 
 **注1: 本项目代码均在 Ubuntu14.04 上使用 python2.7.6 编写和测试通过，其他环境可能存在一定问题。**
 
-**注2: 使用 python3 的类似项目可以参见：`zhihu-py3 <https://github.com/7sDream/zhihu-py3>`_ **
+**注2: 使用 python3 的类似项目可以参见：`zhihu-py3 <https://github.com/7sDream/zhihu-py3>`_。**
 
 获取某个问题下的全部回答并导出，很简单：
 
