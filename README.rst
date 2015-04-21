@@ -162,7 +162,7 @@ Answer 代表了一个答案，处理知乎答案相关操作。创建一个 Ans
     author = answer.get_author()
     # 获取该答案获得的赞同数
     upvote = answer.get_upvote()
-    # 获取改该答案所属问题被浏览次数
+    # 获取该答案所属问题被浏览次数
     visit_times = answer.get_visit_times()
     # 获取所有给该答案点赞的用户信息
     voters = answer.get_voters()
@@ -411,6 +411,12 @@ zhihu.Question ---- 知乎问题操作类
   得到目前排名第一的回答。
  
   **Returns**： 代表该答案的 Answer 对象
+  
+ **get_visit_times** ()
+ 
+  得到该问题被浏览次数。该方法由 `@lufo816 <https://github.com/lufo816>`_ 添加。
+ 
+  **Returns**： 代表浏览次数的 int 型整数
  
 
 zhihu.User ---- 知乎用户操作类
@@ -544,6 +550,18 @@ zhihu.Answer ---- 知乎回答操作类
   得到该答案的内容。
   
   **Returns**： 一个 BeautifulSoup 对象
+  
+ **get_visit_times** ()
+ 
+  得到该答案所属问题被浏览次数。该方法由 `@lufo816 <https://github.com/lufo816>`_ 添加。
+ 
+  **Returns**： 代表浏览次数的 int 型整数
+  
+ **get_voters** ()
+ 
+  得到给该答案点赞的用户。该方法由 `@lufo816 <https://github.com/lufo816>`_ 添加。
+ 
+  **Returns**： 包含所有给该答案点赞的用户的 generator 对象。其中每一个元素为代表一个用户的 User 对象
  
  **to_txt** ()
   
