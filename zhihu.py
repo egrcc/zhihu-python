@@ -87,7 +87,7 @@ def create_session():
         'X-Requested-With': "XMLHttpRequest"
     }
 
-    r = s.post('http://www.zhihu.com/login', data=login_data, headers=header)
+    r = s.post('http://www.zhihu.com/login/email', data=login_data, headers=header)
     if r.json()["r"] == 1:
         print "Login Failed, reason is:"
         for m in r.json()["msg"]:
