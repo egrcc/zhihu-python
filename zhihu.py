@@ -219,54 +219,61 @@ class Question:
             yield
         else:
             error_answer_count = 0
+            my_answer_count = 0
             for i in xrange((answers_num - 1) / 50 + 1):
                 if i == 0:
                     for j in xrange(min(answers_num, 50)):
                         if self.soup == None:
                             self.parser()
                         soup = BeautifulSoup(self.soup.encode("utf-8"))
-                        try:
-                            if soup.find_all("div", class_="zm-item-answer ")[j].find("div", class_=" zm-editable-content clearfix") == None:
-                                error_answer_count += 1
-                                continue
-                            author = None
-                            if soup.find_all("h3", class_="zm-item-answer-author-wrap")[j].string == u"匿名用户":
-                                author_url = None
-                                author = User(author_url)
-                            else:
-                                author_tag = soup.find_all("h3", class_="zm-item-answer-author-wrap")[j].find_all("a")[1]
-                                author_id = author_tag.string.encode("utf-8")
-                                author_url = "http://www.zhihu.com" + author_tag["href"]
-                                author = User(author_url, author_id)
 
-                            count = soup.find_all("span", class_="count")[j].string
-                            if count[-1] == "K":
-                                upvote = int(count[0:(len(count) - 1)]) * 1000
-                            elif count[-1] == "W":
-                                upvote = int(count[0:(len(count) - 1)]) * 10000
-                            else:
-                                upvote = int(count)
+                        is_my_answer = False
+                        if soup.find_all("div", class_="zm-item-answer")[j].find("span", class_="count") == None:
+                            my_answer_count += 1
+                            is_my_answer = True
+                        
+                        if soup.find_all("div", class_="zm-item-answer")[j].find("div", class_=" zm-editable-content clearfix") == None:
+                            error_answer_count += 1
+                            continue
+                        author = None
+                        if soup.find_all("h3", class_="zm-item-answer-author-wrap")[j].string == u"匿名用户":
+                            author_url = None
+                            author = User(author_url)
+                        else:
+                            author_tag = soup.find_all("h3", class_="zm-item-answer-author-wrap")[j].find_all("a")[1]
+                            author_id = author_tag.string.encode("utf-8")
+                            author_url = "http://www.zhihu.com" + author_tag["href"]
+                            author = User(author_url, author_id)
 
-                            answer_url = "http://www.zhihu.com" + soup.find_all("a", class_="answer-date-link")[j]["href"]
+                        if is_my_answer == True:
+                            count = soup.find_all("div", class_="zm-item-answer")[j].find("a", class_="zm-item-vote-count").string
+                        else:
+                            count = soup.find_all("span", class_="count")[j - my_answer_count].string
+                        if count[-1] == "K":
+                            upvote = int(count[0:(len(count) - 1)]) * 1000
+                        elif count[-1] == "W":
+                            upvote = int(count[0:(len(count) - 1)]) * 10000
+                        else:
+                            upvote = int(count)
 
-                            answer = soup.find_all("div", class_=" zm-editable-content clearfix")[j - error_answer_count]
-                            soup.body.extract()
-                            soup.head.insert_after(soup.new_tag("body", **{'class': 'zhi'}))
-                            soup.body.append(answer)
-                            img_list = soup.find_all("img", class_="content_image lazy")
-                            for img in img_list:
-                                img["src"] = img["data-actualsrc"]
-                            img_list = soup.find_all("img", class_="origin_image zh-lightbox-thumb lazy")
-                            for img in img_list:
-                                img["src"] = img["data-actualsrc"]
-                            noscript_list = soup.find_all("noscript")
-                            for noscript in noscript_list:
-                                noscript.extract()
-                            content = soup
-                            answer = Answer(answer_url, self, author, upvote, content)
-                            yield answer
-                        except Exception, e:
-                            print e
+                        answer_url = "http://www.zhihu.com" + soup.find_all("a", class_="answer-date-link")[j]["href"]
+
+                        answer = soup.find_all("div", class_=" zm-editable-content clearfix")[j - error_answer_count]
+                        soup.body.extract()
+                        soup.head.insert_after(soup.new_tag("body", **{'class': 'zhi'}))
+                        soup.body.append(answer)
+                        img_list = soup.find_all("img", class_="content_image lazy")
+                        for img in img_list:
+                            img["src"] = img["data-actualsrc"]
+                        img_list = soup.find_all("img", class_="origin_image zh-lightbox-thumb lazy")
+                        for img in img_list:
+                            img["src"] = img["data-actualsrc"]
+                        noscript_list = soup.find_all("noscript")
+                        for noscript in noscript_list:
+                            noscript.extract()
+                        content = soup
+                        answer = Answer(answer_url, self, author, upvote, content)
+                        yield answer
                 else:
                     s = session
                     post_url = "http://www.zhihu.com/node/QuestionAnswerListV2"
@@ -297,45 +304,43 @@ class Question:
                         soup = BeautifulSoup(self.soup.encode("utf-8"))
 
                         answer_soup = BeautifulSoup(answer_list[j])
-                        try:
-                            author = None
-                            if answer_soup.find("h3", class_="zm-item-answer-author-wrap").string == u"匿名用户":
-                                author_url = None
-                                author = User(author_url)
-                            else:
-                                author_tag = answer_soup.find("h3", class_="zm-item-answer-author-wrap").find_all("a")[1]
-                                author_id = author_tag.string.encode("utf-8")
-                                author_url = "http://www.zhihu.com" + author_tag["href"]
-                                author = User(author_url, author_id)
+                        
+                        author = None
+                        if answer_soup.find("h3", class_="zm-item-answer-author-wrap").string == u"匿名用户":
+                            author_url = None
+                            author = User(author_url)
+                        else:
+                            author_tag = answer_soup.find("h3", class_="zm-item-answer-author-wrap").find_all("a")[1]
+                            author_id = author_tag.string.encode("utf-8")
+                            author_url = "http://www.zhihu.com" + author_tag["href"]
+                            author = User(author_url, author_id)
 
-                            count = answer_soup.find("span", class_="count").string
-                            if count[-1] == "K":
-                                upvote = int(count[0:(len(count) - 1)]) * 1000
-                            elif count[-1] == "W":
-                                upvote = int(count[0:(len(count) - 1)]) * 10000
-                            else:
-                                upvote = int(count)
+                        count = answer_soup.find("span", class_="count").string
+                        if count[-1] == "K":
+                            upvote = int(count[0:(len(count) - 1)]) * 1000
+                        elif count[-1] == "W":
+                            upvote = int(count[0:(len(count) - 1)]) * 10000
+                        else:
+                            upvote = int(count)
 
-                            answer_url = "http://www.zhihu.com" + answer_soup.find("a", class_="answer-date-link")["href"]
+                        answer_url = "http://www.zhihu.com" + answer_soup.find("a", class_="answer-date-link")["href"]
 
-                            answer = answer_soup.find("div", class_=" zm-editable-content clearfix")
-                            soup.body.extract()
-                            soup.head.insert_after(soup.new_tag("body", **{'class': 'zhi'}))
-                            soup.body.append(answer)
-                            img_list = soup.find_all("img", class_="content_image lazy")
-                            for img in img_list:
-                                img["src"] = img["data-actualsrc"]
-                            img_list = soup.find_all("img", class_="origin_image zh-lightbox-thumb lazy")
-                            for img in img_list:
-                                img["src"] = img["data-actualsrc"]
-                            noscript_list = soup.find_all("noscript")
-                            for noscript in noscript_list:
-                                noscript.extract()
-                            content = soup
-                            answer = Answer(answer_url, self, author, upvote, content)
-                            yield answer
-                        except Exception, e:
-                            print e
+                        answer = answer_soup.find("div", class_=" zm-editable-content clearfix")
+                        soup.body.extract()
+                        soup.head.insert_after(soup.new_tag("body", **{'class': 'zhi'}))
+                        soup.body.append(answer)
+                        img_list = soup.find_all("img", class_="content_image lazy")
+                        for img in img_list:
+                            img["src"] = img["data-actualsrc"]
+                        img_list = soup.find_all("img", class_="origin_image zh-lightbox-thumb lazy")
+                        for img in img_list:
+                            img["src"] = img["data-actualsrc"]
+                        noscript_list = soup.find_all("noscript")
+                        for noscript in noscript_list:
+                            noscript.extract()
+                        content = soup
+                        answer = Answer(answer_url, self, author, upvote, content)
+                        yield answer
 
     def get_top_i_answers(self, n):
         # if n > self.get_answers_num():
