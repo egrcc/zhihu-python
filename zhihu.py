@@ -305,6 +305,9 @@ class Question:
 
                         answer_soup = BeautifulSoup(answer_list[j])
                         
+                        if answer_soup.find("div", class_=" zm-editable-content clearfix") == None:
+                            continue
+                        
                         author = None
                         if answer_soup.find("h3", class_="zm-item-answer-author-wrap").string == u"匿名用户":
                             author_url = None
@@ -315,7 +318,10 @@ class Question:
                             author_url = "http://www.zhihu.com" + author_tag["href"]
                             author = User(author_url, author_id)
 
-                        count = answer_soup.find("span", class_="count").string
+                        if answer_soup.find("span", class_="count") == None:
+                            count = answer_soup.find("a", class_="zm-item-vote-count").string
+                        else:
+                            count = answer_soup.find("span", class_="count").string
                         if count[-1] == "K":
                             upvote = int(count[0:(len(count) - 1)]) * 1000
                         elif count[-1] == "W":
