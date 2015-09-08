@@ -7,11 +7,11 @@ import re, json, cookielib
 
 # requirements
 import requests, termcolor
-
-try:
-    import BeautifulSoup
-except:
-    from bs4 import BeautifulSoup
+# try:
+#     import BeautifulSoup
+# except:
+#     from bs4 import BeautifulSoup
+# BeautifulSoup = BeautifulSoup.BeautifulSoup
 
 requests = requests.Session()
 requests.cookies = cookielib.LWPCookieJar('cookies')
