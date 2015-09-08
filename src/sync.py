@@ -29,7 +29,7 @@ def fetch( question_token ):
         r = requests.get(url, allow_redirects=False)
     except:
         time.sleep(2)
-        print u"WARN: 网络异常 !"
+        print u"WARN: 网络异常 -> %s" %(url)
         return fetch(question_token)
 
     status_code = int(r.status_code)
@@ -50,7 +50,7 @@ def fetch( question_token ):
 
 
 def worker():
-    while True:
+    while not q.empty:
         item = q.get()
         fetch(item)
         q.task_done()
