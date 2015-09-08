@@ -8,9 +8,9 @@ import re, json, cookielib
 # requirements
 import requests, termcolor
 # try:
-#     import BeautifulSoup
-# except:
 #     from bs4 import BeautifulSoup
+# except:
+#     import BeautifulSoup
 # Darwin platform
 # BeautifulSoup = BeautifulSoup.BeautifulSoup
 

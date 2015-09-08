@@ -56,11 +56,11 @@ import re, json, cookielib
 # requirements
 import requests, termcolor, html2text
 try:
-    import BeautifulSoup
-except:
     from bs4 import BeautifulSoup
+except:
+    import BeautifulSoup
 # Darwin platform
-BeautifulSoup = BeautifulSoup.BeautifulSoup
+#BeautifulSoup = BeautifulSoup.BeautifulSoup
 
 reload(sys)
 sys.setdefaultencoding('utf8')
