@@ -26,8 +26,9 @@ def fetch( question_token ):
         r = requests.get(url, allow_redirects=False)
     except:
         time.sleep(2)
+        print u"WARN: 网络异常 !"
         return fetch(question_token)
-        
+
     status_code = int(r.status_code)
     if status_code == 200:
         # 无效的 问题 token
