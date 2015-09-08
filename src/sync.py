@@ -7,7 +7,7 @@ import os, sys, time, platform, random
 import re, json
 from cookielib import LWPCookieJar
 #import multiprocessing, multithreading
-
+from Queue import Queue
 # requirements
 import requests, termcolor
 
@@ -19,6 +19,8 @@ except:
 requests = requests.Session()
 requests.cookies = LWPCookieJar('cookiejar')
 requests.cookies.load(ignore_discard=True)
+
+q = Queue()
 
 def fetch( question_token ):
     url = "http://www.zhihu.com/question/" + str(question_token)
@@ -44,17 +46,25 @@ def fetch( question_token ):
         open("logs/"+str(status_code)+".log", "a").write(url+"\n")
     time.sleep(1)
 
-# Create two threads as follows
-try:
-    for token in range(0, 1000, 4):
-        thread.start_new_thread( fetch, (token, ) )
-        thread.start_new_thread( fetch, (token+1, ) )
-        thread.start_new_thread( fetch, (token+2, ) )
-        thread.start_new_thread( fetch, (token+3, ) )
-except:
-   print "Error: unable to start thread"
 
-while 1:
-   pass
+
+def worker():
+    while True:
+        item = q.get()
+        fetch(item)
+        q.task_done()
+
+
+for i in range(4):
+     t = Thread(target=worker)
+     t.daemon = True
+     t.start()
+
+for token in range(1000):
+    q.put(token)
+
+q.join()       # block until all tasks are done
+
+print "INFO: Done."
 
 
