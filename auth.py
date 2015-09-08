@@ -171,6 +171,9 @@ def islogin():
 
 
 def read_account_from_config_file(config_file="config.ini"):
+    # NOTE: The ConfigParser module has been renamed to configparser in Python 3. 
+    #       The 2to3 tool will automatically adapt imports when converting your sources to Python 3.
+    #       https://docs.python.org/2/library/configparser.html
     from ConfigParser import ConfigParser
     cf = ConfigParser()
     if os.path.exists(config_file) and os.path.isfile(config_file):
