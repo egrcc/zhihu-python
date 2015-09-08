@@ -52,8 +52,8 @@ def fetch( question_token ):
 def worker():
     while not q.empty():
         item = q.get()
-        fetch(item)
         q.task_done()
+        fetch(item)
 
 
 for i in range(4):
