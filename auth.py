@@ -11,6 +11,7 @@ import requests, termcolor
 #     import BeautifulSoup
 # except:
 #     from bs4 import BeautifulSoup
+# Darwin platform
 # BeautifulSoup = BeautifulSoup.BeautifulSoup
 
 requests = requests.Session()
