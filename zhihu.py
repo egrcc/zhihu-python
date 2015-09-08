@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 '''
 
@@ -60,12 +61,13 @@ import ConfigParser
 from bs4 import BeautifulSoup
 import sys
 
+import termcolor
+
 reload(sys)
 sys.setdefaultencoding('utf8')
 session = None
 
 cookies = {}
-
 
 def create_session():
     global session
@@ -77,31 +79,88 @@ def create_session():
     email = cf.get("info", "email")
     password = cf.get("info", "password")
     cookies = dict(cookies)
-
+    xsrf = None
+    captcha = None
+    
     s = requests.session()
-    login_data = {"email": email, "password": password}
+    # Fetch XSRF
+    r = s.get(u"http://www.zhihu.com/")
+    if int(r.status_code) == 200:
+        _xsrf = re.compile(r"\<input\stype=\"hidden\"\sname=\"_xsrf\"\svalue=\"(\S+)\"", re.DOTALL).findall(r.text)
+        if len(_xsrf) > 0:
+            xsrf = _xsrf[0]
+        else:
+            print "".join( [ termcolor.colored(u"DEBUG", u"yellow"), ": ", termcolor.colored(u"XSRF代码提取失败", u"yellow") ] )
+    else:
+        raise Exception(u"链接失败！")
+    
+    # Login  
+    login_data = {"email": email, "password": password, "remember_me": True, "_xsrf": xsrf }
+    print "".join( [ termcolor.colored(u"LOGGING", u"green"), ": ", termcolor.colored(u"发送登录数据 " + str(login_data) , u"yellow") ] )
+    
     header = {
-        'User-Agent': "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:34.0) Gecko/20100101 Firefox/34.0",
+        'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36",
         'Host': "www.zhihu.com",
+        'Origin': "http://www.zhihu.com",
+        'Pragma': "no-cache",
         'Referer': "http://www.zhihu.com/",
+        'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8",
         'X-Requested-With': "XMLHttpRequest"
     }
 
     r = s.post('http://www.zhihu.com/login/email', data=login_data, headers=header)
-    if r.json()["r"] == 1:
-        print "Login Failed, reason is:"
-        for m in r.json()["data"]:
-            print r.json()["data"][m]
-        print "Use cookies"
-        has_cookies = False
-        for key in cookies:
-            if key != '__name__' and cookies[key] != '':
-                has_cookies = True
-                break
-        if has_cookies == False:
-            raise ValueError("请填写config.ini文件中的cookies项.")
-    session = s
+    if int(r.status_code) == 200 and r.headers['content-type'].lower() == "application/json":
+        result = r.json()
+        if result["r"] == 1:
+            if int(result['errcode']) == 1991829:
+                # 需要输入验证码
+                print "".join( [ termcolor.colored(u"LOGGING", u"green"), ": ", termcolor.colored(u"正在下载验证码... " , u"yellow") ] )
+                import random
+                _r = s.get("http://www.zhihu.com/captcha.gif?r=" + str(random.random()) )
+                if int(_r.status_code) == 200:
+                    _ext = _r.headers['content-type'].split("/")[1]
+                    open("verify."+ _ext, "wb").write(_r.content)
+                    import platform
+                    if platform.uname()[0] == "Linux":
+                        os.system("see verify."+_ext + " &")
+                    else:
+                        # OSX 平台?
+                        os.system("open verify."+_ext + " &")
+                    captcha = raw_input(termcolor.colored(u"请输入验证码: ", "cyan") )
+                    # 第二次登录，使用验证码
+                    login_data = {"email": email, "password": password, "remember_me": True, "_xsrf": xsrf, "captcha": captcha }
+                    print "".join( [ termcolor.colored(u"LOGGING", u"green"), ": ", termcolor.colored(u"发送登录数据 " + str(login_data) , u"yellow") ] )
+                    r2 = s.post('http://www.zhihu.com/login/email', data=login_data, headers=header)
+                    if int(r2.status_code) == 200 and r2.headers['content-type'].lower() == "application/json":
+                        result2 = r2.json()
+                        if result2["r"] == 0:
+                            print "".join( [ termcolor.colored(u"INFO", u"green"), ": ", termcolor.colored(u"登录成功 "  , u"white", attrs=['reverse', 'blink']) ] )
+                else:
+                    print "".join( [ termcolor.colored(u"DEBUG", u"red"), ": ", termcolor.colored(u"验证码下载失败！" , u"yellow") ] )
+                    raise Exception(u"验证码下载失败！")
+            else:
+                # 未知登录错误, 加载 config.ini 读取cookie 信息
+                print "".join( [ termcolor.colored(u"ERROR", u"red"), ": ", termcolor.colored(u"Login Failed, reason is: " + str(result) , u"white") ] )
+                print "".join( [ termcolor.colored(u"INFO", u"yellow"), ": ", termcolor.colored(u"Use cookies from " , u"white"),  termcolor.colored(u"config.ini" , u"green")] )
+                has_cookies = False
+                for key in cookies:
+                    if key != '__name__' and cookies[key] != '':
+                        has_cookies = True
+                        break
+                if has_cookies == False:
+                    raise ValueError(u"请填写config.ini文件中的cookies项.")
 
+        elif int(result['r']) == 0:
+            print "".join( [ termcolor.colored(u"INFO", u"green"), ": ", termcolor.colored(u"登录成功 "  , u"white", attrs=['reverse', 'blink']) ] )
+        else:
+            raise Exception(u"未知错误.")
+    else:
+        # HTTP CODE ERROR.
+        raise Exception(u"登录失败！")
+    
+    # The End.
+    session = s
+    return True
 
 class Question:
     url = None
