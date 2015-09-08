@@ -50,7 +50,7 @@ def fetch( question_token ):
 
 
 def worker():
-    while not q.empty:
+    while not q.empty():
         item = q.get()
         fetch(item)
         q.task_done()
