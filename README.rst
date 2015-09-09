@@ -63,8 +63,8 @@ zhihu-python 采用 python2.7 编写，用来方便地获取知乎上各种内�
 3.  确保你的系统中安装了 `git` 程序 以及 `python-pip` 。
 
 
-克隆本项目
-~~~~~~~~~~~~
+**克隆本项目**
+
 
 .. code:: bash
 
@@ -72,8 +72,7 @@ zhihu-python 采用 python2.7 编写，用来方便地获取知乎上各种内�
   cd zhihu-python
 
 
-解决依赖
-~~~~~~~~~~
+**解决依赖**
 
 * `Beautiful Soup 4 <http://www.crummy.com/software/BeautifulSoup/>`_
 * `requests <https://github.com/kennethreitz/requests>`_
@@ -94,8 +93,8 @@ Or
 
 
 
-登录知乎
-~~~~~~~~~~~~~~~~
+**登录知乎**
+
 
 登录 `知乎` 生成身份信息, 保存在当前目录的 `cookies` 文件中。
 
@@ -104,8 +103,7 @@ Or
   python auth.py
 
 
-执行测试
-~~~~~~~~~~~~~~~~
+**执行测试**
 
 
 .. code:: bash
