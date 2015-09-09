@@ -1,6 +1,14 @@
 zhihu-python：获取知乎信息
 ===============================
 
+:Author: `egrcc <https://github.com/egrcc>`_ ( `微博 <http://weibo.com/u/2948739432>`_ | `电邮 <zhaolujun1994@gmail.com>`_ )
+:Committer: `Eureka22 <https://github.com/Eureka22>`_ ,  `lufo816 <https://github.com/lufo816>`_ , `LuoZijun <https://github.com/LuoZijun>`_
+:Update: 09/09 2015
+
+
+.. contents::
+
+
 介绍
 ----
 
@@ -40,40 +48,78 @@ zhihu-python 采用 python2.7 编写，用来方便地获取知乎上各种内�
         
 导出的markdown，txt文件示例请见该项目的markdown，text文件夹。当然，想要知道某大V关注了那些人，提了什么问题也不在话下，详情请见：快速开始。        
 
-依赖
------
 
-- 使用 `Beautiful Soup 4 <http://www.crummy.com/software/BeautifulSoup/>`_ 解析 html 文档
-- 使用 `requests <https://github.com/kennethreitz/requests>`_ 处理 http 请求
-- 使用 `html2text <https://github.com/aaronsw/html2text>`_ 进行格式转换
-
-没有的话可以使用 pip 安装：
-
-.. code-block:: bash
-
-    $ pip install requests
-    $ pip install beautifulsoup4
-    $ pip install html2text
-
-或者使用
-
-.. code-block:: bash
-
-    $ pip install -r requirements.txt
-
-**注意** ：如果同时安装了 python3 和 python2 ， pip 命令可能默认安装的是 python3 版本的包，故需将上述命令中的 pip 换成pip2 （比如在我的Ubuntu上）。
 
 快速开始
 ---------
 
-zhihu-python 主要文件为 zhihu.py ，配置文件为 config.ini , 将这两个文件下载到你的工作目录，并修改
-config.ini 文件中的 email 为你的知乎账户邮箱，修改 password 为你的知乎账户密码（用作模拟登录）。
+准备
+^^^^^^
 
-(2015.2.1更新)由 `@Eureka22 <https://github.com/Eureka22>`_ 添加了cookies支持，若由于验证码原因出现登录失败，请查看浏览器的cookies，填写 config.ini 文件中的 cookies 项后重试（当然，你的cookies可能与  cogfig.ini 文件中的某些项不同，比如没有“c_c”，可能会多出“_ga”，把你的补充上去即可）。如能正常登录，cookies 项可以不填写。
+**Tips** :
 
-**注意** ：一定记得修改config.ini文件，否则无法正常使用。
+1.  确保你的系统里面已经安装了 `Python2.7 <https://www.python.org/>`_ ，不同作业系统如何安装不再赘述。
+2.  检查你系统中 `python` 和 `pip` 的版本, 如果不属于 `python2.7` , 请在执行代码范例时，自行将 `python` 和 `pip` 分别替换成 `python2.7` 和 `pip2` 。
+3.  确保你的系统中安装了 `git` 程序 以及 `python-pip` 。
 
- 
+
+克隆本项目
+^^^^^^^^^^^^^
+
+.. code:: bash
+
+  git clone git@github.com:egrcc/zhihu-python.git
+  cd zhihu-python
+
+解决依赖
+^^^^^^^^^^^^^^
+
+
+* `Beautiful Soup 4 <http://www.crummy.com/software/BeautifulSoup/>`_
+* `requests <https://github.com/kennethreitz/requests>`_
+* `html2text <https://github.com/aaronsw/html2text>`_
+* `termcolor <https://pypi.python.org/pypi/termcolor>`_
+
+
+.. code:: bash
+
+  sudo pip install -r requirements.txt
+
+Or
+
+.. code:: bash
+
+  sudo pip2 install -r requirements.txt
+
+
+登录知乎
+^^^^^^^^^^^^^^
+
+登录 `知乎` 生成身份信息, 保存在当前目录的 `cookies` 文件中。
+
+.. code:: bash
+  
+  python auth.py
+
+
+执行测试
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. code:: bash
+
+  python test.py
+
+不出意外，一切应该完美运行 :))
+
+
+
+Zhihu API 使用范例
+^^^^^^^^^^^^^^^^^^^^^^
+
+`zhihu.py` API 调用范例, 你也可以自己写一份 :))
+
+
 Question：获取问题信息
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
