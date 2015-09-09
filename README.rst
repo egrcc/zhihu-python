@@ -54,7 +54,7 @@ zhihu-python 采用 python2.7 编写，用来方便地获取知乎上各种内�
 ---------
 
 准备
-^^^^^^
+~~~~~~~~
 
 **Tips** :
 
@@ -64,16 +64,16 @@ zhihu-python 采用 python2.7 编写，用来方便地获取知乎上各种内�
 
 
 克隆本项目
-^^^^^^^^^^^^^
+~~~~~~~~~~~~
 
 .. code:: bash
 
   git clone git@github.com:egrcc/zhihu-python.git
   cd zhihu-python
 
-解决依赖
-^^^^^^^^^^^^^^
 
+解决依赖
+~~~~~~~~~~
 
 * `Beautiful Soup 4 <http://www.crummy.com/software/BeautifulSoup/>`_
 * `requests <https://github.com/kennethreitz/requests>`_
@@ -85,6 +85,7 @@ zhihu-python 采用 python2.7 编写，用来方便地获取知乎上各种内�
 
   sudo pip install -r requirements.txt
 
+
 Or
 
 .. code:: bash
@@ -92,8 +93,9 @@ Or
   sudo pip2 install -r requirements.txt
 
 
+
 登录知乎
-^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~
 
 登录 `知乎` 生成身份信息, 保存在当前目录的 `cookies` 文件中。
 
@@ -103,7 +105,7 @@ Or
 
 
 执行测试
-^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~
 
 
 .. code:: bash
@@ -113,15 +115,14 @@ Or
 不出意外，一切应该完美运行 :))
 
 
-
 Zhihu API 使用范例
-^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 `zhihu.py` API 调用范例, 你也可以自己写一份 :))
 
 
 Question：获取问题信息
-~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Question 代表一个问题，处理知乎问题相关操作。创建一个 Question 对象需传入该问题的 url ，如：
 
@@ -188,7 +189,7 @@ Question 代表一个问题，处理知乎问题相关操作。创建一个 Ques
 
    
 Answer：获取答案信息
-~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Answer 代表了一个答案，处理知乎答案相关操作。创建一个 Answer 对象需传入该答案的 url ，如：
 
@@ -239,7 +240,7 @@ Answer 代表了一个答案，处理知乎答案相关操作。创建一个 Ans
 
 
 User：获取用户信息
-~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 User 代表一个用户，处理用户相关操作。创建一个 User 对象需传入该用户的 url ，如：
 
@@ -314,7 +315,7 @@ User 代表一个用户，处理用户相关操作。创建一个 User 对象需
 
 
 Collection：获取收藏夹信息
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Collection 代表一个收藏夹，处理收藏夹相关操作。创建一个 Collection 对象需传入该收藏夹的 url ，如：
 
@@ -358,7 +359,7 @@ Collection 代表一个收藏夹，处理收藏夹相关操作。创建一个 Co
     
 
 综合实例
-~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 将 Question ， Answer ， User ， Collection 结合起来使用。实例如下：
 
@@ -671,6 +672,6 @@ zhihu.Collection ---- 知乎收藏夹操作类
 联系我
 ----------
 
-- 微博：`@egrcc <http://weibo.com/u/2948739432>`_
-- github：`@egrcc <https://github.com/egrcc>`_
+- 微博：http://weibo.com/u/2948739432
+- github：https://github.com/egrcc
 - email：zhaolujun1994@gmail.com
