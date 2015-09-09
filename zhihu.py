@@ -59,39 +59,38 @@ try:
     from bs4 import BeautifulSoup
 except:
     import BeautifulSoup
-# Darwin platform
-#BeautifulSoup = BeautifulSoup.BeautifulSoup
 
-reload(sys)
-sys.setdefaultencoding('utf8')
+# module
+from auth import islogin
+from auth import Logging
 
 
+"""
+    Note:
+        1. 身份验证由 `auth.py` 完成。
+        2. 身份信息保存在当前目录的 `cookies` 文件中。
+        3. `requests` 对象可以直接使用，身份信息已经自动加载。
+
+    By Luozijun (https://github.com/LuoZijun), 09/09 2015
+
+"""
 requests = requests.Session()
 requests.cookies = cookielib.LWPCookieJar('cookies')
 try:
     requests.cookies.load(ignore_discard=True)
 except:
-    print u"ERROR: 你还没有登录知乎哦 ..."
-    print u"INFO: 执行 `python auth.py` 即可以完成登录。"
+    Logging.error(u"你还没有登录知乎哦 ...")
+    Logging.info(u"执行 `python auth.py` 即可以完成登录。")
     raise Exception("无权限(403)")
 
-"""
-    Note:
-        全局变量 `session` 以及 `cookie` 还有 `create_session` 函数 可以逐步在代码移除，当前用作过渡。
-        
-        User/Question ... 等 抓取类 可以直接 使用 `requests.get/requests.post`
-        来抓取知乎链接。身份cookies已经自动设定。
 
-        身份Cookies文件保存于 `cookies`。
-"""
-session = requests
+if islogin() != True:
+    Logging.error(u"你的身份信息已经失效，请重新生成身份信息( `python auth.py` )。")
+    raise Exception("无权限(403)")
 
 
-def create_session():
-    print "NOTE: 该函数已经不再需要。"
-    return True
-
-
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 class Question:
     url = None
