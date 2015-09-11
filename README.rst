@@ -53,8 +53,8 @@ zhihu-python 采用 python2.7 编写，用来方便地获取知乎上各种内�
 快速开始
 ---------
 
-**准备**
-
+准备
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Tips** :
 
@@ -85,7 +85,7 @@ zhihu-python 采用 python2.7 编写，用来方便地获取知乎上各种内�
   sudo pip install -r requirements.txt
 
 
-Or
+or
 
 .. code:: bash
 
