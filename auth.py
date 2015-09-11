@@ -7,12 +7,7 @@ import re, json, cookielib
 
 # requirements
 import requests, termcolor
-# try:
-#     from bs4 import BeautifulSoup
-# except:
-#     import BeautifulSoup
-# Darwin platform
-# BeautifulSoup = BeautifulSoup.BeautifulSoup
+
 
 requests = requests.Session()
 requests.cookies = cookielib.LWPCookieJar('cookies')
@@ -80,9 +75,12 @@ def download_captcha():
     """
         System platform: https://docs.python.org/2/library/platform.html
     """
+    Logging.info(u"正在调用外部程序渲染验证码 ... ")
     if platform.system() == "Linux":
-        os.system("see %s &" % image_name )
+        Logging.info(u"Command: xdg-open %s &" % image_name )
+        os.system("xdg-open %s &" % image_name )
     elif platform.system() == "Darwin":
+        Logging.info(u"Command: open %s &" % image_name )
         os.system("open %s &" % image_name )
     elif platform.system() == "SunOS":
         os.system("open %s &" % image_name )
@@ -180,7 +178,7 @@ def read_account_from_config_file(config_file="config.ini"):
     if os.path.exists(config_file) and os.path.isfile(config_file):
         Logging.info(u"正在加载配置文件 ...")
         cf.read(config_file)
-        #cookies = cf._sections['cookies']
+
         email = cf.get("info", "email")
         password = cf.get("info", "password")
         if email == "" or password == "":
@@ -197,6 +195,7 @@ def read_account_from_config_file(config_file="config.ini"):
 def login(account=None, password=None):
     if islogin() == True:
         Logging.success(u"你已经登录过咯")
+        return True
 
     if account == None:
         (account, password) = read_account_from_config_file()
@@ -228,4 +227,5 @@ def login(account=None, password=None):
         return True
 
 if __name__ == "__main__":
+    # login(account="xxxx@email.com", password="xxxxx")
     login()
