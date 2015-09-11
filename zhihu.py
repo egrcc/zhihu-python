@@ -854,10 +854,11 @@ class Answer:
         soup = self.soup
         data_aid = soup.find("div", class_="zm-item-answer ")["data-aid"]
         request_url = 'http://www.zhihu.com/node/AnswerFullVoteInfoV2'
-        if session == None:
-            create_session()
-        s = session
-        r = s.get(request_url, params={"params": "{\"answer_id\":\"%d\"}" % int(data_aid)})
+        # if session == None:
+        #     create_session()
+        # s = session
+        # r = s.get(request_url, params={"params": "{\"answer_id\":\"%d\"}" % int(data_aid)})
+        r = requests.get(request_url, params={"params": "{\"answer_id\":\"%d\"}" % int(data_aid)})
         soup = BeautifulSoup(r.content)
         voters_info = soup.find_all("span")[1:-1]
         if len(voters_info) == 0:
