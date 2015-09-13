@@ -113,9 +113,9 @@ def search_xsrf():
 
 def build_form(account, password):
     account_type = "email"
-    if re.match(r"^\d{11}$", account): account_type = "phone"
-    elif re.match(r"^\S+\@\S+\.\S+$", account): account_type = "email"
-    else: raise AccountError(u"帐号类型错误")
+    # if re.match(r"^\d{11}$", account): account_type = "phone"
+    if re.match(r"^\S+\@\S+\.\S+$", account): account_type = "email"
+    else: raise AccountError(u"帐号类型错误，目前只支持手机帐号登录")
 
     form = {account_type: account, "password": password, "remember_me": True }
 
