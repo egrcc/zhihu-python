@@ -365,6 +365,17 @@ class User:
                 else:
                     return user_id
 
+    def get_data_id(self):
+        if self.user_url == None:
+            print "I'm anonymous user."
+            return 0
+        else:
+            if self.soup == None:
+                self.parser()
+            soup = self.soup
+            data_id = soup.find("button", class_="zg-btn zg-btn-follow zm-rich-follow-btn")['data-id']
+            return data_id
+
     def get_followees_num(self):
         if self.user_url == None:
             print "I'm anonymous user."
