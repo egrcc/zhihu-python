@@ -189,7 +189,7 @@ class Question:
                             my_answer_count += 1
                             is_my_answer = True
                         
-                        if soup.find_all("div", class_="zm-item-answer")[j].find("div", class_=" zm-editable-content clearfix") == None:
+                        if soup.find_all("div", class_="zm-item-answer")[j].find("div", class_="zm-editable-content clearfix") == None:
                             error_answer_count += 1
                             continue
                         author = None
@@ -215,7 +215,7 @@ class Question:
 
                         answer_url = "http://www.zhihu.com" + soup.find_all("a", class_="answer-date-link")[j]["href"]
 
-                        answer = soup.find_all("div", class_=" zm-editable-content clearfix")[j - error_answer_count]
+                        answer = soup.find_all("div", class_="zm-editable-content clearfix")[j - error_answer_count]
                         soup.body.extract()
                         soup.head.insert_after(soup.new_tag("body", **{'class': 'zhi'}))
                         soup.body.append(answer)
@@ -255,7 +255,7 @@ class Question:
 
                         answer_soup = BeautifulSoup(answer_list[j])
                         
-                        if answer_soup.find("div", class_=" zm-editable-content clearfix") == None:
+                        if answer_soup.find("div", class_="zm-editable-content clearfix") == None:
                             continue
                         
                         author = None
@@ -281,7 +281,7 @@ class Question:
 
                         answer_url = "http://www.zhihu.com" + answer_soup.find("a", class_="answer-date-link")["href"]
 
-                        answer = answer_soup.find("div", class_=" zm-editable-content clearfix")
+                        answer = answer_soup.find("div", class_="zm-editable-content clearfix")
                         soup.body.extract()
                         soup.head.insert_after(soup.new_tag("body", **{'class': 'zhi'}))
                         soup.body.append(answer)
@@ -674,7 +674,7 @@ class Answer:
             if self.soup == None:
                 self.parser()
             soup = BeautifulSoup(self.soup.encode("utf-8"))
-            answer = soup.find("div", class_=" zm-editable-content clearfix")
+            answer = soup.find("div", class_="zm-editable-content clearfix")
             soup.body.extract()
             soup.head.insert_after(soup.new_tag("body", **{'class': 'zhi'}))
             soup.body.append(answer)
