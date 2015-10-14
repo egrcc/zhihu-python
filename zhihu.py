@@ -600,7 +600,7 @@ class User:
 
 
     def get_likes(self):
-        # Todo: first version without zhuanlan article, also need the first one
+        # This function only handles liked answers, not including zhuanlan articles 
         if self.user_url == None:
             print "I'm an anonymous user."
             return
@@ -632,7 +632,6 @@ class User:
             response_html = r.json()["msg"][1]
             while response_size > 0:
                 all_liked_answers = re.findall(u"\u8d5e\u540c\u4e86\u56de\u7b54\n\n<a class=\"question_link\" target=\"_blank\" href=\"\/question\/\d{8}\/answer\/\d{8}", response_html)
-                # Remove duplicated, result in random order
                 liked_answers = list(set(all_liked_answers))
                 liked_answers.sort(key=all_liked_answers.index)
                 for i in xrange(len(liked_answers)):
