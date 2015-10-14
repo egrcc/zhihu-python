@@ -599,6 +599,63 @@ class User:
                         yield Collection(url, name, self)
 
 
+    def get_likes(self):
+        # Todo: first version without zhuanlan article, also need the first one
+        if self.user_url == None:
+            print "I'm an anonymous user."
+            return
+            yield
+        else:
+            r = requests.get(self.user_url)
+            soup = BeautifulSoup(r.content)
+            # Handle the first liked item 
+            first_item = soup.find("div", attrs={'class':'zm-profile-section-item zm-item clearfix'})
+            first_item = first_item.find("div", attrs={'class':'zm-profile-section-main zm-profile-section-activity-main zm-profile-activity-page-item-main'})
+            if u"赞同了回答" in str(first_item):
+                first_like = first_item.find("a")['href']
+                yield Answer("http://www.zhihu.com" + first_like)
+            # Handle the rest liked items
+            post_url = self.user_url + "/activities"
+            start_time = soup.find("div", attrs={'class':'zm-profile-section-item zm-item clearfix'})["data-time"]
+            _xsrf = soup.find("input", attrs={'name': '_xsrf'})["value"]
+            data = {
+                'start': start_time,
+                '_xsrf': _xsrf,
+            }
+            header = {
+                'Host': "www.zhihu.com",
+                'Referer': self.user_url, 
+                'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36",
+            }
+            r = requests.post(post_url, data=data, headers=header)
+            response_size = r.json()["msg"][0]
+            response_html = r.json()["msg"][1]
+            while response_size > 0:
+                all_liked_answers = re.findall(u"\u8d5e\u540c\u4e86\u56de\u7b54\n\n<a class=\"question_link\" target=\"_blank\" href=\"\/question\/\d{8}\/answer\/\d{8}", response_html)
+                # Remove duplicated, result in random order
+                liked_answers = list(set(all_liked_answers))
+                liked_answers.sort(key=all_liked_answers.index)
+                for i in xrange(len(liked_answers)):
+                    answer_url = "http://www.zhihu.com" + liked_answers[i][54:]
+                    yield Answer(answer_url)
+                data_times = re.findall(r"data-time=\"\d+\"", response_html)
+                if len(data_times) != response_size:
+                    print "读取activities栏时间信息时发生错误，可能因为某答案中包含data-time信息"
+                    return
+                    yield 
+                latest_data_time = re.search(r"\d+", data_times[response_size - 1]).group()
+                data = {
+                'start': latest_data_time,
+                '_xsrf': _xsrf,
+                }
+                r = requests.post(post_url, data=data, headers=header)
+                response_size = r.json()["msg"][0]
+                response_html = r.json()["msg"][1]
+            return
+            yield
+ 
+            
+
 class Answer:
     answer_url = None
     # session = None
