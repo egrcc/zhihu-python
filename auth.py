@@ -112,8 +112,7 @@ def search_xsrf():
     return results[0]
 
 def build_form(account, password):
-    account_type = "email"
-    if re.match(r"^\d{11}$", account): account_type = "phone"
+    if re.match(r"^1\d{10}$", account): account_type = "phone_num"
     elif re.match(r"^\S+\@\S+\.\S+$", account): account_type = "email"
     else: raise AccountError(u"帐号类型错误")
 
@@ -124,7 +123,10 @@ def build_form(account, password):
     return form
 
 def upload_form(form):
-    url = "http://www.zhihu.com/login/email"
+    if "email" in form: url = "http://www.zhihu.com/login/email"
+    elif "phone_num" in form: url = "http://www.zhihu.com/login/phone_num"
+    else: raise ValueError(u"账号类型错误")
+
     headers = {
         'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36",
         'Host': "www.zhihu.com",
