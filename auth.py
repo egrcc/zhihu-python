@@ -139,7 +139,14 @@ def upload_form(form):
         raise NetworkError(u"表单上传失败!")
 
     if r.headers['content-type'].lower() == "application/json":
-        result = r.json()
+        try:
+            # 修正  justkg 提出的问题: https://github.com/egrcc/zhihu-python/issues/30
+            result = json.loads(r.content)
+        except Exception as e:
+            Logging.error(u"JSON解析失败！")
+            Logging.debug(e)
+            Logging.debug(r.content)
+            result = {}
         if result["r"] == 0:
             Logging.success(u"登录成功！" )
             return {"result": True}
