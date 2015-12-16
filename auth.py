@@ -135,7 +135,7 @@ def upload_form(form):
         'Referer': "http://www.zhihu.com/",
         'X-Requested-With': "XMLHttpRequest"
     }
- 
+
     r = requests.post(url, data=form, headers=headers)
     if int(r.status_code) != 200:
         raise NetworkError(u"表单上传失败!")
@@ -165,7 +165,7 @@ def upload_form(form):
 
 def islogin():
     # check session
-    url = "http://www.zhihu.com/settings/profile"
+    url = "https://www.zhihu.com/settings/profile"
     r = requests.get(url, allow_redirects=False)
     status_code = int(r.status_code)
     if status_code == 301 or status_code == 302:
@@ -179,7 +179,7 @@ def islogin():
 
 
 def read_account_from_config_file(config_file="config.ini"):
-    # NOTE: The ConfigParser module has been renamed to configparser in Python 3. 
+    # NOTE: The ConfigParser module has been renamed to configparser in Python 3.
     #       The 2to3 tool will automatically adapt imports when converting your sources to Python 3.
     #       https://docs.python.org/2/library/configparser.html
     from ConfigParser import ConfigParser
@@ -198,8 +198,8 @@ def read_account_from_config_file(config_file="config.ini"):
         Logging.error(u"配置文件加载失败！")
         return (None, None)
 
-    
-    
+
+
 
 def login(account=None, password=None):
     if islogin() == True:
@@ -215,7 +215,7 @@ def login(account=None, password=None):
 
     form_data = build_form(account, password)
     """
-        result: 
+        result:
             {"result": True}
             {"error": {"code": 19855555, "message": "unknow.", "data": "data" } }
             {"error": {"code": -1, "message": u"unknow error"} }

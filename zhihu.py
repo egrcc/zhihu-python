@@ -1,52 +1,52 @@
 # -*- coding: utf-8 -*-
 '''
 
-                                                                                         ;$$;       
-                                                                                    #############   
-                                                                               #############;#####o 
-                                                      ##                 o######################### 
+                                                                                         ;$$;
+                                                                                    #############
+                                                                               #############;#####o
+                                                      ##                 o#########################
                                                       #####         $###############################
                                                       ##  ###$ ######!    ##########################
                            ##                        ###    $###          ################### ######
                            ###                      ###                   ##o#######################
                           ######                  ;###                    #### #####################
-                          ##  ###             ######                       ######&&################ 
-                          ##    ###      ######                            ## ############ #######  
-                         o##      ########                                  ## ##################   
-                         ##o                ###                             #### #######o#######    
-                         ##               ######                             ###########&#####      
-                         ##                ####                               #############!        
-                        ###                                                     #########           
-               #####&   ##                                                      o####               
-             ######     ##                                                   ####*                  
-                  ##   !##                                               #####                      
-                   ##  ##*                                            ####; ##                      
-                    #####                                          #####o   #####                   
-                     ####                                        ### ###   $###o                    
-                      ###                                            ## ####! $###                  
-                      ##                                            #####                           
-                      ##                                            ##                              
-                     ;##                                           ###                           ;  
-                     ##$                                           ##                               
-                #######                                            ##                               
-            #####   &##                                            ##                               
-          ###       ###                                           ###                               
-         ###      ###                                             ##                                
-         ##     ;##                                               ##                                
-         ##    ###                                                ##                                
-          ### ###                                                 ##                                
-            ####                                                  ##                                
-             ###                                                  ##                                
-             ##;                                                  ##                                
-             ##$                                                 ##&                                
-              ##                                                 ##                                 
-              ##;                                               ##                                  
-               ##                                              ##;                                  
-                ###                                          ###         ##$                        
-                  ###                                      ###           ##                         
-   ######################                              #####&&&&&&&&&&&&###                         
- ###        $#####$     ############&$o$&################################                           
- #                               $&########&o                                                       
+                          ##  ###             ######                       ######&&################
+                          ##    ###      ######                            ## ############ #######
+                         o##      ########                                  ## ##################
+                         ##o                ###                             #### #######o#######
+                         ##               ######                             ###########&#####
+                         ##                ####                               #############!
+                        ###                                                     #########
+               #####&   ##                                                      o####
+             ######     ##                                                   ####*
+                  ##   !##                                               #####
+                   ##  ##*                                            ####; ##
+                    #####                                          #####o   #####
+                     ####                                        ### ###   $###o
+                      ###                                            ## ####! $###
+                      ##                                            #####
+                      ##                                            ##
+                     ;##                                           ###                           ;
+                     ##$                                           ##
+                #######                                            ##
+            #####   &##                                            ##
+          ###       ###                                           ###
+         ###      ###                                             ##
+         ##     ;##                                               ##
+         ##    ###                                                ##
+          ### ###                                                 ##
+            ####                                                  ##
+             ###                                                  ##
+             ##;                                                  ##
+             ##$                                                 ##&
+              ##                                                 ##
+              ##;                                               ##
+               ##                                              ##;
+                ###                                          ###         ##$
+                  ###                                      ###           ##
+   ######################                              #####&&&&&&&&&&&&###
+ ###        $#####$     ############&$o$&################################
+ #                               $&########&o
 '''
 
 # Build-in / Std
@@ -102,7 +102,7 @@ class Question:
             raise ValueError("\"" + url + "\"" + " : it isn't a question url.")
         else:
             self.url = url
-        
+
         if title != None: self.title = title
 
     def parser(self):
@@ -188,16 +188,16 @@ class Question:
                         if soup.find_all("div", class_="zm-item-answer")[j].find("span", class_="count") == None:
                             my_answer_count += 1
                             is_my_answer = True
-                        
+
                         if soup.find_all("div", class_="zm-item-answer")[j].find("div", class_="zm-editable-content clearfix") == None:
                             error_answer_count += 1
                             continue
                         author = None
-                        if soup.find_all("h3", class_="zm-item-answer-author-wrap")[j].string == u"匿名用户":
+                        if soup.find_all("div", class_="zm-item-answer-author-info")[j].string == u"匿名用户":
                             author_url = None
                             author = User(author_url)
                         else:
-                            author_tag = soup.find_all("h3", class_="zm-item-answer-author-wrap")[j].find_all("a")[1]
+                            author_tag = soup.find_all("div", class_="zm-item-answer-author-info")[j].find_all("a")[1]
                             author_id = author_tag.string.encode("utf-8")
                             author_url = "http://www.zhihu.com" + author_tag["href"]
                             author = User(author_url, author_id)
@@ -254,16 +254,16 @@ class Question:
                         soup = BeautifulSoup(self.soup.encode("utf-8"))
 
                         answer_soup = BeautifulSoup(answer_list[j])
-                        
+
                         if answer_soup.find("div", class_="zm-editable-content clearfix") == None:
                             continue
-                        
+
                         author = None
-                        if answer_soup.find("h3", class_="zm-item-answer-author-wrap").string == u"匿名用户":
+                        if answer_soup.find("div", class_="zm-item-answer-author-info").string == u"匿名用户":
                             author_url = None
                             author = User(author_url)
                         else:
-                            author_tag = answer_soup.find("h3", class_="zm-item-answer-author-wrap").find_all("a")[1]
+                            author_tag = answer_soup.find("div", class_="zm-item-answer-author-info").find_all("a")[1]
                             author_id = author_tag.string.encode("utf-8")
                             author_url = "http://www.zhihu.com" + author_tag["href"]
                             author = User(author_url, author_id)
@@ -328,7 +328,7 @@ class User:
     def __init__(self, user_url, user_id=None):
         if user_url == None:
             self.user_id = "匿名用户"
-        elif user_url[0:28] != "http://www.zhihu.com/people/":
+        elif user_url.startswith('www.zhihu.com/people', user_url.index('//') + 2) == False:
             raise ValueError("\"" + user_url + "\"" + " : it isn't a user url.")
         else:
             self.user_url = user_url
@@ -547,7 +547,7 @@ class User:
                 for i in xrange((asks_num - 1) / 20 + 1):
                     ask_url = self.user_url + "/asks?page=" + str(i + 1)
                     r = requests.get(ask_url)
-                    
+
                     soup = BeautifulSoup(r.content)
                     for question in soup.find_all("a", class_="question_link"):
                         url = "http://www.zhihu.com" + question["href"]
@@ -588,7 +588,7 @@ class User:
             else:
                 for i in xrange((collections_num - 1) / 20 + 1):
                     collection_url = self.user_url + "/collections?page=" + str(i + 1)
-                    
+
                     r = requests.get(collection_url)
 
                     soup = BeautifulSoup(r.content)
@@ -641,11 +641,11 @@ class Answer:
             if self.soup == None:
                 self.parser()
             soup = self.soup
-            if soup.find("h3", class_="zm-item-answer-author-wrap").string == u"匿名用户":
+            if soup.find("div", class_="zm-item-answer-author-info").string == u"匿名用户":
                 author_url = None
                 author = User(author_url)
             else:
-                author_tag = soup.find("h3", class_="zm-item-answer-author-wrap").find_all("a")[1]
+                author_tag = soup.find("div", class_="zm-item-answer-author-info").find_all("a")[1]
                 author_id = author_tag.string.encode("utf-8")
                 author_url = "http://www.zhihu.com" + author_tag["href"]
                 author = User(author_url, author_id)
@@ -945,12 +945,12 @@ class Collection:
                     question = Question(question_url, question_title)
                     answer_url = "http://www.zhihu.com" + answer.find("span", class_="answer-date-link-wrap").a["href"]
                     author = None
-                
-                    if answer.find("h3", class_="zm-item-answer-author-wrap").string == u"匿名用户":
+
+                    if answer.find("div", class_="zm-item-answer-author-info").string == u"匿名用户":
                         author_url = None
                         author = User(author_url)
                     else:
-                        author_tag = answer.find("h3", class_="zm-item-answer-author-wrap").find_all("a")[0]
+                        author_tag = answer.find("div", class_="zm-item-answer-author-info").find_all("a")[0]
                         author_id = author_tag.string.encode("utf-8")
                         author_url = "http://www.zhihu.com" + author_tag["href"]
                         author = User(author_url, author_id)
@@ -973,12 +973,12 @@ class Collection:
                             answer_url = "http://www.zhihu.com" + answer.find("span", class_="answer-date-link-wrap").a[
                                 "href"]
                             author = None
-                            if answer.find("h3", class_="zm-item-answer-author-wrap").string == u"匿名用户":
+                            if answer.find("div", class_="zm-item-answer-author-info").string == u"匿名用户":
                                 # author_id = "匿名用户"
                                 author_url = None
                                 author = User(author_url)
                             else:
-                                author_tag = answer.find("h3", class_="zm-item-answer-author-wrap").find_all("a")[0]
+                                author_tag = answer.find("div", class_="zm-item-answer-author-info").find_all("a")[0]
                                 author_id = author_tag.string.encode("utf-8")
                                 author_url = "http://www.zhihu.com" + author_tag["href"]
                                 author = User(author_url, author_id)
