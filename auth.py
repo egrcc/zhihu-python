@@ -96,8 +96,9 @@ def download_captcha():
         os.system("open %s &" % image_name )
     else:
         Logging.info(u"我们无法探测你的作业系统，请自行打开验证码 %s 文件，并输入验证码。" % os.path.join(os.getcwd(), image_name) )
-
-    captcha_code = raw_input( termcolor.colored("请输入验证码: ", "cyan") )
+    
+    sys.stdout.write(termcolor.colored(u"请输入验证码: ", "cyan") )
+    captcha_code = raw_input( )
     return captcha_code
 
 def search_xsrf():
@@ -209,9 +210,10 @@ def login(account=None, password=None):
     if account == None:
         (account, password) = read_account_from_config_file()
     if account == None:
-        account  = raw_input("请输入登录帐号: ")
-        password = raw_input("请输入登录密码: ")
-
+        sys.stdout.write(u"请输入登录账号: ")
+        account  = raw_input()
+        sys.stdout.write(u"请输入登录密码: ")
+        password = raw_input()
 
     form_data = build_form(account, password)
     """
