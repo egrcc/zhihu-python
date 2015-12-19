@@ -366,6 +366,11 @@ class User:
                     return user_id
 
     def get_data_id(self):
+        """
+            By yannisxu (https://github.com/yannisxu)
+            增加获取知乎 data-id 的方法来确定标识用户的唯一性 #24
+            (https://github.com/egrcc/zhihu-python/pull/24)
+        """
         if self.user_url == None:
             print "I'm anonymous user."
             return 0
@@ -545,6 +550,11 @@ class User:
                             yield User(user_link["href"], user_link.string.encode("utf-8"))
 
     def get_asks(self):
+        """
+            By ecsys (https://github.com/ecsys)
+            增加了获取某用户所有赞过答案的功能 #29 
+            (https://github.com/egrcc/zhihu-python/pull/29)
+        """
         if self.user_url == None:
             print "I'm anonymous user."
             return
@@ -611,7 +621,7 @@ class User:
 
 
     def get_likes(self):
-        # This function only handles liked answers, not including zhuanlan articles 
+        # This function only handles liked answers, not including zhuanlan articles
         if self.user_url == None:
             print "I'm an anonymous user."
             return
@@ -619,7 +629,7 @@ class User:
         else:
             r = requests.get(self.user_url)
             soup = BeautifulSoup(r.content)
-            # Handle the first liked item 
+            # Handle the first liked item
             first_item = soup.find("div", attrs={'class':'zm-profile-section-item zm-item clearfix'})
             first_item = first_item.find("div", attrs={'class':'zm-profile-section-main zm-profile-section-activity-main zm-profile-activity-page-item-main'})
             if u"赞同了回答" in str(first_item):
@@ -635,7 +645,7 @@ class User:
             }
             header = {
                 'Host': "www.zhihu.com",
-                'Referer': self.user_url, 
+                'Referer': self.user_url,
                 'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36",
             }
             r = requests.post(post_url, data=data, headers=header)
@@ -652,7 +662,7 @@ class User:
                 if len(data_times) != response_size:
                     print "读取activities栏时间信息时发生错误，可能因为某答案中包含data-time信息"
                     return
-                    yield 
+                    yield
                 latest_data_time = re.search(r"\d+", data_times[response_size - 1]).group()
                 data = {
                 'start': latest_data_time,
@@ -663,8 +673,8 @@ class User:
                 response_html = r.json()["msg"][1]
             return
             yield
- 
-            
+
+
 
 class Answer:
     answer_url = None
