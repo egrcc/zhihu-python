@@ -93,10 +93,10 @@ def download_captcha():
     elif platform.system() == "NetBSD":
         os.system("open %s &" % image_name )
     elif platform.system() == "Windows":
-        os.system("open %s &" % image_name )
+        os.system("%s" % image_name )
     else:
         Logging.info(u"我们无法探测你的作业系统，请自行打开验证码 %s 文件，并输入验证码。" % os.path.join(os.getcwd(), image_name) )
-    
+
     sys.stdout.write(termcolor.colored(u"请输入验证码: ", "cyan") )
     captcha_code = raw_input( )
     return captcha_code

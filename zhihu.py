@@ -193,7 +193,7 @@ class Question:
                             error_answer_count += 1
                             continue
                         author = None
-                        if soup.find_all("div", class_="zm-item-answer-author-info")[j].string == u"匿名用户":
+                        if soup.find_all("div", class_="zm-item-answer-author-info")[j].get_text(strip='\n') == u"匿名用户":
                             author_url = None
                             author = User(author_url)
                         else:
@@ -259,7 +259,7 @@ class Question:
                             continue
 
                         author = None
-                        if answer_soup.find("div", class_="zm-item-answer-author-info").string == u"匿名用户":
+                        if answer_soup.find("div", class_="zm-item-answer-author-info").get_text(strip='\n') == u"匿名用户":
                             author_url = None
                             author = User(author_url)
                         else:
@@ -552,7 +552,7 @@ class User:
     def get_asks(self):
         """
             By ecsys (https://github.com/ecsys)
-            增加了获取某用户所有赞过答案的功能 #29 
+            增加了获取某用户所有赞过答案的功能 #29
             (https://github.com/egrcc/zhihu-python/pull/29)
         """
         if self.user_url == None:
@@ -718,7 +718,7 @@ class Answer:
             if self.soup == None:
                 self.parser()
             soup = self.soup
-            if soup.find("div", class_="zm-item-answer-author-info").string == u"匿名用户":
+            if soup.find("div", class_="zm-item-answer-author-info").get_text(strip='\n') == u"匿名用户":
                 author_url = None
                 author = User(author_url)
             else:
@@ -959,7 +959,8 @@ class Collection:
 
     def __init__(self, url, name=None, creator=None):
 
-        if url[0:len(url) - 8] != "http://www.zhihu.com/collection/":
+        #if url[0:len(url) - 8] != "http://www.zhihu.com/collection/":
+        if not re.compile(r"(http|https)://www.zhihu.com/collection/\d{8}").match(url):
             raise ValueError("\"" + url + "\"" + " : it isn't a collection url.")
         else:
             self.url = url
@@ -1023,7 +1024,7 @@ class Collection:
                     answer_url = "http://www.zhihu.com" + answer.find("span", class_="answer-date-link-wrap").a["href"]
                     author = None
 
-                    if answer.find("div", class_="zm-item-answer-author-info").string == u"匿名用户":
+                    if answer.find("div", class_="zm-item-answer-author-info").get_text(strip='\n') == u"匿名用户":
                         author_url = None
                         author = User(author_url)
                     else:
@@ -1050,7 +1051,7 @@ class Collection:
                             answer_url = "http://www.zhihu.com" + answer.find("span", class_="answer-date-link-wrap").a[
                                 "href"]
                             author = None
-                            if answer.find("div", class_="zm-item-answer-author-info").string == u"匿名用户":
+                            if answer.find("div", class_="zm-item-answer-author-info").get_text(strip='\n') == u"匿名用户":
                                 # author_id = "匿名用户"
                                 author_url = None
                                 author = User(author_url)
