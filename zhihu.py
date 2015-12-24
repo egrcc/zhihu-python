@@ -98,7 +98,7 @@ class Question:
 
     def __init__(self, url, title=None):
 
-        if url[0:len(url) - 8] != "http://www.zhihu.com/question/":
+        if not re.compile(r"(http|https)://www.zhihu.com/question/\d{8}").match(url):
             raise ValueError("\"" + url + "\"" + " : it isn't a question url.")
         else:
             self.url = url
@@ -888,10 +888,10 @@ class Answer:
             f = open(os.path.join(os.path.join(os.getcwd(), "markdown"), file_name), "wt")
             f.write("# " + self.get_question().get_title() + "\n")
         if platform.system() == 'Windows':
-            f.write("## 作者: ".decode('utf-8').encode('gbk') + self.get_author().get_user_id() + "  赞同: ".decode(
+            f.write("### 作者: ".decode('utf-8').encode('gbk') + self.get_author().get_user_id() + "  赞同: ".decode(
                 'utf-8').encode('gbk') + str(self.get_upvote()) + "\n")
         else:
-            f.write("## 作者: " + self.get_author().get_user_id() + "  赞同: " + str(self.get_upvote()) + "\n")
+            f.write("### 作者: " + self.get_author().get_user_id() + "  赞同: " + str(self.get_upvote()) + "\n")
         text = html2text.html2text(content.decode('utf-8')).encode("utf-8")
 
         r = re.findall(r'\*\*(.*?)\*\*', text)
@@ -910,11 +910,11 @@ class Answer:
 
         if platform.system() == 'Windows':
             f.write(text.decode('utf-8').encode('gbk'))
-            link_str = "#### 原链接: ".decode('utf-8').encode('gbk')
+            link_str = "\n---\n#### 原链接: ".decode('utf-8').encode('gbk')
             f.write(link_str + self.answer_url.decode('utf-8').encode('gbk'))
         else:
             f.write(text)
-            f.write("#### 原链接: " + self.answer_url)
+            f.write("\n---\n#### 原链接: " + self.answer_url)
         f.close()
 
     def get_visit_times(self):
