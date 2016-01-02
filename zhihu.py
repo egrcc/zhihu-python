@@ -381,6 +381,25 @@ class User:
             data_id = soup.find("button", class_="zg-btn zg-btn-follow zm-rich-follow-btn")['data-id']
             return data_id
 
+    def get_gender(self):
+        """
+            By Mukosame (https://github.com/mukosame)
+            增加获取知乎识用户的性别
+             
+        """        
+        if self.user_url == None:
+            print "I'm anonymous user."
+            return 0
+        else:
+            if self.soup == None:
+                self.parser()
+            soup = self.soup
+            gender = str(soup.find("span",class_="item gender").i) 
+            if (gender == '<i class="icon icon-profile-female"></i>'):
+                return 'female'
+            else:
+                return 'male'
+
     def get_followees_num(self):
         if self.user_url == None:
             print "I'm anonymous user."
