@@ -488,7 +488,7 @@ zhihu.User ---- 知乎用户操作类
   
   **Returns**： 代表 ID 的字符串
 
- **user.get_gender** ()
+ **get_gender** ()
  
   得到该用户的性别。
   
