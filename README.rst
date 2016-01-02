@@ -255,6 +255,8 @@ User 代表一个用户，处理用户相关操作。创建一个 User 对象需
     user = User(user_url)
     # 获取用户ID
     user_id = user.get_user_id()
+    # 获取用户性别
+    user_gender = user.get_gender()
     # 获取该用户的关注者人数
     followers_num = user.get_followers_num()
     # 获取该用户关注的人数
@@ -485,7 +487,13 @@ zhihu.User ---- 知乎用户操作类
   得到该用户的ID。
   
   **Returns**： 代表 ID 的字符串
+
+ **user.get_gender** ()
  
+  得到该用户的性别。
+  
+ **Returns**： 代表 性别 的字符串(male/female)  
+  
  **get_followees_num** ()
  
   得到该用户关注的人的个数。

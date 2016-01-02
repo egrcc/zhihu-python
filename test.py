@@ -103,6 +103,8 @@ def user_test(user_url):
     user = User(user_url)
     # 获取用户ID
     user_id = user.get_user_id()
+    # 获取用户性别
+    user_gender = user.get_gender()
     # 获取该用户的关注者人数
     followers_num = user.get_followers_num()
     # 获取该用户关注的人数
@@ -130,6 +132,7 @@ def user_test(user_url):
     collections = user.get_collections()
 
     print user_id  # 黄继新
+    print user_gender #male
     print followers_num  # 614840
     print followees_num  # 8408
     print asks_num  # 1323
