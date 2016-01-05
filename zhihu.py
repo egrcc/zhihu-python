@@ -385,20 +385,23 @@ class User:
         """
             By Mukosame (https://github.com/mukosame)
             增加获取知乎识用户的性别
-             
-        """        
+
+        """
         if self.user_url == None:
             print "I'm anonymous user."
-            return 0
+            return 'unknown'
         else:
             if self.soup == None:
                 self.parser()
             soup = self.soup
-            gender = str(soup.find("span",class_="item gender").i) 
-            if (gender == '<i class="icon icon-profile-female"></i>'):
-                return 'female'
-            else:
-                return 'male'
+            try:
+                gender = str(soup.find("span",class_="item gender").i)
+                if (gender == '<i class="icon icon-profile-female"></i>'):
+                    return 'female'
+                else:
+                    return 'male'
+            except:
+                return 'unknown'
 
     def get_followees_num(self):
         if self.user_url == None:
