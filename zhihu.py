@@ -965,7 +965,7 @@ class Answer:
             yield
         else:
             for voter_info in voters_info:
-                if voter_info.string == ( u"匿名用户、" or u"匿名用户"):
+                if voter_info.string == u"匿名用户、" or voter_info.string == u"匿名用户":
                     voter_url = None
                     yield User(voter_url)
                 else:
