@@ -819,6 +819,7 @@ class Answer:
             # print file_name
             # else:
             # print file_name
+            file_name = file_name.replace("/", "'SLASH'")
             if os.path.exists(os.path.join(os.path.join(os.getcwd(), "text"), file_name)):
                 f = open(os.path.join(os.path.join(os.getcwd(), "text"), file_name), "a")
                 f.write("\n\n")
@@ -839,6 +840,7 @@ class Answer:
             # print file_name
             # else:
             # print file_name
+            file_name = file_name.replace("/", "'SLASH'")
             f = open(os.path.join(os.path.join(os.getcwd(), "text"), file_name), "wt")
             f.write(self.get_question().get_title() + "\n\n")
         if platform.system() == 'Windows':
@@ -884,6 +886,7 @@ class Answer:
             # print file_name
             # else:
             # print file_name
+            file_name = file_name.replace("/", "'SLASH'")
             if not os.path.isdir(os.path.join(os.path.join(os.getcwd(), "markdown"))):
                 os.makedirs(os.path.join(os.path.join(os.getcwd(), "markdown")))
             if os.path.exists(os.path.join(os.path.join(os.getcwd(), "markdown"), file_name)):
@@ -907,6 +910,7 @@ class Answer:
             # print file_name
             # else:
             # print file_name
+            file_name = file_name.replace("/", "'SLASH'")
             f = open(os.path.join(os.path.join(os.getcwd(), "markdown"), file_name), "wt")
             f.write("# " + self.get_question().get_title() + "\n")
         if platform.system() == 'Windows':
