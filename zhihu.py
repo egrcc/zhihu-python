@@ -951,7 +951,7 @@ class Answer:
         if self.soup == None:
             self.parser()
         soup = self.soup
-        data_aid = soup.find("div", class_="zm-item-answer ")["data-aid"]
+        data_aid = soup.find("div", class_="zm-item-answer  zm-item-expanded")["data-aid"]
         request_url = 'http://www.zhihu.com/node/AnswerFullVoteInfoV2'
         # if session == None:
         #     create_session()
