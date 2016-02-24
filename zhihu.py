@@ -177,9 +177,9 @@ class Question:
         else:
             error_answer_count = 0
             my_answer_count = 0
-            for i in xrange((answers_num - 1) / 50 + 1):
+            for i in xrange((answers_num - 1) / 20 + 1):
                 if i == 0:
-                    for j in xrange(min(answers_num, 50)):
+                    for j in xrange(min(answers_num, 20)):
                         if self.soup == None:
                             self.parser()
                         soup = BeautifulSoup(self.soup.encode("utf-8"))
@@ -234,9 +234,9 @@ class Question:
                 else:
                     post_url = "http://www.zhihu.com/node/QuestionAnswerListV2"
                     _xsrf = self.soup.find("input", attrs={'name': '_xsrf'})["value"]
-                    offset = i * 50
+                    offset = i * 20
                     params = json.dumps(
-                        {"url_token": int(self.url[-8:-1] + self.url[-1]), "pagesize": 50, "offset": offset})
+                        {"url_token": int(self.url[-8:-1] + self.url[-1]), "pagesize": 20, "offset": offset})
                     data = {
                         '_xsrf': _xsrf,
                         'method': "next",
@@ -250,7 +250,7 @@ class Question:
                     r = requests.post(post_url, data=data, headers=header)
 
                     answer_list = r.json()["msg"]
-                    for j in xrange(min(answers_num - i * 50, 50)):
+                    for j in xrange(min(answers_num - i * 20, 20)):
                         soup = BeautifulSoup(self.soup.encode("utf-8"))
 
                         answer_soup = BeautifulSoup(answer_list[j])
