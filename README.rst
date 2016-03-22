@@ -681,7 +681,9 @@ zhihu.Collection ---- 知乎收藏夹操作类
 捐赠
 ----------
 
-如果本项目有帮到你，欢迎捐赠支持：
+如果本项目有帮到你，欢迎捐赠支持。
+
+支付宝（左），微信支付（右）：
 
 
 .. image:: http://egrcc.github.io/img/alipay.jpg
