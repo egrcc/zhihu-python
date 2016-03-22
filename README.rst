@@ -683,7 +683,12 @@ zhihu.Collection ---- 知乎收藏夹操作类
 
 如果本项目有帮到你，欢迎捐赠支持：
 
+
 .. image:: http://egrcc.github.io/img/alipay.jpg
-   :height: 350 px
-   :width: 350 px
+   :height: 300px
+   :width: 300 px
+   :scale: 50 %
+   :alt: alternate text
+   :align: right
+
 
