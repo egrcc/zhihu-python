@@ -683,7 +683,7 @@ zhihu.Collection ---- 知乎收藏夹操作类
 
 如果本项目有帮到你，欢迎捐赠支持：
 
-<div align="center">
-<img src="http://egrcc.github.io/img/alipay.jpg" alt=""/>
-<img src="http://egrcc.github.io/img/wechat_payment.jpg" alt=""/><br>
-</div>
+.. image:: http://egrcc.github.io/img/alipay.jpg
+   :height: 350 px
+   :width: 350 px
+
