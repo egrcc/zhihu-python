@@ -676,3 +676,11 @@ zhihu.Collection ---- 知乎收藏夹操作类
 - 微博：http://weibo.com/u/2948739432
 - github：https://github.com/egrcc
 - email：zhaolujun1994@gmail.com
+
+
+捐赠
+----------
+
+如果本项目有帮到你，欢迎捐赠支持：
+
+.. image:: http://egrcc.github.io/img/alipay.jpg
