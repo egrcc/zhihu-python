@@ -686,7 +686,7 @@ zhihu.Collection ---- 知乎收藏夹操作类
 
 .. image:: http://egrcc.github.io/img/alipay.jpg
 
-.. image:: http://egrcc.github.io/img/wechat.jpg
+.. image:: http://egrcc.github.io/img/wechat.png
 
 
 
