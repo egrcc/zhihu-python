@@ -685,10 +685,8 @@ zhihu.Collection ---- 知乎收藏夹操作类
 
 
 .. image:: http://egrcc.github.io/img/alipay.jpg
-   :height: 300px
-   :width: 300 px
-   :scale: 50 %
-   :alt: alternate text
-   :align: right
+
+.. image:: http://egrcc.github.io/img/wechat.jpg
+
 
 
