@@ -78,7 +78,7 @@ zhihu-python 采用 Python2.7 编写，用来方便地获取知乎上各种内�
 * `requests <https://github.com/kennethreitz/requests>`_
 * `html2text <https://github.com/aaronsw/html2text>`_
 * `termcolor <https://pypi.python.org/pypi/termcolor>`_
-
+* `lxml <https://github.com/lxml/lxml>`_
 
 .. code:: bash
 

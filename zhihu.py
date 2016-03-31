@@ -107,7 +107,7 @@ class Question:
 
     def parser(self):
         r = requests.get(self.url)
-        self.soup = BeautifulSoup(r.content)
+        self.soup = BeautifulSoup(r.content, "lxml")
 
     def get_title(self):
         if hasattr(self, "title"):
@@ -182,7 +182,7 @@ class Question:
                     for j in xrange(min(answers_num, 20)):
                         if self.soup == None:
                             self.parser()
-                        soup = BeautifulSoup(self.soup.encode("utf-8"))
+                        soup = BeautifulSoup(self.soup.encode("utf-8"), "lxml")
 
                         is_my_answer = False
                         if soup.find_all("div", class_="zm-item-answer")[j].find("span", class_="count") == None:
@@ -251,9 +251,9 @@ class Question:
 
                     answer_list = r.json()["msg"]
                     for j in xrange(min(answers_num - i * 20, 20)):
-                        soup = BeautifulSoup(self.soup.encode("utf-8"))
+                        soup = BeautifulSoup(self.soup.encode("utf-8"), "lxml")
 
-                        answer_soup = BeautifulSoup(answer_list[j])
+                        answer_soup = BeautifulSoup(answer_list[j], "lxml")
 
                         if answer_soup.find("div", class_="zm-editable-content clearfix") == None:
                             continue
@@ -337,7 +337,7 @@ class User:
 
     def parser(self):
         r = requests.get(self.user_url)
-        soup = BeautifulSoup(r.content)
+        soup = BeautifulSoup(r.content, "lxml")
         self.soup = soup
 
     def get_user_id(self):
@@ -496,7 +496,7 @@ class User:
                 followee_url = self.user_url + "/followees"
                 r = requests.get(followee_url)
 
-                soup = BeautifulSoup(r.content)
+                soup = BeautifulSoup(r.content, "lxml")
                 for i in xrange((followees_num - 1) / 20 + 1):
                     if i == 0:
                         user_url_list = soup.find_all("h2", class_="zm-list-content-title")
@@ -523,7 +523,7 @@ class User:
 
                         followee_list = r_post.json()["msg"]
                         for j in xrange(min(followees_num - i * 20, 20)):
-                            followee_soup = BeautifulSoup(followee_list[j])
+                            followee_soup = BeautifulSoup(followee_list[j], "lxml")
                             user_link = followee_soup.find("h2", class_="zm-list-content-title").a
                             yield User(user_link["href"], user_link.string.encode("utf-8"))
 
@@ -541,7 +541,7 @@ class User:
                 follower_url = self.user_url + "/followers"
                 r = requests.get(follower_url)
 
-                soup = BeautifulSoup(r.content)
+                soup = BeautifulSoup(r.content, "lxml")
                 for i in xrange((followers_num - 1) / 20 + 1):
                     if i == 0:
                         user_url_list = soup.find_all("h2", class_="zm-list-content-title")
@@ -567,7 +567,7 @@ class User:
 
                         follower_list = r_post.json()["msg"]
                         for j in xrange(min(followers_num - i * 20, 20)):
-                            follower_soup = BeautifulSoup(follower_list[j])
+                            follower_soup = BeautifulSoup(follower_list[j], "lxml")
                             user_link = follower_soup.find("h2", class_="zm-list-content-title").a
                             yield User(user_link["href"], user_link.string.encode("utf-8"))
 
@@ -591,7 +591,7 @@ class User:
                     ask_url = self.user_url + "/asks?page=" + str(i + 1)
                     r = requests.get(ask_url)
 
-                    soup = BeautifulSoup(r.content)
+                    soup = BeautifulSoup(r.content, "lxml")
                     for question in soup.find_all("a", class_="question_link"):
                         url = "http://www.zhihu.com" + question["href"]
                         title = question.string.encode("utf-8")
@@ -611,7 +611,7 @@ class User:
                 for i in xrange((answers_num - 1) / 20 + 1):
                     answer_url = self.user_url + "/answers?page=" + str(i + 1)
                     r = requests.get(answer_url)
-                    soup = BeautifulSoup(r.content)
+                    soup = BeautifulSoup(r.content, "lxml")
                     for answer in soup.find_all("a", class_="question_link"):
                         question_url = "http://www.zhihu.com" + answer["href"][0:18]
                         question_title = answer.string.encode("utf-8")
@@ -634,7 +634,7 @@ class User:
 
                     r = requests.get(collection_url)
 
-                    soup = BeautifulSoup(r.content)
+                    soup = BeautifulSoup(r.content, "lxml")
                     for collection in soup.find_all("div", class_="zm-profile-section-item zg-clear"):
                         url = "http://www.zhihu.com" + \
                               collection.find("a", class_="zm-profile-fav-item-title")["href"]
@@ -650,7 +650,7 @@ class User:
             yield
         else:
             r = requests.get(self.user_url)
-            soup = BeautifulSoup(r.content)
+            soup = BeautifulSoup(r.content, "lxml")
             # Handle the first liked item
             first_item = soup.find("div", attrs={'class':'zm-profile-section-item zm-item clearfix'})
             first_item = first_item.find("div", attrs={'class':'zm-profile-section-main zm-profile-section-activity-main zm-profile-activity-page-item-main'})
@@ -717,7 +717,7 @@ class Answer:
 
     def parser(self):
         r = requests.get(self.answer_url)
-        soup = BeautifulSoup(r.content)
+        soup = BeautifulSoup(r.content, "lxml")
         self.soup = soup
 
     def get_question(self):
@@ -772,7 +772,7 @@ class Answer:
         else:
             if self.soup == None:
                 self.parser()
-            soup = BeautifulSoup(self.soup.encode("utf-8"))
+            soup = BeautifulSoup(self.soup.encode("utf-8"), "lxml")
             answer = soup.find("div", class_="zm-editable-content clearfix")
             soup.body.extract()
             soup.head.insert_after(soup.new_tag("body", **{'class': 'zhi'}))
@@ -962,7 +962,7 @@ class Answer:
         # s = session
         # r = s.get(request_url, params={"params": "{\"answer_id\":\"%d\"}" % int(data_aid)})
         r = requests.get(request_url, params={"params": "{\"answer_id\":\"%d\"}" % int(data_aid)})
-        soup = BeautifulSoup(r.content)
+        soup = BeautifulSoup(r.content, "lxml")
         voters_info = soup.find_all("span")[1:-1]
         if len(voters_info) == 0:
             return
@@ -997,7 +997,7 @@ class Collection:
                 self.creator = creator
     def parser(self):
         r = requests.get(self.url)
-        soup = BeautifulSoup(r.content)
+        soup = BeautifulSoup(r.content, "lxml")
         self.soup = soup
 
     def get_name(self):
@@ -1062,7 +1062,7 @@ class Collection:
             i = 2
             while True:
                 r = requests.get(self.url + "?page=" + str(i))
-                answer_soup = BeautifulSoup(r.content)
+                answer_soup = BeautifulSoup(r.content, "lxml")
                 answer_list = answer_soup.find_all("div", class_="zm-item")
                 if len(answer_list) == 0:
                     break
