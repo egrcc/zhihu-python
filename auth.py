@@ -66,8 +66,8 @@ class AccountError(Exception):
 
 
 def download_captcha():
-    url = "http://www.zhihu.com/captcha.gif"
-    r = requests.get(url, params={"r": random.random()} )
+    url = "https://www.zhihu.com/captcha.gif"
+    r = requests.get(url, params={"r": random.random(), "type": "login"} )
     if int(r.status_code) != 200:
         raise NetworkError(u"验证码请求失败")
     image_name = u"verify." + r.headers['content-type'].split("/")[1]
@@ -124,9 +124,12 @@ def build_form(account, password):
     return form
 
 def upload_form(form):
-    if "email" in form: url = "http://www.zhihu.com/login/email"
-    elif "phone_num" in form: url = "http://www.zhihu.com/login/phone_num"
-    else: raise ValueError(u"账号类型错误")
+    if "email" in form:
+        url = "https://www.zhihu.com/login/email"
+    elif "phone_num" in form:
+        url = "https://www.zhihu.com/login/phone_num"
+    else:
+        raise ValueError(u"账号类型错误")
 
     headers = {
         'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36",
