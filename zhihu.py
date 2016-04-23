@@ -167,8 +167,10 @@ class Post:
         if self.meta == None:
             self.parser()
         meta = self.meta
+        topic_list = []
         for topic in meta['topics']:
-            yield topic
+            topic_list.append(topic['name'])
+        return topic_list
       
 class Column:
     url = None
