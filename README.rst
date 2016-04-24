@@ -772,7 +772,7 @@ zhihu.Column ---- 知乎专栏操作类
 
 *class* zhihu. **Column** (*Column_url*)
 
- Column 以 url 为唯一标识，创建一个 Column 对象实例必须传入一个代表知乎专栏的 url （如：http://zhuanlan.zhihu.com/daily），需包含“http(s)://”。如果传入的不是代表专栏的 url ，程序会报错。通过调用 Column 类的一系列方法，获得该专栏的一些信息。
+ Column 以 url 为唯一标识，创建一个 Column 对象实例必须传入一个代表知乎专栏的 url （如：http://zhuanlan.zhihu.com/daily），需包含“http(s)://”。如果传入的不是代表专栏的 url ，程序会报错。通过调用 Column 类的一系列方法，获得该专栏的一些信息。该类由 `@johnnyluck <https://github.com/johnnyluck>`_ 添加。
  
  **Parameters**：
   * **column_url** -- 该专栏的链接，字符串
@@ -827,7 +827,7 @@ zhihu.Post ---- 知乎专栏文章操作类
 
 *class* zhihu. **Post** (*Post_url*)
 
- Post 以 url 为唯一标识，创建一个 Post 对象实例必须传入一个代表知乎文章的 url （如：http://zhuanlan.zhihu.com/p/20235601），需包含“http(s)://”。如果传入的不是代表文章的 url ，程序会报错。通过调用 Post 类的一系列方法，获得该文章的一些信息。
+ Post 以 url 为唯一标识，创建一个 Post 对象实例必须传入一个代表知乎文章的 url （如：http://zhuanlan.zhihu.com/p/20235601），需包含“http(s)://”。如果传入的不是代表文章的 url ，程序会报错。通过调用 Post 类的一系列方法，获得该文章的一些信息。该类由 `@johnnyluck <https://github.com/johnnyluck>`_ 添加。
  
  **Parameters**：
   * **post_url** -- 该文章的链接，字符串
