@@ -2,8 +2,8 @@ zhihu-python：获取知乎信息
 ===============================
 
 :Author: `egrcc <https://github.com/egrcc>`_ ( `微博 <http://weibo.com/u/2948739432>`_ | `电邮 <zhaolujun1994@gmail.com>`_ )
-:Committer: `Eureka22 <https://github.com/Eureka22>`_ ,  `lufo816 <https://github.com/lufo816>`_ , `LuoZijun <https://github.com/LuoZijun>`_
-:Update: 09/09 2015
+:Contributors: 参见 `Contributors <https://github.com/egrcc/zhihu-python/graphs/contributors>`_
+:Update: 04/23 2016
 
 
 .. contents::
@@ -353,56 +353,10 @@ Collection 代表一个收藏夹，处理收藏夹相关操作。创建一个 Co
     # 代表所有答案的生成器对象
 
 
-Post：获取知乎文章
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Post 代表一个文章， Post 对象需传入该文章的 url ，如：
-
-.. code-block:: python
-
-    from zhihu import Post
-    
-    url = "http://zhuanlan.zhihu.com/p/20235601"
-    post = Post(url)
-
-得到 Post 对象后，可以获取该文章的一些信息：
-
-.. code-block:: python
-
-    # -*- coding: utf-8 -*-
-    from zhihu import Post
-    
-    url = "http://zhuanlan.zhihu.com/p/20770968"
-    post = Post(url)
-
-    # 获取该文章的标题
-    title = post.get_title()
-    # 获取该文章的内容
-    content = post.get_content()
-    # 获取该文章的作者
-    author = post.get_author()
-    # 获取该文章的所属专栏
-    column = post.get_column()
-    # 获取该文章所属话题
-    topics = post.get_topics()
-
-    print title  # 输出：夜读书|四月十九日
-    print content
-    # 输出：
-    # <p>各位，晚上好。<br> ...
-    # ......
-    print author
-    # 输出： <zhihu.User instance at 0x75ec0fd0>
-    for topic in topics:
-        print topic,  # 输出：阅读
-    print column  
-    # 输出：<zhihu.Column instance at 0x75eb3eb8>
-    # Column类对象
-    
 Column：获取知乎专栏
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Column 代表一个专栏 Column 对象需传入该专栏 url ，如：
+Column 代表一个专栏，创建一个 Column 对象需传入该专栏的 url ，如：
 
 .. code-block:: python
 
@@ -446,6 +400,54 @@ Column 代表一个专栏 Column 对象需传入该专栏 url ，如：
     print posts
     # 输出：<generator object get_all_posts at 0x75e33bc0>
     # Post类对象
+
+
+Post：获取知乎文章
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Post 代表一个文章，创建一个 Post 对象需传入该文章的 url ，如：
+
+.. code-block:: python
+
+    from zhihu import Post
+    
+    url = "http://zhuanlan.zhihu.com/p/20235601"
+    post = Post(url)
+
+得到 Post 对象后，可以获取该文章的一些信息：
+
+.. code-block:: python
+
+    # -*- coding: utf-8 -*-
+    from zhihu import Post
+    
+    url = "http://zhuanlan.zhihu.com/p/20770968"
+    post = Post(url)
+
+    # 获取该文章的标题
+    title = post.get_title()
+    # 获取该文章的内容
+    content = post.get_content()
+    # 获取该文章的作者
+    author = post.get_author()
+    # 获取该文章的所属专栏
+    column = post.get_column()
+    # 获取该文章所属话题
+    topics = post.get_topics()
+
+    print title  # 输出：夜读书|四月十九日
+    print content
+    # 输出：
+    # <p>各位，晚上好。<br> ...
+    # ......
+    print author
+    # 输出： <zhihu.User instance at 0x75ec0fd0>
+    for topic in topics:
+        print topic,  # 输出：阅读
+    print column  
+    # 输出：<zhihu.Column instance at 0x75eb3eb8>
+    # Column类对象
+    
 
 综合实例
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -783,25 +785,25 @@ zhihu.Column ---- 知乎专栏操作类
  
  **get_creator** ()
  
-  得到该专栏的创建者 。
+  得到该专栏的创建者。
   
   **Returns**： 一个 User 对象
  
  **get_description** ()
  
-  得到该专栏的描述
+  得到该专栏的描述。
   
   **Returns**： 一个专栏描述的字符串
 
  **get_followers_num** ()
 
-  得到该专栏的关注人数
+  得到该专栏的关注人数。
 
   **Returns**： 一个 int 型的整数
  
  **get_posts_num** ()
 
-  得到该专栏的所有文章数
+  得到该专栏的所有文章数。
 
   **Returns**： 一个 int 型的整数
  
@@ -813,7 +815,7 @@ zhihu.Column ---- 知乎专栏操作类
 
  **get_posts** ()
 
-  得到该专栏的所有文章
+  得到该专栏的所有文章。
 
   **Returns**：包含所有文章的 generator 对象。其中每一个元素为代表一个文章 Post 对象
  
@@ -838,13 +840,13 @@ zhihu.Post ---- 知乎文章操作类
  
  **get_author** ()
  
-  得到该文章的作者 。
+  得到该文章的作者。
   
   **Returns**： 一个 User 对象
  
  **get_content** ()
  
-  得到该文章的内容
+  得到该文章的内容。
   
   **Returns**： 一个文章描述的字符串
 
@@ -856,7 +858,7 @@ zhihu.Post ---- 知乎文章操作类
 
  **get_column** ()
 
-  得到该文章的所属专栏
+  得到该文章的所属专栏。
 
   **Returns**：一个 Column 的实例对象
  
@@ -867,19 +869,4 @@ zhihu.Post ---- 知乎文章操作类
 - 微博：http://weibo.com/u/2948739432
 - github：https://github.com/egrcc
 - email：zhaolujun1994@gmail.com
-
-
-捐赠
-----------
-
-如果本项目有帮到你，欢迎捐赠支持。
-
-支付宝（左），微信支付（右）：
-
-
-.. image:: http://egrcc.github.io/img/alipay.jpg
-
-.. image:: http://egrcc.github.io/img/wechat.png
-
-
 
