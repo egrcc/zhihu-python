@@ -25,6 +25,8 @@ from zhihu import Question
 from zhihu import Answer
 from zhihu import User
 from zhihu import Collection
+from zhihu import Post
+from zhihu import Column
 
 
 def question_test(url):
@@ -197,6 +199,56 @@ def collection_test(collection_url):
     # 代表所有答案的生成器对象
 
 
+def post_test(post_url):
+    post = Post(post_url)
+    
+    # 获取该文章的标题
+    title = post.get_title()
+    # 获取该文章的内容
+    content = post.get_content()
+    # 获取该文章的作者
+    author = post.get_author()
+    # 获取该文章的所属专栏
+    column = post.get_column()
+    # 获取该文章所属话题
+    topics = post.get_topics()
+    
+    print title  # 输出：
+    print content
+    for topic in topics:
+        print topic,  # 输出：
+    print "\n"
+    print author  
+    # 输出：<zhihu.User instance at 0x7f8b6582d0e0>
+    # User类对象
+    print column  
+    # 输出：<zhihu.Column instance at 0x7f8b6582d0e0>
+    # Column类对象
+
+
+def column_test(column_url):
+
+    column = Column(column_url)
+    
+    # 获取该专栏的标题
+    title = column.get_title()
+    # 获取该专栏的描述
+    description = column.get_description()
+    # 获取该专栏的作者
+    creator = column.get_creator()
+    # 获取该专栏的文章数
+    posts_num = column.get_posts_num()
+    # 获取该专栏的所有文章
+    posts = column.get_all_posts()
+    
+    print title  
+    print description
+    print creator  
+    # 输出：<zhihu.User instance at 0x7f8b6582d0e0>
+    # User类对象
+    print posts_num  
+    print posts
+    
 def test():
     url = "http://www.zhihu.com/question/24269892"
     question = Question(url)
@@ -231,6 +283,10 @@ def main():
     user_test(user_url)
     collection_url = "http://www.zhihu.com/collection/36750683"
     collection_test(collection_url)
+    post_url = "http://zhuanlan.zhihu.com/p/20770968"
+    post_test(post_url)
+    column_url = "http://zhuanlan.zhihu.com/daily"
+    column_test(column_url)
     test()
 
 

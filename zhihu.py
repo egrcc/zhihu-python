@@ -92,6 +92,176 @@ if islogin() != True:
 reload(sys)
 sys.setdefaultencoding('utf8')
 
+class Post:
+    url = None
+    meta = None
+    slug = None
+
+    def __init__(self, url):
+
+        if not re.compile(r"(http|https)://zhuanlan.zhihu.com/p/\d{8}").match(url):
+            raise ValueError("\"" + url + "\"" + " : it isn't a question url.")
+        else:
+            self.url = url
+            self.slug = re.compile(r"(http|https)://zhuanlan.zhihu.com/p/(\d{8})").match(url).group(2)
+
+    def parser(self):
+        r = requests.get('https://zhuanlan.zhihu.com/api/posts/' + self.slug)
+        self.meta = r.json()
+
+    def get_title(self):
+        if hasattr(self, "title"):
+            if platform.system() == 'Windows':
+                title = self.title.decode('utf-8').encode('gbk')
+                return title
+            else:
+                return self.title
+        else:
+            if self.meta == None:
+                self.parser()
+            meta = self.meta
+            title = meta['title']
+            self.title = title
+            if platform.system() == 'Windows':
+                title = title.decode('utf-8').encode('gbk')
+                return title
+            else:
+                return title
+
+    def get_content(self):
+        if self.meta == None:
+            self.parser()
+        meta = self.meta
+        content = meta['content']
+        if platform.system() == 'Windows':
+            content = content.decode('utf-8').encode('gbk')
+            return content
+        else:
+            return content
+    
+    def get_author(self):
+        if hasattr(self, "author"):
+            return self.author
+        else:
+            if self.meta == None:
+                self.parser()
+            meta = self.meta
+            author_tag = meta['author']
+            author = User(author_tag['profileUrl'],author_tag['slug'])
+            return author
+
+    def get_column(self):
+        if self.meta == None:
+            self.parser()
+        meta = self.meta
+        column_url = 'https://zhuanlan.zhihu.com/' + meta['column']['slug']
+        return Column(column_url, meta['column']['slug'])
+
+    def get_likes(self):
+        if self.meta == None:
+            self.parser()
+        meta = self.meta
+        return int(meta["likesCount"])
+
+    def get_topics(self):
+        if self.meta == None:
+            self.parser()
+        meta = self.meta
+        topic_list = []
+        for topic in meta['topics']:
+            topic_list.append(topic['name'])
+        return topic_list
+      
+class Column:
+    url = None
+    meta = None
+
+    def __init__(self, url, slug=None):
+
+        if not re.compile(r"(http|https)://zhuanlan.zhihu.com/([0-9a-zA-Z]+)").match(url):
+            raise ValueError("\"" + url + "\"" + " : it isn't a question url.")
+        else:
+            self.url = url
+            if slug == None:
+                self.slug = re.compile(r"(http|https)://zhuanlan.zhihu.com/([0-9a-zA-Z]+)").match(url).group(2)
+            else:
+                self.slug = slug
+
+    def parser(self):
+        r = requests.get('https://zhuanlan.zhihu.com/api/columns/' + self.slug)
+        self.meta = r.json()
+
+    def get_title(self):
+        if hasattr(self,"title"):
+            if platform.system() == 'Windows':
+                title =  self.title.decode('utf-8').encode('gbk')
+                return title
+            else:
+                return self.title
+        else:
+            if self.meta == None:
+                self.parser()
+            meta = self.meta
+            title = meta['name']
+            self.title = title
+            if platform.system() == 'Windows':
+                title = title.decode('utf-8').encode('gbk')
+                return title
+            else:
+                return title
+
+    def get_description(self):
+        if self.meta == None:
+            self.parser()
+        meta = self.meta
+        description = meta['description']
+        if platform.system() == 'Windows':
+            description = description.decode('utf-8').encode('gbk')
+            return description
+        else:
+            return description
+
+    def get_followers_num(self):
+        if self.meta == None:
+            self.parser()
+        meta = self.meta
+        followers_num = int(meta['followersCount'])
+        return followers_num
+
+    def get_posts_num(self):
+        if self.meta == None:
+            self.parser()
+        meta = self.meta
+        posts_num = int(meta['postsCount'])
+        return posts_num
+
+    def get_creator(self):
+        if hasattr(self, "creator"):
+            return self.creator
+        else:
+            if self.meta == None:
+                self.parser()
+            meta = self.meta
+            creator_tag = meta['creator']
+            creator = User(creator_tag['profileUrl'],creator_tag['slug'])
+            return creator
+
+    def get_all_posts(self):
+        posts_num = self.get_posts_num()
+        if posts_num == 0:
+            print "No posts."
+            return
+            yield
+        else:
+            for i in xrange((posts_num - 1) / 20 + 1):
+                parm = {'limit': 20, 'offset': 20*i}
+                url = 'https://zhuanlan.zhihu.com/api/columns/' + self.slug + '/posts'
+                r = requests.get(url, params=parm)
+                posts_list = r.json()
+                for p in posts_list:
+                    post_url = 'https://zhuanlan.zhihu.com/p/' + str(p['slug'])
+                    yield Post(post_url)
+
 class Question:
     url = None
     soup = None
