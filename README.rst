@@ -353,10 +353,10 @@ Collection 代表一个收藏夹，处理收藏夹相关操作。创建一个 Co
     # 代表所有答案的生成器对象
 
 
-Column：获取知乎专栏
+Column：获取专栏信息
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Column 代表一个专栏，创建一个 Column 对象需传入该专栏的 url ，如：
+Column 代表一个专栏，处理专栏相关操作。创建一个 Column 对象需传入该专栏的 url ，如：
 
 .. code-block:: python
 
@@ -389,7 +389,9 @@ Column 代表一个专栏，创建一个 Column 对象需传入该专栏的 url 
     print title  # 输出：知乎日报
     print description
     # 输出：
-    # 知乎日报启动画面接受所有摄影师朋友们的投稿，将作品链接（如 Flickr、LOFTER 等等），发至邮箱 qidong (at) zhihu.com，并附上您的知乎个人页面地址即可。
+    # 知乎日报启动画面接受所有摄影师朋友们的投稿，将作品链接
+    #（如 Flickr、LOFTER 等等），发至邮箱 qidong (at) zhihu.com，
+    # 并附上您的知乎个人页面地址即可。
     # 
     # 详细投稿要求: http://t.cn/zQyEpN5
 
@@ -402,10 +404,10 @@ Column 代表一个专栏，创建一个 Column 对象需传入该专栏的 url 
     # Post类对象
 
 
-Post：获取知乎文章
+Post：获取专栏文章信息
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Post 代表一个文章，创建一个 Post 对象需传入该文章的 url ，如：
+Post 代表一个专栏文章，处理专栏文章相关操作。创建一个 Post 对象需传入该文章的 url ，如：
 
 .. code-block:: python
 
@@ -820,7 +822,7 @@ zhihu.Column ---- 知乎专栏操作类
   **Returns**：包含所有文章的 generator 对象。其中每一个元素为代表一个文章 Post 对象
  
 
-zhihu.Post ---- 知乎文章操作类
+zhihu.Post ---- 知乎专栏文章操作类
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 *class* zhihu. **Post** (*Post_url*)
