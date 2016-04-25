@@ -121,6 +121,8 @@ def user_test(user_url):
     agree_num = user.get_agree_num()
     # 获取该用户获得的感谢数
     thanks_num = user.get_thanks_num()
+    # 获取该用户的头像url
+    head_img_url = user.get_head_img_url()
 
     # 获取该用户关注的人
     followees = user.get_followees()
@@ -142,6 +144,7 @@ def user_test(user_url):
     print collections_num  # 44
     print agree_num  # 46387
     print thanks_num  # 11477
+    print head_img_url  # https://pic2.zhimg.com/0626f4164009f291b26a79d96c6962c5_l.jpg
 
     print followees
     # <generator object get_followee at 0x7ffcac3af050>

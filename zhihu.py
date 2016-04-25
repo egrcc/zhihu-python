@@ -535,6 +535,32 @@ class User:
                 else:
                     return user_id
 
+    def get_head_img_url(self, scale=4):
+        """
+            By liuwons (https://github.com/liuwons)
+            增加获取知乎识用户的头像url
+            scale对应的头像尺寸:
+                1 - 25×25
+                3 - 75×75
+                4 - 100×100
+                6 - 150×150
+                10 - 250×250
+        """
+        scale_list = [1, 3, 4, 6, 10]
+        scale_name = '0s0ml0t000b'
+        if self.user_url == None:
+            print "I'm anonymous user."
+            return None
+        else:
+            if scale not in scale_list:
+                print 'Illegal scale.'
+                return None
+            if self.soup == None:
+                self.parser()
+            soup = self.soup
+            url = soup.find("img", class_="Avatar Avatar--l")["src"]
+            return url[:-5] + scale_name[scale] + url[-4:]
+
     def get_data_id(self):
         """
             By yannisxu (https://github.com/yannisxu)
