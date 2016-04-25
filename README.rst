@@ -621,7 +621,7 @@ zhihu.User ---- 知乎用户操作类
 
  **get_head_img_url** (scale)
 
-  获取用户头像url。
+  获取用户头像url。该方法由 `@liuwons <https://github.com/liuwons>`_ 添加。
 
   **Parameters**： **scale** int 型整数，代表尺寸: 1(25×25), 3(75×75), 4(100×100), 6(150×150), 10(250×250)
 
