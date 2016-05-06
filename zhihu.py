@@ -1180,18 +1180,13 @@ class Answer:
         soup = self.soup
 
         try:
-            #print soup.find("div", {"class":lambda x : x and "zm-item-answer" in x.split()})["data-aid"]
             data_aid = soup.find("div", {"class":lambda x : x and "zm-item-answer" in x.split()})["data-aid"]
             request_url = 'http://www.zhihu.com/node/AnswerCommentListV2'
-            # if session == None:
-            #     create_session()
-            # s = session
-            # r = s.get(request_url, params={"params": "{\"answer_id\":\"%d\"}" % int(data_aid)})
+
             r = requests.get(request_url, params={"params": "{\"answer_id\":\"%d\"}" % int(data_aid)})
             soup = BeautifulSoup(r.content, "lxml")
             comments = soup.findAll("div",{"class":"zm-item-comment"})
 
-            #print comments
             if len(comments) == 0:
                 return
                 yield
@@ -1337,31 +1332,19 @@ class Comment:
         commenthddiv = soup.find("div",{"class":"zm-comment-hd"})
 
         if (commenthddiv.contents[0].strip() == u"匿名用户"):
-            #print(u"user link is {0}, user id is {1}".format(None,u"匿名用户"))
             self.author = User(None, u"匿名用户")
             self.setFlag(commenthddiv.contents[1].string)
         else:
             apart = commenthddiv.find("a", {"class":"zg-link"})
             if (apart is not None):
-                #print(u"user link is {0}, user id is {1}".format(apart['href'],apart.string))
                 self.author = User(apart['href'], apart.string)
                 self.setFlag(apart.next_sibling.string)
 
         self.content = (" ".join(soup.find("div",{"class":"zm-comment-content"}).stripped_strings))
 
-#    def __init__(self, comment_id, soup, author=None, question_author_flag=None, answer_author_flag=None, content=None):
     def __init__(self, comment_id, soup):
         self.comment_id = comment_id
         self.soup = soup
-        # print 'collection url',url
-        #if author != None:
-        #    self.author = author
-        #if question_author_flag != None:
-        #    self.question_author_flag = question_author_flag
-        #if answer_author_flag != None:
-        #    self.creator = answer_author_flag
-        #if content != None:
-        #    self.content = content
         self.question_author_flag = False
         self.answer_author_flag = False
         self.parser()
@@ -1376,9 +1359,10 @@ class Comment:
             return content
         else:
             return content
-
+		#是否提问者
     def get_question_author_flag(self):
         return self.question_author_flag
-
+		
+		#是否答案作者
     def get_answer_author_flag(self):
         return self.answer_author_flag
