@@ -4,6 +4,7 @@
 # Build-in / Std
 import os, sys, time, platform, random
 import re, json, cookielib
+from getpass import getpass
 
 # requirements
 import requests, termcolor
@@ -207,8 +208,7 @@ def login(account=None, password=None):
     if account == None:
         sys.stdout.write(u"请输入登录账号: ")
         account  = raw_input()
-        sys.stdout.write(u"请输入登录密码: ")
-        password = raw_input()
+        password = getpass("请输入登录密码: ")
 
     form_data = build_form(account, password)
     """
