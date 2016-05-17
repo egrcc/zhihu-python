@@ -82,15 +82,7 @@ def download_captcha():
     elif platform.system() == "Darwin":
         Logging.info(u"Command: open %s &" % image_name )
         os.system("open %s &" % image_name )
-    elif platform.system() == "SunOS":
-        os.system("open %s &" % image_name )
-    elif platform.system() == "FreeBSD":
-        os.system("open %s &" % image_name )
-    elif platform.system() == "Unix":
-        os.system("open %s &" % image_name )
-    elif platform.system() == "OpenBSD":
-        os.system("open %s &" % image_name )
-    elif platform.system() == "NetBSD":
+    elif platform.system() in ("SunOS", "FreeBSD", "Unix", "OpenBSD", "NetBSD"):
         os.system("open %s &" % image_name )
     elif platform.system() == "Windows":
         os.system("%s" % image_name )
