@@ -4,6 +4,7 @@
 # Build-in / Std
 import os, sys, time, platform, random
 import re, json, cookielib
+from getpass import getpass
 
 # requirements
 import requests, termcolor
@@ -82,15 +83,7 @@ def download_captcha():
     elif platform.system() == "Darwin":
         Logging.info(u"Command: open %s &" % image_name )
         os.system("open %s &" % image_name )
-    elif platform.system() == "SunOS":
-        os.system("open %s &" % image_name )
-    elif platform.system() == "FreeBSD":
-        os.system("open %s &" % image_name )
-    elif platform.system() == "Unix":
-        os.system("open %s &" % image_name )
-    elif platform.system() == "OpenBSD":
-        os.system("open %s &" % image_name )
-    elif platform.system() == "NetBSD":
+    elif platform.system() in ("SunOS", "FreeBSD", "Unix", "OpenBSD", "NetBSD"):
         os.system("open %s &" % image_name )
     elif platform.system() == "Windows":
         os.system("%s" % image_name )
@@ -215,8 +208,7 @@ def login(account=None, password=None):
     if account == None:
         sys.stdout.write(u"请输入登录账号: ")
         account  = raw_input()
-        sys.stdout.write(u"请输入登录密码: ")
-        password = raw_input()
+        password = getpass("请输入登录密码: ")
 
     form_data = build_form(account, password)
     """

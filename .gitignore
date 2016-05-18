@@ -52,3 +52,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Prevent accidental cookie leak
+cookie
