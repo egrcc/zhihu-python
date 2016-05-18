@@ -654,6 +654,22 @@ class User:
                                 .find_all("a")[1].strong.string)
             return followers_num
 
+    def get_topics_num(self):
+        if self.user_url == None:
+            print "I'm anonymous user."
+            return 0
+        else:
+            if self.soup == None:
+                self.parser()
+            soup = self.soup
+            topics_num = soup.find_all("div", class_="zm-profile-side-section-title")[1].strong.string.encode("utf-8")
+            I=''
+            for i in topics_num:
+                if i.isdigit():
+                    I=I+i
+            topics_num=int(I)
+            return topics_num       
+
     def get_agree_num(self):
         if self.user_url == None:
             print "I'm anonymous user."
@@ -811,6 +827,55 @@ class User:
                             follower_soup = BeautifulSoup(follower_list[j], "lxml")
                             user_link = follower_soup.find("h2", class_="zm-list-content-title").a
                             yield User(user_link["href"], user_link.string.encode("utf-8"))
+
+    def get_topics(self):
+        if self.user_url == None:
+            print "I'm anonymous user."
+            return
+            yield
+        else:
+            topics_num = self.get_topics_num()
+            # print topics_num
+            if topics_num == 0:
+                return
+                yield
+            else:
+                topics_url = self.user_url + "/topics"
+                headers = {
+                    'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36",
+                    'Host': "www.zhihu.com",
+                    'Origin': "http://www.zhihu.com",
+                    'Pragma': "no-cache",
+                    'Referer': "http://www.zhihu.com/"
+                }
+                r = requests.get(topics_url, headers=headers, verify=False)
+                soup = BeautifulSoup(r.content, "lxml")
+                for i in xrange((topics_num - 1) / 20 + 1):
+                    if i == 0:
+                        topic_list = soup.find_all("div", class_="zm-profile-section-item zg-clear")
+                        for j in xrange(min(topics_num, 20)):
+                            yield topic_list[j].find("strong").string.encode("utf-8")
+                    else:
+                        post_url = topics_url
+                        _xsrf = soup.find("input", attrs={'name': '_xsrf'})["value"]
+                        offset = i * 20
+                        data = {
+                            '_xsrf': _xsrf,
+                            'offset': offset,
+                            'start': 0
+                        }
+                        header = {
+                            'User-Agent': "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:34.0) Gecko/20100101 Firefox/34.0",
+                            'Host': "www.zhihu.com",
+                            'Referer': topics_url
+                        }
+                        r_post = requests.post(post_url, data=data, headers=header, verify=False)
+
+                        topic_data = r_post.json()["msg"][1]
+                        topic_soup = BeautifulSoup(topic_data, "lxml")
+                        topic_list = topic_soup.find_all("div", class_="zm-profile-section-item zg-clear")
+                        for j in xrange(min(topics_num - i * 20, 20)):
+                            yield topic_list[j].find("strong").string.encode("utf-8")
 
     def get_asks(self):
         """

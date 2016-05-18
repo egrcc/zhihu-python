@@ -128,6 +128,7 @@ def user_test(user_url):
     followees = user.get_followees()
     # 获取关注该用户的人
     followers = user.get_followers()
+    topics = user.get_topics()
     # 获取该用户提的问题
     asks = user.get_asks()
     # 获取该用户回答的问题的答案
@@ -165,6 +166,9 @@ def user_test(user_url):
         i = i + 1
         if i == 41:
             break
+
+    for topic in topics:
+        print topic
 
     print asks
     # <generator object get_ask at 0x7ffcab9db780>
