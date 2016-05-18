@@ -662,7 +662,7 @@ class User:
             if self.soup == None:
                 self.parser()
             soup = self.soup
-            topics_num = soup.find_all("div", class_="zm-profile-side-section-title")[1].strong.string.encode("utf-8")
+            topics_num = soup.find_all("div", class_="zm-profile-side-section-title")[-1].strong.string.encode("utf-8")
             I=''
             for i in topics_num:
                 if i.isdigit():
