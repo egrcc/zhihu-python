@@ -200,7 +200,15 @@ class Column:
         }
         r = requests.get('https://zhuanlan.zhihu.com/api/columns/' + self.slug, headers=headers, verify=False)
         self.meta = r.json()
-
+        
+    def parse_handle(func):
+        @wraps(func)
+        def func_wrapper(self):
+            if not hasattr(self,'meta'):
+                self.parse()
+            return func(self)
+        return func_wrapper
+        
     def get_title(self):
         if hasattr(self,"title"):
             if platform.system() == 'Windows':
@@ -237,10 +245,8 @@ class Column:
         meta = self.meta
         followers_num = int(meta['followersCount'])
         return followers_num
-
+    @parse_handle
     def get_posts_num(self):
-        if self.meta == None:
-            self.parser()
         meta = self.meta
         posts_num = int(meta['postsCount'])
         return posts_num
