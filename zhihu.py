@@ -662,13 +662,14 @@ class User:
             if self.soup == None:
                 self.parser()
             soup = self.soup
-            topics_num = soup.find_all("div", class_="zm-profile-side-section-title")[1].strong.string.encode("utf-8")
-            I=''
-            for i in topics_num:
-                if i.isdigit():
-                    I=I+i
-            topics_num=int(I)
-            return topics_num       
+
+            all_tag = soup.find_all("div", class_="zm-profile-side-section-title")
+            for tag in all_tag:
+                a = tag.find('a')
+                if a and re.match(r"/people/.*/topics", a.attrs.get("href", '')):
+                    return int(a.get_text().split()[0])  # a.get_text()返回 '131 个话题'
+            else:
+                return 0
 
     def get_agree_num(self):
         if self.user_url == None:
