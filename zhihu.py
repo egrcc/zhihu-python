@@ -662,13 +662,14 @@ class User:
             if self.soup == None:
                 self.parser()
             soup = self.soup
-            topics_num = soup.find_all("div", class_="zm-profile-side-section-title")[1].strong.string.encode("utf-8")
-            I=''
-            for i in topics_num:
-                if i.isdigit():
-                    I=I+i
-            topics_num=int(I)
-            return topics_num       
+
+            all_tag = soup.find_all("div", class_="zm-profile-side-section-title")
+            for tag in all_tag:
+                a = tag.find('a')
+                if a and re.match(r"/people/.*/topics", a.attrs.get("href", '')):
+                    return int(a.get_text().split()[0])  # a.get_text()返回 '131 个话题'
+            else:
+                return 0
 
     def get_agree_num(self):
         if self.user_url == None:
@@ -850,15 +851,12 @@ class User:
                 }
                 r = requests.get(topics_url, headers=headers, verify=False)
                 soup = BeautifulSoup(r.content, "lxml")
-                for i in xrange((topics_num - 1) / 20 + 1):
-                    if i == 0:
+                for offset in xrange(0, topics_num, 20):
+                    if offset == 0:  # 初始化请求
                         topic_list = soup.find_all("div", class_="zm-profile-section-item zg-clear")
-                        for j in xrange(min(topics_num, 20)):
-                            yield topic_list[j].find("strong").string.encode("utf-8")
-                    else:
+                    else:  # 下拉刷新
                         post_url = topics_url
                         _xsrf = soup.find("input", attrs={'name': '_xsrf'})["value"]
-                        offset = i * 20
                         data = {
                             '_xsrf': _xsrf,
                             'offset': offset,
@@ -874,8 +872,10 @@ class User:
                         topic_data = r_post.json()["msg"][1]
                         topic_soup = BeautifulSoup(topic_data, "lxml")
                         topic_list = topic_soup.find_all("div", class_="zm-profile-section-item zg-clear")
-                        for j in xrange(min(topics_num - i * 20, 20)):
-                            yield topic_list[j].find("strong").string.encode("utf-8")
+
+                    # get topic
+                    for topic in topic_list:
+                        yield topic.find('strong').string.encode('utf-8')
 
     def get_asks(self):
         """
