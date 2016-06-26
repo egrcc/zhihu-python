@@ -371,15 +371,16 @@ class Question:
         else:
             error_answer_count = 0
             my_answer_count = 0
-            for i in xrange((answers_num - 1) / 20 + 1):
+            for i in xrange((answers_num - 1) / 10 + 1):
                 if i == 0:
-                    for j in xrange(min(answers_num, 20)):
+                    for j in xrange(min(answers_num, 10)):
                         if self.soup == None:
                             self.parser()
                         soup = BeautifulSoup(self.soup.encode("utf-8"), "lxml")
 
                         is_my_answer = False
-                        if soup.find_all("div", class_="zm-item-answer")[j].find("span", class_="count") == None:
+                        #print len(soup.find_all("div", class_="zm-item-answer"))
+                        if soup.find_all("div", class_="zm-item-answer zm-item-expanded")[j].find("span", class_="count") == None:
                             my_answer_count += 1
                             is_my_answer = True
 
@@ -428,9 +429,9 @@ class Question:
                 else:
                     post_url = "http://www.zhihu.com/node/QuestionAnswerListV2"
                     _xsrf = self.soup.find("input", attrs={'name': '_xsrf'})["value"]
-                    offset = i * 20
+                    offset = i * 10
                     params = json.dumps(
-                        {"url_token": int(self.url[-8:-1] + self.url[-1]), "pagesize": 20, "offset": offset})
+                        {"url_token": int(self.url[-8:]), "pagesize": 10, "offset": offset})
                     data = {
                         '_xsrf': _xsrf,
                         'method': "next",
@@ -444,7 +445,7 @@ class Question:
                     r = requests.post(post_url, data=data, headers=header, verify=False)
 
                     answer_list = r.json()["msg"]
-                    for j in xrange(min(answers_num - i * 20, 20)):
+                    for j in xrange(min(answers_num - i * 10, 10)):
                         soup = BeautifulSoup(self.soup.encode("utf-8"), "lxml")
 
                         answer_soup = BeautifulSoup(answer_list[j], "lxml")
