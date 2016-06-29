@@ -8,6 +8,10 @@ from getpass import getpass
 
 # requirements
 import requests, termcolor
+import colorama
+
+
+colorama.init()
 
 
 requests = requests.Session()

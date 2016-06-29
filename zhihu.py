@@ -54,7 +54,7 @@ import os, sys, time, platform, random
 import re, json, cookielib
 
 # requirements
-import requests, termcolor, html2text
+import requests, termcolor, html2text, colorama
 try:
     from bs4 import BeautifulSoup
 except:
@@ -74,6 +74,8 @@ from auth import Logging
     By Luozijun (https://github.com/LuoZijun), 09/09 2015
 
 """
+colorama.init()
+
 requests = requests.Session()
 requests.cookies = cookielib.LWPCookieJar('cookies')
 try:
