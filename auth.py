@@ -68,7 +68,15 @@ class AccountError(Exception):
 
 def download_captcha():
     url = "https://www.zhihu.com/captcha.gif"
-    r = requests.get(url, params={"r": random.random(), "type": "login"}, verify=False)
+    headers = {
+        'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36",
+        'Host': "www.zhihu.com",
+        'Origin': "http://www.zhihu.com",
+        'Pragma': "no-cache",
+        'Referer': "http://www.zhihu.com/",
+        'X-Requested-With': "XMLHttpRequest"
+    }
+    r = requests.get(url, params={"r": random.random(), "type": "login"}, verify=False, headers=headers)
     if int(r.status_code) != 200:
         raise NetworkError(u"验证码请求失败")
     image_name = u"verify." + r.headers['content-type'].split("/")[1]
@@ -96,7 +104,15 @@ def download_captcha():
 
 def search_xsrf():
     url = "http://www.zhihu.com/"
-    r = requests.get(url, verify=False)
+    headers = {
+        'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36",
+        'Host': "www.zhihu.com",
+        'Origin': "http://www.zhihu.com",
+        'Pragma': "no-cache",
+        'Referer': "http://www.zhihu.com/",
+        'X-Requested-With': "XMLHttpRequest"
+    }
+    r = requests.get(url, verify=False, headers=headers)
     if int(r.status_code) != 200:
         raise NetworkError(u"验证码请求失败")
     results = re.compile(r"\<input\stype=\"hidden\"\sname=\"_xsrf\"\svalue=\"(\S+)\"", re.DOTALL).findall(r.text)
@@ -163,7 +179,15 @@ def upload_form(form):
 def islogin():
     # check session
     url = "https://www.zhihu.com/settings/profile"
-    r = requests.get(url, allow_redirects=False, verify=False)
+    headers = {
+        'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36",
+        'Host': "www.zhihu.com",
+        'Origin': "http://www.zhihu.com",
+        'Pragma': "no-cache",
+        'Referer': "http://www.zhihu.com/",
+        'X-Requested-With': "XMLHttpRequest"
+    }
+    r = requests.get(url, allow_redirects=False, verify=False, headers=headers)
     status_code = int(r.status_code)
     if status_code == 301 or status_code == 302:
         # 未登录
