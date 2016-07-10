@@ -314,7 +314,7 @@ class Question:
             if self.soup == None:
                 self.parser()
             soup = self.soup
-            title = soup.find("h2", class_="zm-item-title").string.encode("utf-8").replace("\n", "")
+            title = soup.find("span", class_="zm-editable-content").string.encode("utf-8").replace("\n", "")
             self.title = title
             if platform.system() == 'Windows':
                 title = title.decode('utf-8').encode('gbk')
@@ -662,7 +662,7 @@ class User:
             if self.soup == None:
                 self.parser()
             soup = self.soup
-            topics_num = soup.find_all("div", class_="zm-profile-side-section-title")[1].strong.string.encode("utf-8")
+            topics_num = soup.find_all("div", class_="zm-profile-side-section-title")[2].strong.string.encode("utf-8")
             I=''
             for i in topics_num:
                 if i.isdigit():
@@ -1067,7 +1067,7 @@ class Answer:
             if self.soup == None:
                 self.parser()
             soup = self.soup
-            question_link = soup.find("h2", class_="zm-item-title zm-editable-content").a
+            question_link = soup.find("h2", class_="zm-item-title").a
             url = "http://www.zhihu.com" + question_link["href"]
             title = question_link.string.encode("utf-8")
             question = Question(url, title)
@@ -1144,7 +1144,8 @@ class Answer:
         if platform.system() == 'Windows':
             anon_user_id = "匿名用户".decode('utf-8').encode('gbk')
         else:
-            anon_user_id = "匿名用户"
+            anon_uget_titleser_id = "匿名用户"
+        anon_user_id = "匿名用户".decode('utf-8').encode('gbk')
         if self.get_author().get_user_id() == anon_user_id:
             if not os.path.isdir(os.path.join(os.path.join(os.getcwd(), "text"))):
                 os.makedirs(os.path.join(os.path.join(os.getcwd(), "text")))
