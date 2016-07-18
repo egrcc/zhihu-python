@@ -1,10 +1,7 @@
 zhihu-python：获取知乎信息
 ===============================
 
-:Author: `egrcc <https://github.com/egrcc>`_ ( `微博 <http://weibo.com/u/2948739432>`_ | `电邮 <zhaolujun1994@gmail.com>`_ )
-:Contributors: 参见 `Contributors <https://github.com/egrcc/zhihu-python/graphs/contributors>`_
-:Update: 04/23 2016
-
+**注意: 本项目不再维护更新！**
 
 .. contents::
 
@@ -875,11 +872,4 @@ zhihu.Post ---- 知乎专栏文章操作类
 
   **Returns**：一个 Column 的实例对象
  
-  
-联系我
-----------
-
-- 微博：http://weibo.com/u/2948739432
-- github：https://github.com/egrcc
-- email：zhaolujun1994@gmail.com
 
