@@ -200,7 +200,7 @@ class Column:
         }
         r = requests.get('https://zhuanlan.zhihu.com/api/columns/' + self.slug, headers=headers, verify=False)
         self.meta = r.json()
-
+        
     def get_title(self):
         if hasattr(self,"title"):
             if platform.system() == 'Windows':
@@ -237,10 +237,10 @@ class Column:
         meta = self.meta
         followers_num = int(meta['followersCount'])
         return followers_num
-
+    
     def get_posts_num(self):
-        if self.meta == None:
-            self.parser()
+        if self.meta == None:		
+-            self.parser()
         meta = self.meta
         posts_num = int(meta['postsCount'])
         return posts_num
@@ -591,6 +591,54 @@ class User:
             soup = self.soup
             url = soup.find("img", class_="Avatar Avatar--l")["src"]
             return url[:-5] + scale_name[scale] + url[-4:]
+    
+    def download_head_img(self, head_url=None):
+        url = get_head_img_url()
+        r = requests.get(url)
+        user = get_user_id()
+        image_name = user + url[-4:]
+
+        if os.path.exists(os.path.join(os.getcwd(), 'Avatar')):
+            new_dir = raw_input(u'请输入想保存的路径名称')
+            os.mkdir(new_dir)
+            os.chdir(new_dir)
+        else:
+            os.mkdir('Avatar')
+            os.chdir('Avatar')
+
+        with open(image_name, 'wb') as image:
+            image.write(r.content)
+
+        if os.path.isfile(image_name):
+            Logging.success(u'Success Download the Avatar')
+            return True
+        else:
+            Logging.error(u'Error happened')
+            return False
+            
+    def download_head_img(self, head_url=None):
+        url = get_head_img_url()
+        r = requests.get(url)
+        user = get_user_id()
+        image_name = user + url[-4:]
+
+        if os.path.exists(os.path.join(os.getcwd(), 'Avatar')):
+            new_dir = raw_input(u'请输入想保存的路径名称')
+            os.mkdir(new_dir)
+            os.chdir(new_dir)
+        else:
+            os.mkdir('Avatar')
+            os.chdir('Avatar')
+
+        with open(image_name, 'wb') as image:
+            image.write(r.content)
+
+        if os.path.isfile(image_name):
+            Logging.success(u'Success Download the Avatar')
+            return True
+        else:
+            Logging.error(u'Error happened')
+            return False
 
     def get_data_id(self):
         """
