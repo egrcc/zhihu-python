@@ -87,6 +87,9 @@ def answer_test(answer_url):
     answer.to_txt()
     # 把答案输出为markdown文件
     answer.to_md()
+    #该回答下的所有评论
+    all_comments = answer.get_comments()
+
 
     print question
     # <zhihu.Question instance at 0x7f0b25d13f80>
@@ -100,6 +103,11 @@ def answer_test(answer_url):
     print upvote  # 输出：9320
     print visit_times  # 输出: 改答案所属问题被浏览次数
 
+
+    # 输出: 所有答主在该问题下的评论
+    for c in all_comments :
+        if c.get_answer_author_flag():
+            print c.get_content()
 
 def user_test(user_url):
     user = User(user_url)
@@ -286,6 +294,7 @@ def main():
     question_test(url)
     answer_url = "http://www.zhihu.com/question/24269892/answer/29960616"
     answer_test(answer_url)
+
     user_url = "http://www.zhihu.com/people/jixin"
     user_test(user_url)
     collection_url = "http://www.zhihu.com/collection/36750683"
@@ -295,6 +304,7 @@ def main():
     column_url = "http://zhuanlan.zhihu.com/daily"
     column_test(column_url)
     test()
+
 
 
 if __name__ == '__main__':

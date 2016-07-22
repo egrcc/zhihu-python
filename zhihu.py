@@ -514,6 +514,7 @@ class Question:
         return int(soup.find("meta", itemprop="visitsCount")["content"])
 
 
+
 class User:
     user_url = None
     # session = None
@@ -1324,6 +1325,27 @@ class Answer:
                     voter_id = voter_info.a["title"].encode("utf-8")
                     yield User(voter_url, voter_id)
 
+    def get_comments(self):
+        if self.soup == None:
+            self.parser()
+        soup = self.soup
+
+        try:
+            data_aid = soup.find("div", {"class":lambda x : x and "zm-item-answer" in x.split()})["data-aid"]
+            request_url = 'http://www.zhihu.com/node/AnswerCommentListV2'
+
+            r = requests.get(request_url, params={"params": "{\"answer_id\":\"%d\"}" % int(data_aid)})
+            soup = BeautifulSoup(r.content, "lxml")
+            comments = soup.findAll("div",{"class":"zm-item-comment"})
+
+            if len(comments) == 0:
+                return
+                yield
+            else:
+                for comment in comments:
+                    yield Comment(comment["data-id"],comment)
+        except TypeError as err:
+            print 'type error in get comments'
 
 class Collection:
     url = None
@@ -1458,3 +1480,54 @@ class Collection:
             if j > n:
                 break
             yield answer
+
+
+class Comment:
+    comment_id = None
+    soup = None
+
+    def setFlag(self, input):
+        if (u"提问者" in input):
+            self.question_author_flag = True
+        if (u"作者" in input):
+            self.answer_author_flag = True
+
+    def parser(self):
+        soup = self.soup
+        commenthddiv = soup.find("div",{"class":"zm-comment-hd"})
+
+        if (commenthddiv.contents[0].strip() == u"匿名用户"):
+            self.author = User(None, u"匿名用户")
+            self.setFlag(commenthddiv.contents[1].string)
+        else:
+            apart = commenthddiv.find("a", {"class":"zg-link"})
+            if (apart is not None):
+                self.author = User(apart['href'], apart.string)
+                self.setFlag(apart.next_sibling.string)
+
+        self.content = (" ".join(soup.find("div",{"class":"zm-comment-content"}).stripped_strings))
+
+    def __init__(self, comment_id, soup):
+        self.comment_id = comment_id
+        self.soup = soup
+        self.question_author_flag = False
+        self.answer_author_flag = False
+        self.parser()
+
+    def get_author(self):
+        return self.author
+
+    def get_content(self):
+        content = self.content
+        if platform.system() == 'Windows':
+            content = content.decode('utf-8').encode('gbk')
+            return content
+        else:
+            return content
+		#是否提问者
+    def get_question_author_flag(self):
+        return self.question_author_flag
+		
+		#是否答案作者
+    def get_answer_author_flag(self):
+        return self.answer_author_flag
