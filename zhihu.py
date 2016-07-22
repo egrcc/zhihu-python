@@ -700,9 +700,10 @@ class User:
             if self.soup == None:
                 self.parser()
             soup = self.soup
-            asks_num = int(soup.find_all("span", class_="num")[0].string)
+            ask_num = int(soup.find_all('a', href="/people/" +
+                                        self.user_id + "/asks").find("span").string)
             return asks_num
-
+    
     def get_answers_num(self):
         if self.user_url == None:
             print "I'm anonymous user."
