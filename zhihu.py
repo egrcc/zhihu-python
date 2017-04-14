@@ -724,7 +724,22 @@ class User:
             soup = self.soup
             collections_num = int(soup.find_all("span", class_="num")[3].string)
             return collections_num
-
+    def get_topics(self):
+        if self.user_url == None:
+            print "I'm anonymous user."
+            return 0
+        else:
+            if self.soup == None:
+                self.parser()
+            soup = self.soup
+            topics_list = soup.find_all("a", attrs={'class':'zg-gray-darker'})
+            topics = []
+            for item in topics_list:
+                topic = item.string.encode("utf-8").replace("\n", "")
+                if platform.system() == 'Windows':
+                    topic = topic.decode('utf-8').encode('gbk')
+                topics.append(topic)
+            return topics
     def get_followees(self):
         if self.user_url == None:
             print "I'm anonymous user."
@@ -1097,7 +1112,7 @@ class Answer:
             if self.soup == None:
                 self.parser()
             soup = self.soup
-            count = soup.find("span", class_="count").string
+            count = soup.find("a", class_="zm-item-vote-count js-expand js-vote-count").string
             if count[-1] == "K":
                 upvote = int(count[0:(len(count) - 1)]) * 1000
             elif count[-1] == "W":
