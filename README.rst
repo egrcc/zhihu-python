@@ -2,10 +2,6 @@ zhihu-python：获取知乎信息
 ===============================
 
 
-
-介绍
-----
-
 zhihu-python 采用 Python2.7 编写，用来方便地获取知乎上各种内容的信息，并且可以方便地将答案备份导出为 txt 或 markdown 文件。由于知乎官方目前没有提供 api，所以有了此项目的存在。
 
 使用 Python3 的类似项目可以参见：`zhihu-py3 <https://github.com/7sDream/zhihu-py3>`_ 。使用 PHP 的类似项目可以参见：`zhihu-php <https://github.com/ahonn/zhihu-php>`_ 。使用 Go 的类似项目可以参见：`zhihu-go <https://github.com/DeanThompson/zhihu-go>`_ 。
